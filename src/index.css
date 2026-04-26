@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A84C;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E4C76B;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide default cursor when custom cursor is active */
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* RTL support */
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* Font utilities */
+.font-heading-en {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-heading-ar {
+  font-family: 'Noto Kufi Arabic', sans-serif;
+}
+
+/* Gold text gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #C9A84C 0%, #E4C76B 50%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+/* Section padding */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+/* Container */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Gold border left */
+.border-gold-left {
+  border-left: 4px solid #C9A84C;
+  padding-left: 1.5rem;
+}
+
+[dir="rtl"] .border-gold-left {
+  border-left: none;
+  border-right: 4px solid #C9A84C;
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #C9A84C 0%, #E4C76B 50%, #C9A84C 100%);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Page transition */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Horizontal scroll */
+.horizontal-scroll {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.horizontal-scroll > * {
+  scroll-snap-align: start;
+}
+
+/* Card hover glow */
+.card-gold-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-gold-glow:hover {
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
+}
+
+/* Geometric pattern overlay */
+.geometric-pattern {
+  background-image:
+    linear-gradient(45deg, rgba(201, 168, 76, 0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(201, 168, 76, 0.05) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(201, 168, 76, 0.05) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(201, 168, 76, 0.05) 75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+}
