@@ -9,11 +9,11 @@
     "toggleLang": "عربي"
   },
   "company": {
-    "name": "Al Binaa Al Areeg",
-    "fullName": "Al Binaa Al Areeg Contracting & General Maintenance LLC - S.P.C",
+    "name": "Albina Alareeq",
+    "fullName": "Albina Alareeq Contracting & General Maintenance LLC - S.P.C",
     "tagline": "Building the Future, Restoring the Present",
     "location": "Abu Dhabi, UAE",
-    "phone": "+971 50 123 4567",
+    "phone": "+971 56 378 0707",
     "email": "info@albinaaalareeq.ae",
     "address": "Abu Dhabi, United Arab Emirates"
   },
@@ -221,7 +221,7 @@
     "phoneTitle": "Call Us",
     "emailTitle": "Email Us",
     "hoursTitle": "Working Hours",
-    "hours": "Mon–Sat: 8:00 AM – 6:00 PM",
+    "hours": "Sun – Thu: 8:00 AM – 6:00 PM",
     "whatsappBtn": "Chat on WhatsApp"
   },
   "footer": {

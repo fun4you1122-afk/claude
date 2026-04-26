@@ -21,13 +21,14 @@ function Section({ children, className = '' }: { children: React.ReactNode; clas
   );
 }
 
+// Real construction site images
 const SERVICE_IMAGES = [
-  'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',
-  'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80',
-  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
-  'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1200&q=80',
-  'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80',
-  'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80',
+  'https://images.unsplash.com/photo-1590496793929-36417d3117de?w=1200&q=80', // workers on construction site
+  'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&q=80', // interior renovation/fit-out
+  'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=80', // maintenance technician
+  'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&q=80', // electrical MEP work
+  'https://images.unsplash.com/photo-1536895058696-a69b1c7ba34f?w=1200&q=80', // civil road works
+  'https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=1200&q=80', // project management site
 ];
 
 const SERVICE_KEYS = [

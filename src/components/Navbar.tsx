@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe } from 'lucide-react';
+import Logo from './Logo';
 
 const navLinks = [
   { key: 'nav.home', path: '/' },
@@ -52,14 +53,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0 group">
-              <div className={`${isArabic ? 'text-right' : 'text-left'}`}>
-                <p className={`text-gold font-bold leading-tight ${isArabic ? 'font-arabic text-base' : 'font-playfair text-lg'}`}>
-                  {isArabic ? 'البناء العريق' : 'Al Binaa Al Areeg'}
-                </p>
-                <p className="text-white/60 text-xs font-inter tracking-wide hidden sm:block">
-                  {isArabic ? 'للمقاولات والصيانة' : 'Contracting & Maintenance'}
-                </p>
-              </div>
+              <Logo height={48} variant="gold" className="transition-opacity group-hover:opacity-80" />
             </Link>
 
             {/* Desktop Nav Links */}

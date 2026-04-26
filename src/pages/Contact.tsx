@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { MapPin, Phone, Mail, Clock, CheckCircle, MessageSquare } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, CheckCircle, MessageSquare, Instagram } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -41,7 +41,7 @@ interface FormData {
 
 const CONTACT_ITEMS = [
   { icon: MapPin, titleKey: 'contact.locationTitle', value: 'Abu Dhabi, United Arab Emirates', valueAr: 'أبوظبي، الإمارات العربية المتحدة' },
-  { icon: Phone, titleKey: 'contact.phoneTitle', value: '+971 50 123 4567', valueAr: '+971 50 123 4567' },
+  { icon: Phone, titleKey: 'contact.phoneTitle', value: '+971 56 378 0707', valueAr: '+971 56 378 0707' },
   { icon: Mail, titleKey: 'contact.emailTitle', value: 'info@albinaaalareeq.ae', valueAr: 'info@albinaaalareeq.ae' },
   { icon: Clock, titleKey: 'contact.hoursTitle', value: 'Sun – Thu: 8:00 AM – 6:00 PM', valueAr: 'الأحد – الخميس: 8:00 ص – 6:00 م' },
 ];
@@ -174,7 +174,7 @@ export default function Contact() {
                         type="tel"
                         value={form.phone}
                         onChange={e => setForm({ ...form, phone: e.target.value })}
-                        placeholder="+971 XX XXX XXXX"
+                        placeholder="+971 56 378 0707"
                         className={inputClass('phone')}
                         dir="ltr"
                       />
@@ -271,10 +271,24 @@ export default function Contact() {
               );
             })}
 
+            {/* Instagram */}
+            <motion.a
+              variants={fadeUp}
+              href="https://www.instagram.com/albina.alareeq"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className={`flex items-center gap-3 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:opacity-90 text-white rounded-xl p-5 font-inter font-semibold transition-all ${isAr ? 'flex-row-reverse justify-end' : ''}`}
+            >
+              <Instagram size={20} />
+              @albina.alareeq
+            </motion.a>
+
             {/* WhatsApp */}
             <motion.a
               variants={fadeUp}
-              href="https://wa.me/971501234567"
+              href="https://wa.me/971563780707"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
