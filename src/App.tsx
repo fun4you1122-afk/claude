@@ -55,7 +55,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <Router basename="/claude">
+    <Router basename="/">
       {loading ? (
         <LoadingScreen onComplete={() => setLoading(false)} />
       ) : (
