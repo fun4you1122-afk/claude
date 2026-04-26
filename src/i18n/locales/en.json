@@ -1,0 +1,235 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "projects": "Projects",
+    "contact": "Contact",
+    "getQuote": "Get Quote",
+    "toggleLang": "عربي"
+  },
+  "company": {
+    "name": "Al Binaa Al Areeg",
+    "fullName": "Al Binaa Al Areeg Contracting & General Maintenance LLC - S.P.C",
+    "tagline": "Building the Future, Restoring the Present",
+    "location": "Abu Dhabi, UAE",
+    "phone": "+971 50 123 4567",
+    "email": "info@albinaaalareeq.ae",
+    "address": "Abu Dhabi, United Arab Emirates"
+  },
+  "home": {
+    "heroTitle": "Al Binaa Al Areeg",
+    "heroSubtitle": "Contracting & General Maintenance",
+    "heroTagline": "Building the Future, Restoring the Present",
+    "heroCta1": "Our Services",
+    "heroCta2": "Get a Quote",
+    "statsYears": "Years of Excellence",
+    "statsProjects": "Projects Completed",
+    "statsClients": "Satisfied Clients",
+    "statsTeam": "Expert Team Members",
+    "aboutTitle": "Trusted Contractors in Abu Dhabi",
+    "aboutText": "With over 15 years of excellence in the UAE construction industry, Al Binaa Al Areeg has established itself as a premier contracting company. We deliver world-class construction, renovation, and maintenance services with an unwavering commitment to quality, safety, and client satisfaction.",
+    "aboutCta": "Learn More About Us",
+    "servicesTitle": "Our Services",
+    "servicesSubtitle": "Comprehensive contracting solutions for every need",
+    "projectsTitle": "Featured Projects",
+    "projectsSubtitle": "Excellence in every structure we build",
+    "whyTitle": "Why Choose Al Binaa Al Areeg?",
+    "whySubtitle": "Your trusted partner for all construction needs in the UAE",
+    "whyLicensed": "Licensed & Certified",
+    "whyLicensedDesc": "Fully licensed by UAE authorities with all necessary certifications and permits.",
+    "whyOnTime": "On-Time Delivery",
+    "whyOnTimeDesc": "We respect your timeline and deliver projects on schedule, every time.",
+    "whyExpert": "Expert Team",
+    "whyExpertDesc": "Our engineers, architects, and technicians bring decades of combined experience.",
+    "whyEndToEnd": "End-to-End Management",
+    "whyEndToEndDesc": "From design to completion, we manage every aspect of your project.",
+    "testimonialsTitle": "What Our Clients Say",
+    "ctaTitle": "Ready to Start Your Project?",
+    "ctaSubtitle": "Contact us today for a free consultation and quote",
+    "ctaButton": "Request a Quote"
+  },
+  "about": {
+    "pageTitle": "About Us",
+    "pageSubtitle": "Building Excellence Since 2009",
+    "timelineTitle": "Our Journey",
+    "missionTitle": "Our Mission",
+    "missionText": "To deliver exceptional construction and maintenance services that exceed client expectations, contribute to the development of Abu Dhabi, and uphold the highest standards of quality, safety, and professionalism.",
+    "visionTitle": "Our Vision",
+    "visionText": "To be the leading contracting company in the UAE, recognized for innovative solutions, sustainable practices, and transformative projects that shape the future of our nation's built environment.",
+    "valuesTitle": "Our Core Values",
+    "teamTitle": "Our Leadership Team",
+    "certsTitle": "Certifications & Awards"
+  },
+  "services": {
+    "pageTitle": "Our Services",
+    "pageSubtitle": "Comprehensive construction and maintenance solutions",
+    "ctaTitle": "Ready to discuss your project?",
+    "ctaButton": "Contact Us Today",
+    "generalConstruction": {
+      "title": "General Construction",
+      "shortDesc": "Full-scale commercial and residential construction projects built to the highest UAE standards.",
+      "fullDesc": "Our general construction division handles everything from concept to completion. We build commercial complexes, residential developments, government facilities, and industrial structures with precision and expertise.",
+      "included": [
+        "Commercial building construction",
+        "Residential developments",
+        "Government & institutional buildings",
+        "Industrial facilities",
+        "Mixed-use developments",
+        "Foundation & structural works"
+      ],
+      "steps": [
+        "Site assessment & feasibility study",
+        "Design & engineering review",
+        "Permits & approvals",
+        "Construction execution",
+        "Quality control & inspection",
+        "Handover & documentation"
+      ]
+    },
+    "renovation": {
+      "title": "Renovation & Fit-Out",
+      "shortDesc": "Transform your spaces with our expert renovation and interior fit-out services.",
+      "fullDesc": "We breathe new life into existing structures through comprehensive renovation and fit-out works, maintaining minimal disruption while delivering maximum transformation.",
+      "included": [
+        "Commercial office fit-out",
+        "Retail space renovation",
+        "Hotel & hospitality refurbishment",
+        "Villa & apartment renovation",
+        "False ceiling & partition works",
+        "Flooring & tiling"
+      ],
+      "steps": [
+        "Space planning & design consultation",
+        "Material selection & procurement",
+        "Demolition & preparation",
+        "Fit-out installation",
+        "Finishing & detailing",
+        "Final inspection & handover"
+      ]
+    },
+    "maintenance": {
+      "title": "General Maintenance",
+      "shortDesc": "Comprehensive facility maintenance to keep your properties in peak condition.",
+      "fullDesc": "Our maintenance division provides preventive, corrective, and emergency maintenance services for residential, commercial, and government properties across Abu Dhabi.",
+      "included": [
+        "Annual maintenance contracts",
+        "Preventive maintenance programs",
+        "Emergency repair services",
+        "Painting & waterproofing",
+        "Carpentry & joinery",
+        "Facilities management"
+      ],
+      "steps": [
+        "Property inspection & assessment",
+        "Maintenance plan development",
+        "Resource & material planning",
+        "Scheduled maintenance execution",
+        "Documentation & reporting",
+        "Ongoing support & follow-up"
+      ]
+    },
+    "mep": {
+      "title": "MEP Works",
+      "shortDesc": "Expert mechanical, electrical, and plumbing installations for all building types.",
+      "fullDesc": "Our MEP division delivers complete mechanical, electrical, and plumbing solutions, ensuring every building system operates efficiently and safely.",
+      "included": [
+        "HVAC installation & maintenance",
+        "Electrical wiring & distribution",
+        "Plumbing & drainage systems",
+        "Fire fighting systems",
+        "BMS & automation",
+        "Solar energy solutions"
+      ],
+      "steps": [
+        "MEP design & engineering",
+        "Material & equipment procurement",
+        "Installation & integration",
+        "Testing & commissioning",
+        "Authority approvals",
+        "Maintenance handover"
+      ]
+    },
+    "civil": {
+      "title": "Civil Works & Infrastructure",
+      "shortDesc": "Large-scale civil engineering and infrastructure development across the UAE.",
+      "fullDesc": "We execute major civil engineering projects including road construction, utilities, earthworks, and public infrastructure, contributing to Abu Dhabi's rapid development.",
+      "included": [
+        "Road & pavement construction",
+        "Earthworks & grading",
+        "Underground utilities",
+        "Drainage & stormwater systems",
+        "Retaining walls & piling",
+        "Landscape & hardscape"
+      ],
+      "steps": [
+        "Survey & geotechnical investigation",
+        "Civil design & planning",
+        "Environmental compliance",
+        "Excavation & earthworks",
+        "Infrastructure installation",
+        "Testing & authority approvals"
+      ]
+    },
+    "projectManagement": {
+      "title": "Project Management",
+      "shortDesc": "Professional project management ensuring on-time, on-budget delivery.",
+      "fullDesc": "Our experienced project managers provide end-to-end oversight of construction projects, coordinating all stakeholders and resources to deliver successful outcomes.",
+      "included": [
+        "Project planning & scheduling",
+        "Cost estimation & control",
+        "Quality assurance programs",
+        "HSE management",
+        "Subcontractor coordination",
+        "Progress reporting & documentation"
+      ],
+      "steps": [
+        "Project initiation & charter",
+        "Detailed planning & scheduling",
+        "Team mobilization",
+        "Execution monitoring",
+        "Risk management",
+        "Closure & lessons learned"
+      ]
+    }
+  },
+  "projects": {
+    "pageTitle": "Our Projects",
+    "pageSubtitle": "A portfolio of excellence across the UAE",
+    "filterAll": "All",
+    "filterConstruction": "Construction",
+    "filterRenovation": "Renovation",
+    "filterMaintenance": "Maintenance",
+    "filterCivil": "Civil Works",
+    "filterMep": "MEP",
+    "viewDetails": "View Details",
+    "close": "Close"
+  },
+  "contact": {
+    "pageTitle": "Contact Us",
+    "pageSubtitle": "We'd love to hear from you",
+    "formName": "Full Name",
+    "formCompany": "Company Name",
+    "formPhone": "Phone Number",
+    "formEmail": "Email Address",
+    "formService": "Service Required",
+    "formMessage": "Project Details",
+    "formSubmit": "Send Message",
+    "formSuccess": "Thank you! We'll get back to you within 24 hours.",
+    "formSuccessSubtitle": "Your inquiry has been received successfully.",
+    "locationTitle": "Visit Us",
+    "phoneTitle": "Call Us",
+    "emailTitle": "Email Us",
+    "hoursTitle": "Working Hours",
+    "hours": "Mon–Sat: 8:00 AM – 6:00 PM",
+    "whatsappBtn": "Chat on WhatsApp"
+  },
+  "footer": {
+    "description": "Premier contracting and maintenance company serving Abu Dhabi and the UAE since 2009.",
+    "quickLinks": "Quick Links",
+    "contactInfo": "Contact Info",
+    "followUs": "Follow Us",
+    "copyright": "© 2025 Al Binaa Al Areeg Contracting LLC. All rights reserved.",
+    "privacyPolicy": "Privacy Policy"
+  }
+}
