@@ -55,7 +55,11 @@ export function VideoSection() {
             style={{ maxHeight: "560px", minHeight: "320px" }}
           >
             <source
-              src="https://videos.pexels.com/video-files/3209828/3209828-hd_1920_1080_25fps.mp4"
+              src="https://assets.mixkit.co/videos/preview/mixkit-construction-workers-on-site-4099-large.mp4"
+              type="video/mp4"
+            />
+            <source
+              src="https://assets.mixkit.co/videos/preview/mixkit-workers-building-a-house-4135-large.mp4"
               type="video/mp4"
             />
           </video>
