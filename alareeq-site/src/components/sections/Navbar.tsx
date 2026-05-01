@@ -34,7 +34,7 @@ export function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4 md:px-8">
         {/* Logo */}
         <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="shrink-0">
-          <img src="/logo.png" alt="Albina Alareeq" className="h-10 w-auto" style={{mixBlendMode:"screen"}} />
+          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Albina Alareeq" className="h-10 w-auto" style={{mixBlendMode:"screen"}} />
         </a>
 
         {/* Desktop links */}

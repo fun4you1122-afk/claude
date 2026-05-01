@@ -4,7 +4,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-16 md:px-8">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2 space-y-4">
-            <img src="/logo.png" alt="Albina Alareeq" className="h-14 w-auto" style={{mixBlendMode:"screen"}} />
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Albina Alareeq" className="h-14 w-auto" style={{mixBlendMode:"screen"}} />
             <p className="max-w-xs text-sm leading-relaxed text-[hsl(var(--foreground)/0.5)]">
               Building excellence across the UAE. Premium contracting, civil works, and general maintenance delivered with integrity.
             </p>

@@ -152,7 +152,7 @@ export function Hero() {
           {/* Logo */}
           <motion.div variants={itemVariants} className="mb-8 flex justify-center">
             <img
-              src="/logo.png"
+              src={`${import.meta.env.BASE_URL}logo.png`}
               alt="Albina Alareeq Contracting & General Maintenance"
               className="w-[min(480px,85vw)]" style={{mixBlendMode:"screen"}}
             />
