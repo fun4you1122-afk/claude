@@ -46,29 +46,20 @@ export function VideoSection() {
           <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-12 w-12 border-b-2 border-l-2 border-[hsl(var(--primary)/0.6)] rounded-bl-3xl" />
           <div className="pointer-events-none absolute bottom-0 right-0 z-10 h-12 w-12 border-b-2 border-r-2 border-[hsl(var(--primary)/0.6)] rounded-br-3xl" />
 
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full object-cover"
-            style={{ maxHeight: "560px", minHeight: "320px" }}
-          >
-            <source
-              src="https://assets.mixkit.co/videos/preview/mixkit-construction-workers-on-site-4099-large.mp4"
-              type="video/mp4"
+          {/* YouTube embed — Abu Dhabi construction timelapse */}
+          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+            <iframe
+              src="https://www.youtube.com/embed/cHw82ti-Xx4?autoplay=1&mute=1&loop=1&playlist=cHw82ti-Xx4&controls=1&modestbranding=1&rel=0"
+              title="Abu Dhabi Construction Timelapse"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+              style={{ border: "none" }}
             />
-            <source
-              src="https://assets.mixkit.co/videos/preview/mixkit-workers-building-a-house-4135-large.mp4"
-              type="video/mp4"
-            />
-          </video>
-
-          {/* Subtle vignette overlay */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+          </div>
 
           {/* Bottom text overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+          <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
             <p className="text-xs font-medium uppercase tracking-[3px] text-[hsl(var(--primary))]">
               Albina Alareeq · Abu Dhabi, UAE
             </p>

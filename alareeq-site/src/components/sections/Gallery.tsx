@@ -12,13 +12,13 @@ const images = [
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=800&auto=format&fit=crop&q=80",
-    alt: "Construction crane and structure",
+    src: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&auto=format&fit=crop&q=80",
+    alt: "Tower crane at construction site",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=800&auto=format&fit=crop&q=80",
-    alt: "Steel frame construction",
+    src: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&auto=format&fit=crop&q=80",
+    alt: "Steel frame structure",
     span: "col-span-1 row-span-1",
   },
   {
