@@ -46,20 +46,30 @@ export function VideoSection() {
           <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-12 w-12 border-b-2 border-l-2 border-[hsl(var(--primary)/0.6)] rounded-bl-3xl" />
           <div className="pointer-events-none absolute bottom-0 right-0 z-10 h-12 w-12 border-b-2 border-r-2 border-[hsl(var(--primary)/0.6)] rounded-br-3xl" />
 
-          {/* YouTube embed — Abu Dhabi construction timelapse */}
-          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+          {/* YouTube embed — clip extra 60px top/bottom to hide title bar & watermark */}
+          <div className="relative w-full overflow-hidden" style={{ paddingBottom: "56.25%" }}>
             <iframe
-              src="https://www.youtube.com/embed/cHw82ti-Xx4?autoplay=1&mute=1&loop=1&playlist=cHw82ti-Xx4&controls=1&modestbranding=1&rel=0"
+              src="https://www.youtube.com/embed/cHw82ti-Xx4?autoplay=1&mute=1&loop=1&playlist=cHw82ti-Xx4&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0"
               title="Abu Dhabi Construction Timelapse"
               allow="autoplay; encrypted-media"
-              allowFullScreen
-              className="absolute inset-0 h-full w-full"
-              style={{ border: "none" }}
+              allowFullScreen={false}
+              className="absolute w-full"
+              style={{
+                border: "none",
+                /* Oversized + shifted up to crop YouTube chrome (title bar top, logo bottom) */
+                height: "calc(100% + 120px)",
+                top: "-60px",
+                left: 0,
+                pointerEvents: "none",
+              }}
             />
           </div>
 
+          {/* Transparent click-blocker so no YouTube interaction is possible */}
+          <div className="absolute inset-0 z-10" style={{ pointerEvents: "none" }} />
+
           {/* Bottom text overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
+          <div className="absolute bottom-0 left-0 right-0 z-20 p-6 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
             <p className="text-xs font-medium uppercase tracking-[3px] text-[hsl(var(--primary))]">
               Albina Alareeq · Abu Dhabi, UAE
             </p>
