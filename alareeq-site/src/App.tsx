@@ -1,11 +1,13 @@
-import { Navbar }   from "./components/sections/Navbar";
-import { Hero }     from "./components/sections/Hero";
-import { About }    from "./components/sections/About";
-import { Services } from "./components/sections/Services";
-import { Projects } from "./components/sections/Projects";
-import { Stats }    from "./components/sections/Stats";
-import { Contact }  from "./components/sections/Contact";
-import { Footer }   from "./components/sections/Footer";
+import { Navbar }        from "./components/sections/Navbar";
+import { Hero }          from "./components/sections/Hero";
+import { About }         from "./components/sections/About";
+import { Services }      from "./components/sections/Services";
+import { Projects }      from "./components/sections/Projects";
+import { VideoSection }  from "./components/sections/VideoSection";
+import { Gallery }       from "./components/sections/Gallery";
+import { Stats }         from "./components/sections/Stats";
+import { Contact }       from "./components/sections/Contact";
+import { Footer }        from "./components/sections/Footer";
 
 /* WhatsApp floating button */
 function WaFab() {
@@ -37,6 +39,8 @@ export default function App() {
         <About />
         <Services />
         <Projects />
+        <VideoSection />
+        <Gallery />
         <Stats />
         <Contact />
       </main>

@@ -4,7 +4,7 @@ import { useRef } from "react";
 
 interface Project {
   title: string; location: string; desc: string;
-  progress: number; tags: string[]; color: string;
+  progress: number; tags: string[]; color: string; image: string;
 }
 
 const projects: Project[] = [
@@ -15,6 +15,7 @@ const projects: Project[] = [
     progress: 68,
     tags: ["Residential", "Commercial", "Infrastructure"],
     color: "from-[#0d1530] to-[#1a2540]",
+    image: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&auto=format&fit=crop&q=80",
   },
   {
     title: "Riyadh City Urban Project",
@@ -23,6 +24,7 @@ const projects: Project[] = [
     progress: 42,
     tags: ["Urban", "Mixed-Use", "Civil Works"],
     color: "from-[#100f20] to-[#1a1530]",
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&auto=format&fit=crop&q=80",
   },
 ];
 
@@ -53,41 +55,25 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
       onMouseLeave={onMouseLeave}
       className="group overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.7)] backdrop-blur transition-shadow hover:shadow-[0_24px_80px_rgba(0,0,0,0.6)]"
     >
-      {/* Visual panel */}
-      <div className={`relative h-56 bg-gradient-to-br ${project.color} overflow-hidden`}>
-        {/* Blueprint grid */}
-        <div className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: "linear-gradient(rgba(43,108,176,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(43,108,176,0.3) 1px,transparent 1px)", backgroundSize: "24px 24px" }} />
-
-        {/* Animated building blueprint */}
-        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 400 200" fill="none">
-          {[...Array(7)].map((_, i) => (
-            <motion.rect
-              key={i}
-              x={200 - (120 - i * 14) / 2}
-              y={180 - (i + 1) * 22}
-              width={120 - i * 14}
-              height={20}
-              stroke="rgba(201,168,76,0.7)"
-              strokeWidth={1}
-              fill="rgba(201,168,76,0.04)"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3 }}
-            />
-          ))}
-        </svg>
-
-        {/* Glow */}
-        <div className="absolute inset-0 bg-radial-[ellipse_60%_50%_at_50%_40%] from-[hsl(43,56%,55%,0.12)] to-transparent" />
+      {/* Visual panel — real construction photo */}
+      <div className="relative h-56 overflow-hidden">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
         {/* Status badge */}
-        <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--background)/0.8)] px-3 py-1.5 text-xs font-semibold text-[hsl(var(--primary))] backdrop-blur">
+        <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--background)/0.85)] px-3 py-1.5 text-xs font-semibold text-[hsl(var(--primary))] backdrop-blur">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
           In Progress
         </div>
 
         {/* Location */}
-        <div className="absolute bottom-4 left-4 flex items-center gap-1.5 text-xs font-medium text-[hsl(var(--primary))] uppercase tracking-wider">
+        <div className="absolute bottom-4 left-4 flex items-center gap-1.5 text-xs font-medium text-white/80 uppercase tracking-wider">
           <MapPin className="h-3.5 w-3.5" />
           {project.location}
         </div>
