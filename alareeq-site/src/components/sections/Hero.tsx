@@ -2,6 +2,7 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
+import { AnimatedCrane } from "../AnimatedCrane";
 
 type Point = { x: number; y: number };
 interface WaveConfig {
@@ -129,6 +130,27 @@ export function Hero() {
       aria-label="Albina Alareeq hero section"
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
+
+      {/* Animated crane — right side decoration */}
+      <motion.div
+        className="pointer-events-none absolute bottom-0 right-8 hidden lg:block"
+        initial={{ opacity: 0, x: 60 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
+      >
+        <AnimatedCrane />
+      </motion.div>
+
+      {/* Second smaller crane — far left */}
+      <motion.div
+        className="pointer-events-none absolute bottom-0 left-4 hidden xl:block"
+        initial={{ opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
+        style={{ opacity: 0.5 }}
+      >
+        <AnimatedCrane className="scale-75 origin-bottom" />
+      </motion.div>
 
       {/* Ambient glows */}
       <div className="pointer-events-none absolute inset-0 -z-10">
