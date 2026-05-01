@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" fill="none">
+  <g stroke="#2B6CB0" stroke-width="5" stroke-linejoin="miter" stroke-linecap="butt">
+    <!-- Left tall pillar -->
+    <rect x="5" y="5" width="36" height="195"/>
+    <!-- Right shorter pillar -->
+    <rect x="48" y="62" width="30" height="138"/>
+    <!-- Baseline -->
+    <line x1="5" y1="200" x2="793" y2="200"/>
+    <!-- Peak 1 -->
+    <polyline points="75,200 178,68 281,200"/>
+    <!-- Peak 2 -->
+    <polyline points="263,200 370,38 477,200"/>
+    <!-- Peak 3 — right slope extends to far right (creates the diagonal) -->
+    <polyline points="460,200 562,82 793,200"/>
+  </g>
+  <!-- Arabic name -->
+  <text x="400" y="234"
+    font-family="'Noto Naskh Arabic','Traditional Arabic','Arial Unicode MS',serif"
+    font-size="25" fill="#2B6CB0" text-anchor="middle">البناء العريق للمقاولات والصيانة العامة</text>
+  <!-- English name -->
+  <text x="400" y="268"
+    font-family="Arial,sans-serif" font-size="12.5"
+    fill="#2B6CB0" text-anchor="middle" letter-spacing="2.8">ALBINA ALAREEQ CONTRACTING &amp; GENERAL MAINTENANCE</text>
+</svg>

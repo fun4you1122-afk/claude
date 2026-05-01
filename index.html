@@ -1,587 +1,539 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Albina Alareeq Contracting Company | UAE</title>
-  <meta name="description" content="Albina Alareeq Contracting Company – Premium construction and contracting services in the UAE. Building excellence across Abu Dhabi and beyond." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Albina Alareeq Contracting & General Maintenance | UAE</title>
+  <meta name="description" content="البناء العريق للمقاولات والصيانة العامة — Premium contracting and construction in the UAE."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <!-- Three.js for 3D WebGL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <!-- ===== PRELOADER ===== -->
-  <div id="preloader">
-    <div class="preloader-inner">
-      <div class="preloader-logo">
-        <span class="pre-a">A</span>
-        <span class="pre-dot"></span>
-        <span class="pre-a">A</span>
-      </div>
-      <div class="preloader-bar"><div class="preloader-fill"></div></div>
-      <p class="preloader-text">Building Excellence</p>
+<!-- ══════════════════════════════════════════
+     PRELOADER
+══════════════════════════════════════════ -->
+<div id="preloader">
+  <div class="pre-inner">
+    <div class="pre-logo-wrap">
+      <svg id="preloaderSVG" viewBox="0 0 300 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g class="pre-svg-group" stroke="#2B6CB0" stroke-width="3" stroke-linejoin="miter">
+          <line class="pre-line" x1="2" y1="100" x2="2" y2="10"/>
+          <line class="pre-line" x1="2" y1="10" x2="18" y2="10"/>
+          <line class="pre-line" x1="18" y1="10" x2="18" y2="100"/>
+          <line class="pre-line" x1="22" y1="42" x2="34" y2="42"/>
+          <line class="pre-line" x1="34" y1="42" x2="34" y2="100"/>
+          <line class="pre-line" x1="2" y1="100" x2="298" y2="100"/>
+          <polyline class="pre-line" points="34,100 84,38 134,100"/>
+          <polyline class="pre-line" points="118,100 168,22 218,100"/>
+          <polyline class="pre-line" points="202,100 252,48 298,100"/>
+        </g>
+      </svg>
+      <p class="pre-arabic">البناء العريق</p>
+      <p class="pre-english">ALBINA ALAREEQ</p>
+    </div>
+    <div class="pre-bar"><div class="pre-fill"></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-wrap">
+    <a href="#hero" class="nav-logo">
+      <img src="logo.svg" alt="Albina Alareeq Logo" class="nav-logo-img"/>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#services" class="nav-link">Services</a></li>
+      <li><a href="#showcase" class="nav-link">Showcase</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="https://wa.me/971563780707" target="_blank" class="nav-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+      WhatsApp
+    </a>
+    <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO — Three.js 3D City
+══════════════════════════════════════════ -->
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-fog"></div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap" id="heroLogo">
+      <img src="logo.svg" alt="Albina Alareeq Contracting" class="hero-logo-img"/>
+    </div>
+    <h1 class="hero-tagline" id="heroTagline">
+      <span class="ht-line">Building</span>
+      <span class="ht-line ht-gold">Excellence</span>
+      <span class="ht-line">Across The UAE</span>
+    </h1>
+    <p class="hero-sub" id="heroSub">Premium contracting & general maintenance — Abu Dhabi</p>
+    <div class="hero-btns" id="heroBtns">
+      <a href="#projects" class="btn btn-gold">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get A Quote</a>
     </div>
   </div>
+  <div class="hero-depth-layer" id="heroDepth">
+    <div class="depth-dot d1"></div>
+    <div class="depth-dot d2"></div>
+    <div class="depth-dot d3"></div>
+  </div>
+  <div class="hero-scroll-cue">
+    <span>Scroll</span><div class="scroll-bar"></div>
+  </div>
+  <div class="hero-tag">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    Abu Dhabi, UAE
+  </div>
+</section>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav id="navbar">
-    <div class="nav-container">
-      <a href="#hero" class="nav-logo">
-        <span class="logo-icon">AA</span>
-        <span class="logo-text">Albina Alareeq</span>
-      </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#stats" class="nav-link">Stats</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-      <a href="https://wa.me/971563780707" target="_blank" class="nav-cta">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.003-1.37l-.36-.214-3.757.984 1.003-3.651-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-        WhatsApp Us
-      </a>
-      <button class="nav-burger" id="navBurger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- ===== HERO ===== -->
-  <section id="hero">
-    <canvas id="heroCanvas"></canvas>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-badge reveal-fade">
-        <span class="badge-dot"></span> UAE Based · Est. Excellence
+<!-- ══════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-wrap">
+      <!-- 3D rotating card -->
+      <div class="about-3d-scene" id="about3D">
+        <div class="about-cube-wrap">
+          <div class="about-cube">
+            <div class="cube-face cube-front">
+              <svg viewBox="0 0 64 64" fill="none" width="48" height="48"><path d="M8 56V24L32 8l24 16v32H40V40H24v16H8z" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/></svg>
+              <h3>General<br/>Contracting</h3>
+            </div>
+            <div class="cube-face cube-back">
+              <svg viewBox="0 0 64 64" fill="none" width="48" height="48"><path d="M12 52V20h10V8h20v12h10v32" stroke="#c9a84c" stroke-width="2.5"/><rect x="24" y="36" width="16" height="16" stroke="#c9a84c" stroke-width="2"/></svg>
+              <h3>Civil<br/>Works</h3>
+            </div>
+            <div class="cube-face cube-left">
+              <svg viewBox="0 0 64 64" fill="none" width="48" height="48"><rect x="8" y="8" width="48" height="48" rx="4" stroke="#c9a84c" stroke-width="2.5"/><path d="M8 24h48M8 40h48M24 8v48M40 8v48" stroke="#c9a84c" stroke-width="1.5"/></svg>
+              <h3>MEP<br/>Services</h3>
+            </div>
+            <div class="cube-face cube-right">
+              <svg viewBox="0 0 64 64" fill="none" width="48" height="48"><path d="M16 52l12-20 8 12 6-10 14 18H16z" stroke="#c9a84c" stroke-width="2.5"/><circle cx="44" cy="18" r="6" stroke="#c9a84c" stroke-width="2.5"/></svg>
+              <h3>Fit-Out &<br/>Finishing</h3>
+            </div>
+            <div class="cube-face cube-top">
+              <svg viewBox="0 0 64 64" fill="none" width="48" height="48"><path d="M32 8L8 24v32h48V24L32 8z" stroke="#c9a84c" stroke-width="2.5"/></svg>
+              <h3>Project<br/>Management</h3>
+            </div>
+            <div class="cube-face cube-bottom">
+              <svg viewBox="0 0 64 64" fill="none" width="48" height="48"><circle cx="32" cy="32" r="24" stroke="#c9a84c" stroke-width="2.5"/><path d="M20 32h24M32 20v24" stroke="#c9a84c" stroke-width="2"/></svg>
+              <h3>Renovation &<br/>Maintenance</h3>
+            </div>
+          </div>
+        </div>
+        <div class="cube-label">Hover to explore our services</div>
       </div>
-      <h1 class="hero-title">
-        <span class="hero-line reveal-up" data-delay="0">Building</span>
-        <span class="hero-line hero-gold reveal-up" data-delay="100">The Future</span>
-        <span class="hero-line reveal-up" data-delay="200">Of The UAE</span>
-      </h1>
-      <p class="hero-subtitle reveal-fade" data-delay="400">
-        Premium contracting solutions across Abu Dhabi and beyond.<br/>
-        Where engineering meets artistry.
-      </p>
-      <div class="hero-actions reveal-fade" data-delay="600">
-        <a href="#projects" class="btn btn-primary">View Our Projects</a>
-        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+
+      <div class="about-text">
+        <div class="stag" data-gsap="fade-left">Who We Are</div>
+        <h2 class="sec-title" data-gsap="fade-left" data-delay="0.1">
+          Crafting Landmarks <span class="gold">Across</span> The Emirates
+        </h2>
+        <p class="about-p" data-gsap="fade-left" data-delay="0.2">
+          <span class="arabic-name">البناء العريق للمقاولات والصيانة العامة</span> is a UAE-based construction and contracting company delivering high-quality infrastructure and building projects across Abu Dhabi and beyond.
+        </p>
+        <p class="about-p" data-gsap="fade-left" data-delay="0.3">
+          We combine modern engineering with deep regional expertise — completing every project with precision, safety, and on-time delivery. From foundations to finishing, our certified team handles it all.
+        </p>
+        <div class="about-pillars" data-gsap="fade-left" data-delay="0.4">
+          <div class="pillar"><div class="pill-ico">🛡</div><div><b>Safety First</b><p>Zero-compromise site safety</p></div></div>
+          <div class="pillar"><div class="pill-ico">⏱</div><div><b>On-Time Delivery</b><p>Milestone-driven management</p></div></div>
+          <div class="pillar"><div class="pill-ico">⭐</div><div><b>Quality Assured</b><p>ISO-grade materials & methods</p></div></div>
+        </div>
       </div>
     </div>
-    <div class="hero-scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-    <div class="hero-location-tag">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Abu Dhabi, UAE
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== ABOUT ===== -->
-  <section id="about">
+<!-- ══════════════════════════════════════════
+     SERVICES — 3D Flip Cards
+══════════════════════════════════════════ -->
+<section id="services">
+  <div class="svc-bg"></div>
+  <div class="container">
+    <div class="sec-header">
+      <div class="stag" data-gsap="fade-up">What We Do</div>
+      <h2 class="sec-title" data-gsap="fade-up" data-delay="0.1">Our <span class="gold">Services</span></h2>
+      <p class="sec-sub" data-gsap="fade-up" data-delay="0.2">Hover each card to reveal details</p>
+    </div>
+    <div class="flip-grid">
+      <div class="flip-card" data-gsap="flip-in" data-delay="0">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-num">01</div>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="44" height="44"><rect x="4" y="20" width="40" height="24" rx="2"/><path d="M4 24L24 6l20 18"/><rect x="18" y="32" width="12" height="12"/></svg>
+            <h3>General Contracting</h3>
+          </div>
+          <div class="flip-back">
+            <h3>General Contracting</h3>
+            <p>Complete construction from groundwork to handover — residential, commercial, and mixed-use developments built to the highest UAE standards.</p>
+            <div class="flip-tags"><span>Residential</span><span>Commercial</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" data-gsap="flip-in" data-delay="0.08">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-num">02</div>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="44" height="44"><path d="M6 42V18L24 6l18 12v24"/><path d="M16 42V28h16v14"/><path d="M14 20h6v8h-6zM28 20h6v8h-6z"/></svg>
+            <h3>Civil Works</h3>
+          </div>
+          <div class="flip-back">
+            <h3>Civil Works</h3>
+            <p>Structural concrete, deep foundations, earthworks, and large-scale infrastructure for urban and industrial projects across Abu Dhabi.</p>
+            <div class="flip-tags"><span>Structural</span><span>Foundation</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" data-gsap="flip-in" data-delay="0.16">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-num">03</div>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="44" height="44"><rect x="8" y="8" width="32" height="32" rx="2"/><line x1="8" y1="20" x2="40" y2="20"/><line x1="8" y1="32" x2="40" y2="32"/><line x1="20" y1="8" x2="20" y2="40"/><line x1="32" y1="8" x2="32" y2="40"/></svg>
+            <h3>MEP Services</h3>
+          </div>
+          <div class="flip-back">
+            <h3>MEP Services</h3>
+            <p>Mechanical, Electrical & Plumbing installations by certified engineers. From HVAC to full electrical systems, we handle every building system.</p>
+            <div class="flip-tags"><span>Electrical</span><span>HVAC</span><span>Plumbing</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" data-gsap="flip-in" data-delay="0.24">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-num">04</div>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="44" height="44"><path d="M6 36l10-16 8 10 6-8 12 14H6z"/><circle cx="34" cy="16" r="4"/><path d="M4 42h40"/></svg>
+            <h3>Interior Fit-Out</h3>
+          </div>
+          <div class="flip-back">
+            <h3>Interior Fit-Out</h3>
+            <p>Premium interior contracting and bespoke finishing works for luxury residences, offices, retail spaces, and hospitality venues across the UAE.</p>
+            <div class="flip-tags"><span>Luxury</span><span>Bespoke</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" data-gsap="flip-in" data-delay="0.32">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-num">05</div>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="44" height="44"><path d="M24 4L4 14v10c0 12 8.7 22.6 20 26 11.3-3.4 20-14 20-26V14L24 4z"/><path d="M16 24l6 6 10-10"/></svg>
+            <h3>Project Management</h3>
+          </div>
+          <div class="flip-back">
+            <h3>Project Management</h3>
+            <p>End-to-end oversight of timelines, budgets, subcontractors, and quality control. We manage complexity so you don't have to.</p>
+            <div class="flip-tags"><span>Planning</span><span>QA/QC</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" data-gsap="flip-in" data-delay="0.40">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-num">06</div>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="44" height="44"><circle cx="24" cy="24" r="18"/><path d="M24 6v4M24 38v4M6 24h4M38 24h4"/><circle cx="24" cy="24" r="6"/></svg>
+            <h3>Renovation & Maintenance</h3>
+          </div>
+          <div class="flip-back">
+            <h3>Renovation & Maintenance</h3>
+            <p>Structural renovations, facade upgrades, and scheduled facility maintenance. We breathe new life into existing properties.</p>
+            <div class="flip-tags"><span>Renovation</span><span>Upkeep</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     VIDEO SHOWCASE — Canvas construction animation
+══════════════════════════════════════════ -->
+<section id="showcase">
+  <div class="showcase-wrap">
+    <canvas id="showcaseCanvas"></canvas>
+    <div class="showcase-overlay"></div>
+    <div class="showcase-content" data-gsap="showcase-anim">
+      <div class="stag stag-light">In Action</div>
+      <h2 class="sec-title sec-title-light">Watch The <span class="gold">City Rise</span></h2>
+      <p class="showcase-desc">Our teams are actively building the future of Abu Dhabi — two landmark projects currently under construction.</p>
+      <div class="showcase-stats">
+        <div class="ss-item">
+          <span class="ss-num" data-counter="2">0</span>
+          <span class="ss-lbl">Active Sites</span>
+        </div>
+        <div class="ss-item">
+          <span class="ss-num" data-counter="120">0</span>
+          <span class="ss-lbl">Workers On-Site</span>
+        </div>
+        <div class="ss-item">
+          <span class="ss-num" data-counter="50">0</span>
+          <span class="ss-lbl">Projects Delivered</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROJECTS — 3D Parallax Cards
+══════════════════════════════════════════ -->
+<section id="projects">
+  <div class="container">
+    <div class="sec-header">
+      <div class="stag" data-gsap="fade-up">Active Projects</div>
+      <h2 class="sec-title" data-gsap="fade-up" data-delay="0.1">Work In <span class="gold">Progress</span></h2>
+      <p class="sec-sub" data-gsap="fade-up" data-delay="0.2">Currently delivering two landmark developments across Abu Dhabi</p>
+    </div>
+    <div class="proj-grid">
+      <!-- Project 1 -->
+      <div class="proj-card" data-gsap="proj-left" id="projCard1">
+        <div class="proj-3d-scene">
+          <canvas class="proj-canvas" id="projCanvas1"></canvas>
+          <div class="proj-overlay"></div>
+          <div class="proj-badge"><span class="pb-pulse"></span> In Progress</div>
+          <div class="proj-location-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            MBZ City, Abu Dhabi
+          </div>
+        </div>
+        <div class="proj-body">
+          <h3>Mohammed Bin Zayed City Development</h3>
+          <p>A major construction undertaking in one of Abu Dhabi's fastest-growing residential districts — delivering modern infrastructure designed for community living.</p>
+          <div class="proj-tags"><span>Residential</span><span>Commercial</span><span>Infrastructure</span></div>
+          <div class="proj-progress">
+            <div class="pp-head"><span>Progress</span><span class="pp-pct" data-target="68">0%</span></div>
+            <div class="pp-bar"><div class="pp-fill" data-w="68"></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Project 2 -->
+      <div class="proj-card" data-gsap="proj-right" id="projCard2">
+        <div class="proj-3d-scene">
+          <canvas class="proj-canvas" id="projCanvas2"></canvas>
+          <div class="proj-overlay"></div>
+          <div class="proj-badge"><span class="pb-pulse"></span> In Progress</div>
+          <div class="proj-location-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Riyadh City, Abu Dhabi
+          </div>
+        </div>
+        <div class="proj-body">
+          <h3>Riyadh City Urban Project</h3>
+          <p>An ambitious urban development transforming Riyadh City with contemporary construction techniques, blending modern aesthetics with functional design principles.</p>
+          <div class="proj-tags"><span>Urban</span><span>Mixed-Use</span><span>Civil Works</span></div>
+          <div class="proj-progress">
+            <div class="pp-head"><span>Progress</span><span class="pp-pct" data-target="42">0%</span></div>
+            <div class="pp-bar"><div class="pp-fill" data-w="42"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STATS — Animated Counters
+══════════════════════════════════════════ -->
+<section id="stats">
+  <canvas id="statsCanvas"></canvas>
+  <div class="stats-over"></div>
+  <div class="container stats-inner">
+    <div class="sec-header">
+      <div class="stag stag-light" data-gsap="fade-up">By The Numbers</div>
+      <h2 class="sec-title sec-title-light" data-gsap="fade-up" data-delay="0.1">Our <span class="gold">Track Record</span></h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card" data-gsap="stat-pop" data-delay="0">
+        <div class="stat-ring"><div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div></div>
+        <div class="stat-n"><span class="cnt" data-t="50">0</span>+</div>
+        <div class="stat-l">Projects Completed</div>
+      </div>
+      <div class="stat-card" data-gsap="stat-pop" data-delay="0.1">
+        <div class="stat-ring"><div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg></div></div>
+        <div class="stat-n"><span class="cnt" data-t="120">0</span>+</div>
+        <div class="stat-l">Skilled Professionals</div>
+      </div>
+      <div class="stat-card" data-gsap="stat-pop" data-delay="0.2">
+        <div class="stat-ring"><div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div></div>
+        <div class="stat-n"><span class="cnt" data-t="2">0</span></div>
+        <div class="stat-l">Active Projects</div>
+      </div>
+      <div class="stat-card" data-gsap="stat-pop" data-delay="0.3">
+        <div class="stat-ring"><div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div></div>
+        <div class="stat-n"><span class="cnt" data-t="10">0</span>+</div>
+        <div class="stat-l">Years Excellence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════ -->
+<section id="contact">
+  <div class="contact-particles" id="contactParticles"></div>
+  <div class="container">
+    <div class="sec-header">
+      <div class="stag" data-gsap="fade-up">Get In Touch</div>
+      <h2 class="sec-title" data-gsap="fade-up" data-delay="0.1">Start Your <span class="gold">Project</span> Today</h2>
+      <p class="sec-sub" data-gsap="fade-up" data-delay="0.2">Reach out — we respond within 24 hours</p>
+    </div>
+    <div class="contact-grid">
+      <!-- Contact channels -->
+      <div class="contact-channels" data-gsap="fade-left">
+        <a href="https://wa.me/971563780707" target="_blank" class="cc-card cc-wa">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-lbl">WhatsApp Chat Line</div>
+            <div class="cc-val">+971 56 378 07 07</div>
+            <div class="cc-hint">Tap to chat now →</div>
+          </div>
+        </a>
+        <a href="mailto:albina.alareeq@gmail.com" class="cc-card cc-em">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-lbl">Email</div>
+            <div class="cc-val">albina.alareeq@gmail.com</div>
+            <div class="cc-hint">Reply within 24 hours →</div>
+          </div>
+        </a>
+        <a href="https://instagram.com/albina.alareeq" target="_blank" class="cc-card cc-ig">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-lbl">Instagram</div>
+            <div class="cc-val">@albina.alareeq</div>
+            <div class="cc-hint">Follow our projects →</div>
+          </div>
+        </a>
+        <div class="cc-card cc-loc">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-lbl">Location</div>
+            <div class="cc-val">Abu Dhabi, UAE</div>
+            <div class="cc-hint">Serving the entire UAE</div>
+          </div>
+        </div>
+      </div>
+      <!-- Form -->
+      <form class="contact-form" id="contactForm" data-gsap="fade-right">
+        <h3>Send A Message</h3>
+        <div class="fg"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required/></div>
+        <div class="fg"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required/></div>
+        <div class="fg"><label>Phone</label><input type="tel" name="phone" placeholder="+971 XX XXX XXXX"/></div>
+        <div class="fg">
+          <label>Service Needed</label>
+          <select name="service">
+            <option value="">Select a service...</option>
+            <option>General Contracting</option>
+            <option>Civil Works</option>
+            <option>MEP Services</option>
+            <option>Interior Fit-Out</option>
+            <option>Project Management</option>
+            <option>Renovation & Maintenance</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea name="message" rows="4" placeholder="Tell us about your project..."></textarea></div>
+        <button type="submit" class="btn btn-gold btn-full">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Message
+        </button>
+        <p class="form-note">Or message us directly on <a href="https://wa.me/971563780707" target="_blank">WhatsApp</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer id="footer">
+  <div class="footer-top">
     <div class="container">
-      <div class="about-grid">
-        <div class="about-visual">
-          <div class="about-card-stack">
-            <div class="about-card about-card-back"></div>
-            <div class="about-card about-card-mid"></div>
-            <div class="about-card about-card-front">
-              <div class="about-card-inner">
-                <div class="about-icon-ring">
-                  <svg viewBox="0 0 64 64" fill="none" width="36" height="36">
-                    <path d="M8 56V24L32 8l24 16v32H40V40H24v16H8z" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
-                    <path d="M24 40h16v16H24z" stroke="#c9a84c" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M28 56V48h8v8" stroke="#c9a84c" stroke-width="2"/>
-                  </svg>
-                </div>
-                <h3>Building<br/>With Purpose</h3>
-                <p>Every project tells a story of commitment and craft.</p>
-              </div>
-            </div>
-          </div>
-          <div class="about-geo geo-1"></div>
-          <div class="about-geo geo-2"></div>
-        </div>
-        <div class="about-text">
-          <div class="section-tag reveal-fade">Who We Are</div>
-          <h2 class="section-title reveal-up">
-            Crafting Landmark <span class="text-gold">Structures</span> Across the Emirates
-          </h2>
-          <p class="about-desc reveal-fade">
-            Albina Alareeq Contracting Company is a UAE-based construction and contracting firm dedicated to delivering high-quality infrastructure and building projects. We combine modern engineering techniques with a deep understanding of the region's architectural identity.
-          </p>
-          <p class="about-desc reveal-fade">
-            From residential towers to commercial complexes, our team of skilled professionals ensures every project is executed with precision, safety, and excellence — on time and within budget.
-          </p>
-          <div class="about-pillars reveal-fade">
-            <div class="pillar">
-              <div class="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div>
-                <strong>Safety First</strong>
-                <p>Zero-compromise on site safety standards</p>
-              </div>
-            </div>
-            <div class="pillar">
-              <div class="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
-              <div>
-                <strong>On-Time Delivery</strong>
-                <p>Milestone-driven project management</p>
-              </div>
-            </div>
-            <div class="pillar">
-              <div class="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </div>
-              <div>
-                <strong>Quality Assured</strong>
-                <p>Materials and methods held to highest standards</p>
-              </div>
-            </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="logo.svg" alt="Albina Alareeq" class="footer-logo-img"/>
+          <p>Building excellence across the UAE. Premium contracting, civil works, and general maintenance delivered with integrity.</p>
+          <div class="footer-socials">
+            <a href="https://wa.me/971563780707" target="_blank" class="fsoc fsoc-wa" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+            </a>
+            <a href="https://instagram.com/albina.alareeq" target="_blank" class="fsoc fsoc-ig" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="mailto:albina.alareeq@gmail.com" class="fsoc fsoc-em" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SERVICES ===== -->
-  <section id="services">
-    <div class="services-bg-anim"></div>
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag reveal-fade">What We Do</div>
-        <h2 class="section-title reveal-up">Our <span class="text-gold">Services</span></h2>
-        <p class="section-sub reveal-fade">End-to-end contracting solutions tailored for the UAE market</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card reveal-up" data-delay="0">
-          <div class="service-num">01</div>
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="40" height="40"><rect x="4" y="20" width="40" height="24" rx="2"/><path d="M4 24L24 6l20 18"/><rect x="18" y="32" width="12" height="12"/></svg>
-          </div>
-          <h3>General Contracting</h3>
-          <p>Complete construction services from groundwork to handover — residential, commercial, and mixed-use developments.</p>
-          <div class="service-arrow">→</div>
-        </div>
-        <div class="service-card reveal-up" data-delay="100">
-          <div class="service-num">02</div>
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="40" height="40"><path d="M6 42V18L24 6l18 12v24"/><path d="M16 42V28h16v14"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="40" y1="14" x2="40" y2="14"/><path d="M14 20h6v8h-6zM28 20h6v8h-6z"/></svg>
-          </div>
-          <h3>Civil Works</h3>
-          <p>Structural concrete, foundations, earthworks, and infrastructure development for large-scale urban projects.</p>
-          <div class="service-arrow">→</div>
-        </div>
-        <div class="service-card reveal-up" data-delay="200">
-          <div class="service-num">03</div>
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="40" height="40"><rect x="8" y="8" width="32" height="32" rx="2"/><line x1="8" y1="20" x2="40" y2="20"/><line x1="8" y1="32" x2="40" y2="32"/><line x1="20" y1="8" x2="20" y2="40"/><line x1="32" y1="8" x2="32" y2="40"/></svg>
-          </div>
-          <h3>MEP Services</h3>
-          <p>Mechanical, Electrical, and Plumbing installations executed by certified engineers and specialists.</p>
-          <div class="service-arrow">→</div>
-        </div>
-        <div class="service-card reveal-up" data-delay="300">
-          <div class="service-num">04</div>
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="40" height="40"><path d="M6 36l10-16 8 10 6-8 12 14H6z"/><circle cx="34" cy="16" r="4"/><path d="M4 42h40"/></svg>
-          </div>
-          <h3>Interior Fit-Out</h3>
-          <p>High-end interior contracting, finishing works, and bespoke fit-out solutions for premium spaces.</p>
-          <div class="service-arrow">→</div>
-        </div>
-        <div class="service-card reveal-up" data-delay="400">
-          <div class="service-num">05</div>
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="40" height="40"><path d="M24 4L4 14v10c0 12 8.7 22.6 20 26 11.3-3.4 20-14 20-26V14L24 4z"/><path d="M16 24l6 6 10-10"/></svg>
-          </div>
-          <h3>Project Management</h3>
-          <p>Comprehensive oversight of timelines, budgets, subcontractors, and quality assurance from start to finish.</p>
-          <div class="service-arrow">→</div>
-        </div>
-        <div class="service-card reveal-up" data-delay="500">
-          <div class="service-num">06</div>
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" width="40" height="40"><circle cx="24" cy="24" r="18"/><path d="M24 6v4M24 38v4M6 24h4M38 24h4M11.6 11.6l2.8 2.8M33.6 33.6l2.8 2.8M36.4 11.6l-2.8 2.8M14.4 33.6l-2.8 2.8"/><circle cx="24" cy="24" r="6"/></svg>
-          </div>
-          <h3>Renovation & Maintenance</h3>
-          <p>Structural renovations, facade upgrades, and ongoing facility maintenance for existing properties.</p>
-          <div class="service-arrow">→</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PROJECTS ===== -->
-  <section id="projects">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag reveal-fade">Active Projects</div>
-        <h2 class="section-title reveal-up">Work In <span class="text-gold">Progress</span></h2>
-        <p class="section-sub reveal-fade">Currently delivering landmark developments across Abu Dhabi</p>
-      </div>
-      <div class="projects-grid">
-        <!-- Project 1 -->
-        <div class="project-card reveal-left">
-          <div class="project-visual pv-1">
-            <div class="project-anim-bg"></div>
-            <div class="project-blueprint">
-              <div class="bp-grid"></div>
-              <div class="bp-building">
-                <div class="bp-floor" style="--h:8px;--w:120px;--left:40px;bottom:0"></div>
-                <div class="bp-floor" style="--h:10px;--w:100px;--left:50px;bottom:8px"></div>
-                <div class="bp-floor" style="--h:10px;--w:80px;--left:60px;bottom:18px"></div>
-                <div class="bp-floor" style="--h:10px;--w:60px;--left:70px;bottom:28px"></div>
-                <div class="bp-floor" style="--h:10px;--w:40px;--left:80px;bottom:38px"></div>
-                <div class="bp-floor" style="--h:10px;--w:20px;--left:90px;bottom:48px"></div>
-              </div>
-            </div>
-            <div class="project-status-badge in-progress">
-              <span class="status-pulse"></span> In Progress
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-location">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              MBZ City, Abu Dhabi
-            </div>
-            <h3>Mohammed Bin Zayed City Development</h3>
-            <p>A major construction undertaking in the heart of MBZ City — one of Abu Dhabi's fastest-growing residential and commercial districts. Delivering modern infrastructure with attention to community living standards.</p>
-            <div class="project-tags">
-              <span class="tag">Residential</span>
-              <span class="tag">Commercial</span>
-              <span class="tag">Infrastructure</span>
-            </div>
-            <div class="project-progress">
-              <div class="progress-header">
-                <span>Project Progress</span>
-                <span class="progress-pct" data-target="68">0%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" data-width="68"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="project-card reveal-right">
-          <div class="project-visual pv-2">
-            <div class="project-anim-bg"></div>
-            <div class="project-blueprint">
-              <div class="bp-grid"></div>
-              <div class="bp-building">
-                <div class="bp-floor" style="--h:8px;--w:140px;--left:30px;bottom:0"></div>
-                <div class="bp-floor" style="--h:8px;--w:140px;--left:30px;bottom:8px"></div>
-                <div class="bp-floor" style="--h:8px;--w:130px;--left:35px;bottom:16px"></div>
-                <div class="bp-floor" style="--h:8px;--w:130px;--left:35px;bottom:24px"></div>
-                <div class="bp-floor" style="--h:8px;--w:120px;--left:40px;bottom:32px"></div>
-                <div class="bp-floor" style="--h:8px;--w:110px;--left:45px;bottom:40px"></div>
-                <div class="bp-floor" style="--h:8px;--w:100px;--left:50px;bottom:48px"></div>
-                <div class="bp-floor" style="--h:8px;--w:80px;--left:60px;bottom:56px"></div>
-              </div>
-            </div>
-            <div class="project-status-badge in-progress">
-              <span class="status-pulse"></span> In Progress
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-location">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Riyadh City, Abu Dhabi
-            </div>
-            <h3>Riyadh City Urban Project</h3>
-            <p>An ambitious urban development in Riyadh City, Abu Dhabi — transforming the area with contemporary construction techniques and durable materials. A project that blends modern aesthetics with functional design principles.</p>
-            <div class="project-tags">
-              <span class="tag">Urban</span>
-              <span class="tag">Mixed-Use</span>
-              <span class="tag">Civil Works</span>
-            </div>
-            <div class="project-progress">
-              <div class="progress-header">
-                <span>Project Progress</span>
-                <span class="progress-pct" data-target="42">0%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" data-width="42"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== STATS ===== -->
-  <section id="stats">
-    <div class="stats-bg">
-      <div class="stats-overlay"></div>
-      <canvas id="statsCanvas"></canvas>
-    </div>
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag section-tag-light reveal-fade">By The Numbers</div>
-        <h2 class="section-title section-title-light reveal-up">Our <span class="text-gold">Track Record</span></h2>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card reveal-up" data-delay="0">
-          <div class="stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <div class="stat-num"><span class="counter" data-target="50">0</span>+</div>
-          <div class="stat-label">Projects Completed</div>
-        </div>
-        <div class="stat-card reveal-up" data-delay="150">
-          <div class="stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-          </div>
-          <div class="stat-num"><span class="counter" data-target="120">0</span>+</div>
-          <div class="stat-label">Skilled Professionals</div>
-        </div>
-        <div class="stat-card reveal-up" data-delay="300">
-          <div class="stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-          </div>
-          <div class="stat-num"><span class="counter" data-target="2">0</span></div>
-          <div class="stat-label">Active Projects</div>
-        </div>
-        <div class="stat-card reveal-up" data-delay="450">
-          <div class="stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div class="stat-num"><span class="counter" data-target="10">0</span>+</div>
-          <div class="stat-label">Years of Excellence</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== WHY US ===== -->
-  <section id="why">
-    <div class="container">
-      <div class="why-grid">
-        <div class="why-text">
-          <div class="section-tag reveal-fade">Why Choose Us</div>
-          <h2 class="section-title reveal-up">The Albina Alareeq <span class="text-gold">Difference</span></h2>
-          <p class="reveal-fade">We don't just build structures — we build relationships, trust, and lasting value. Our commitment to the UAE's vision for development sets us apart from the competition.</p>
-          <ul class="why-list">
-            <li class="reveal-fade" data-delay="0">
-              <div class="why-check">✓</div>
-              <div><strong>UAE-Rooted Expertise</strong> — Deep knowledge of local regulations, climate, and construction standards.</div>
-            </li>
-            <li class="reveal-fade" data-delay="100">
-              <div class="why-check">✓</div>
-              <div><strong>Transparent Communication</strong> — Regular progress updates and open channels with clients throughout every project.</div>
-            </li>
-            <li class="reveal-fade" data-delay="200">
-              <div class="why-check">✓</div>
-              <div><strong>Competitive Pricing</strong> — Best-value solutions without compromising on quality or safety.</div>
-            </li>
-            <li class="reveal-fade" data-delay="300">
-              <div class="why-check">✓</div>
-              <div><strong>Certified Workforce</strong> — Fully licensed, trained, and insured team of engineers and tradespeople.</div>
-            </li>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">General Contracting</a></li>
+            <li><a href="#services">Civil Works</a></li>
+            <li><a href="#services">MEP Services</a></li>
+            <li><a href="#services">Interior Fit-Out</a></li>
+            <li><a href="#services">Project Management</a></li>
           </ul>
         </div>
-        <div class="why-visual reveal-fade">
-          <div class="why-card-wrap">
-            <div class="why-card wc-1">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <p>ISO Compliant Standards</p>
-            </div>
-            <div class="why-card wc-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-              <p>50+ Satisfied Clients</p>
-            </div>
-            <div class="why-card wc-3">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <p>Award-Winning Quality</p>
-            </div>
-            <div class="why-card wc-4">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <p>Zero Safety Incidents</p>
-            </div>
-          </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#projects">Our Projects</a></li>
+            <li><a href="#stats">Track Record</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="fc-list">
+            <li><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg><a href="https://wa.me/971563780707" target="_blank">+971 56 378 07 07</a></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:albina.alareeq@gmail.com">albina.alareeq@gmail.com</a></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Abu Dhabi, UAE</li>
+          </ul>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ===== CONTACT ===== -->
-  <section id="contact">
-    <div class="contact-bg-anim"></div>
+  </div>
+  <div class="footer-bot">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag reveal-fade">Get In Touch</div>
-        <h2 class="section-title reveal-up">Start Your <span class="text-gold">Project</span> Today</h2>
-        <p class="section-sub reveal-fade">Reach out to discuss your construction needs — we respond within 24 hours.</p>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-cards">
-          <a href="https://wa.me/971563780707" target="_blank" class="contact-card contact-wa reveal-left">
-            <div class="contact-card-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.003-1.37l-.36-.214-3.757.984 1.003-3.651-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-            </div>
-            <div class="contact-card-body">
-              <div class="contact-card-label">WhatsApp Chat</div>
-              <div class="contact-card-value">+971 56 378 07 07</div>
-              <div class="contact-card-hint">Tap to open WhatsApp →</div>
-            </div>
-          </a>
-          <a href="mailto:albina.alareeq@gmail.com" class="contact-card contact-email reveal-left" data-delay="100">
-            <div class="contact-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div class="contact-card-body">
-              <div class="contact-card-label">Email Us</div>
-              <div class="contact-card-value">albina.alareeq@gmail.com</div>
-              <div class="contact-card-hint">We reply within 24 hours →</div>
-            </div>
-          </a>
-          <a href="https://instagram.com/albina.alareeq" target="_blank" class="contact-card contact-ig reveal-left" data-delay="200">
-            <div class="contact-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </div>
-            <div class="contact-card-body">
-              <div class="contact-card-label">Instagram</div>
-              <div class="contact-card-value">@albina.alareeq</div>
-              <div class="contact-card-hint">Follow our projects →</div>
-            </div>
-          </a>
-          <div class="contact-card contact-location reveal-left" data-delay="300">
-            <div class="contact-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
-            <div class="contact-card-body">
-              <div class="contact-card-label">Location</div>
-              <div class="contact-card-value">Abu Dhabi, UAE</div>
-              <div class="contact-card-hint">Serving the entire UAE</div>
-            </div>
-          </div>
-        </div>
-        <form class="contact-form reveal-right" id="contactForm">
-          <h3>Send Us a Message</h3>
-          <div class="form-group">
-            <label for="fname">Full Name</label>
-            <input type="text" id="fname" name="name" placeholder="Your full name" required />
-          </div>
-          <div class="form-group">
-            <label for="femail">Email Address</label>
-            <input type="email" id="femail" name="email" placeholder="your@email.com" required />
-          </div>
-          <div class="form-group">
-            <label for="fphone">Phone Number</label>
-            <input type="tel" id="fphone" name="phone" placeholder="+971 XX XXX XXXX" />
-          </div>
-          <div class="form-group">
-            <label for="fservice">Service Needed</label>
-            <select id="fservice" name="service">
-              <option value="">Select a service...</option>
-              <option>General Contracting</option>
-              <option>Civil Works</option>
-              <option>MEP Services</option>
-              <option>Interior Fit-Out</option>
-              <option>Project Management</option>
-              <option>Renovation & Maintenance</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="fmsg">Message</label>
-            <textarea id="fmsg" name="message" rows="4" placeholder="Tell us about your project..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            Send Message
-          </button>
-          <p class="form-note">Or chat directly on <a href="https://wa.me/971563780707" target="_blank">WhatsApp</a></p>
-        </form>
-      </div>
+      <p>© 2025 البناء العريق للمقاولات والصيانة العامة — Albina Alareeq Contracting & General Maintenance</p>
+      <p>Built with excellence in the UAE 🇦🇪</p>
     </div>
-  </section>
+  </div>
+</footer>
 
-  <!-- ===== FOOTER ===== -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-brand">
-            <div class="footer-logo">
-              <span class="logo-icon">AA</span>
-              <span class="logo-text">Albina Alareeq</span>
-            </div>
-            <p>Premium contracting and construction services across the UAE. Building with excellence, delivering with integrity.</p>
-            <div class="footer-socials">
-              <a href="https://wa.me/971563780707" target="_blank" aria-label="WhatsApp" class="social-btn social-wa">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.003-1.37l-.36-.214-3.757.984 1.003-3.651-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-              </a>
-              <a href="https://instagram.com/albina.alareeq" target="_blank" aria-label="Instagram" class="social-btn social-ig">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              </a>
-              <a href="mailto:albina.alareeq@gmail.com" aria-label="Email" class="social-btn social-em">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              </a>
-            </div>
-          </div>
-          <div class="footer-col">
-            <h4>Services</h4>
-            <ul>
-              <li><a href="#services">General Contracting</a></li>
-              <li><a href="#services">Civil Works</a></li>
-              <li><a href="#services">MEP Services</a></li>
-              <li><a href="#services">Interior Fit-Out</a></li>
-              <li><a href="#services">Project Management</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Company</h4>
-            <ul>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#projects">Our Projects</a></li>
-              <li><a href="#stats">Track Record</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Contact</h4>
-            <ul class="footer-contact-list">
-              <li>
-                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.003-1.37l-.36-.214-3.757.984 1.003-3.651-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-                <a href="https://wa.me/971563780707" target="_blank">+971 56 378 07 07</a>
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <a href="mailto:albina.alareeq@gmail.com">albina.alareeq@gmail.com</a>
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Abu Dhabi, UAE
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <p>© 2025 Albina Alareeq Contracting Company. All rights reserved.</p>
-        <p>Built with excellence in the UAE</p>
-      </div>
-    </div>
-  </footer>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/971563780707" target="_blank" class="wa-fab" id="waFab" aria-label="Chat on WhatsApp">
+  <div class="wa-ring"></div>
+  <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+  <span class="wa-tip">Chat on WhatsApp</span>
+</a>
 
-  <!-- ===== WHATSAPP FLOAT ===== -->
-  <a href="https://wa.me/971563780707" target="_blank" class="wa-float" id="waFloat" aria-label="Chat on WhatsApp">
-    <div class="wa-pulse"></div>
-    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.33-1.658A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.003-1.37l-.36-.214-3.757.984 1.003-3.651-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-    <span class="wa-tooltip">Chat on WhatsApp</span>
-  </a>
-
-  <script src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
