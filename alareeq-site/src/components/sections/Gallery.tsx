@@ -34,7 +34,7 @@ const images = [
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1590644365607-32f5a43c0e1a?w=1200&auto=format&fit=crop&q=85",
+    src: "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=1200&auto=format&fit=crop&q=85",
     alt: "Concrete foundation work",
     span: "col-span-1 row-span-1",
   },
