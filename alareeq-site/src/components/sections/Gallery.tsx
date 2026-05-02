@@ -66,11 +66,8 @@ export function Gallery() {
           </p>
         </motion.div>
 
-        {/* Mosaic grid — mobile: equal 2-col, desktop: mosaic with spans */}
-        <div
-          className="grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-3"
-          style={{ gridAutoRows: "clamp(120px, 18vw, 200px)" }}
-        >
+        {/* Mosaic grid */}
+        <div className="grid grid-cols-2 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-2" style={{ height: "520px" }}>
           {images.map((img, i) => (
             <motion.div
               key={img.alt}
@@ -79,7 +76,7 @@ export function Gallery() {
               whileHover={{ scale: 1.02, zIndex: 10 }}
               transition={{ duration: 0.6, delay: i * 0.07 }}
               viewport={{ once: true }}
-              className={`relative cursor-pointer overflow-hidden rounded-xl md:rounded-2xl border border-[hsl(var(--border)/0.4)] ${i === 0 ? "md:row-span-2" : ""}`}
+              className={`relative cursor-pointer overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.4)] ${img.span}`}
               onClick={() => setLightbox(i)}
             >
               <img
