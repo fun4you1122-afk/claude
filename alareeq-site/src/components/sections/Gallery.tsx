@@ -36,12 +36,7 @@ const images = [
   {
     src: "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=1200&auto=format&fit=crop&q=85",
     alt: "Concrete foundation work",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1200&auto=format&fit=crop&q=85",
-    alt: "Construction project management",
-    span: "col-span-1 row-span-1",
+    span: "md:col-span-2 col-span-2 row-span-1",
   },
 ];
 
