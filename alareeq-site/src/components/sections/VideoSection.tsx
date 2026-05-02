@@ -82,7 +82,7 @@ export function VideoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-10 grid grid-cols-3 gap-4"
+          className="mt-10 grid grid-cols-3 gap-3 md:gap-4"
         >
           {[
             { value: "2+", label: "Active Projects" },
@@ -91,7 +91,7 @@ export function VideoSection() {
           ].map(({ value, label }) => (
             <div
               key={label}
-              className="rounded-2xl border border-[hsl(var(--border)/0.4)] bg-[hsl(var(--card)/0.5)] p-5 text-center backdrop-blur"
+              className="rounded-2xl border border-[hsl(var(--border)/0.4)] bg-[hsl(var(--card)/0.5)] p-3 md:p-5 text-center backdrop-blur"
             >
               <p className="font-serif text-2xl font-bold text-[hsl(var(--primary))]">{value}</p>
               <p className="mt-1 text-xs text-[hsl(var(--foreground)/0.5)] uppercase tracking-wider">{label}</p>

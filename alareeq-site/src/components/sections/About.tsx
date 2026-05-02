@@ -26,7 +26,7 @@ export function About() {
             viewport={{ once: true }}
             className="flex flex-col items-center gap-6"
           >
-            <div className="relative h-64 w-64" style={{ perspective: "800px" }}>
+            <div className="relative h-48 w-48 md:h-64 md:w-64" style={{ perspective: "800px" }}>
               <motion.div
                 className="relative h-full w-full"
                 style={{ transformStyle: "preserve-3d" }}
@@ -34,24 +34,24 @@ export function About() {
                 transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
               >
                 {/* Front */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "translateZ(128px)" }}>
-                  <span className="text-4xl">🏗️</span>
-                  <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">General Contracting</p>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "translateZ(96px)" }}>
+                  <span className="text-3xl md:text-4xl">🏗️</span>
+                  <p className="font-serif text-xs md:text-sm font-semibold text-[hsl(var(--primary))]">General Contracting</p>
                 </div>
                 {/* Back */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(180deg) translateZ(128px)" }}>
-                  <span className="text-4xl">🔩</span>
-                  <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">MEP Services</p>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(180deg) translateZ(96px)" }}>
+                  <span className="text-3xl md:text-4xl">🔩</span>
+                  <p className="font-serif text-xs md:text-sm font-semibold text-[hsl(var(--primary))]">MEP Services</p>
                 </div>
                 {/* Left */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(-90deg) translateZ(128px)" }}>
-                  <span className="text-4xl">🏢</span>
-                  <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">Civil Works</p>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(-90deg) translateZ(96px)" }}>
+                  <span className="text-3xl md:text-4xl">🏢</span>
+                  <p className="font-serif text-xs md:text-sm font-semibold text-[hsl(var(--primary))]">Civil Works</p>
                 </div>
                 {/* Right */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(90deg) translateZ(128px)" }}>
-                  <span className="text-4xl">🎨</span>
-                  <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">Interior Fit-Out</p>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(90deg) translateZ(96px)" }}>
+                  <span className="text-3xl md:text-4xl">🎨</span>
+                  <p className="font-serif text-xs md:text-sm font-semibold text-[hsl(var(--primary))]">Interior Fit-Out</p>
                 </div>
               </motion.div>
             </div>
