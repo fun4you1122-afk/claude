@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export function Preloader({ onDone }: { onDone: () => void }) {
-  const [phase, setPhase] = useState<"fill" | "out">("fill");
+  const [phase, setPhase] = useState<string>("fill");
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase("out"), 1800);
@@ -12,7 +12,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
 
   return (
     <AnimatePresence>
-      {phase !== "out" || true ? (
+      {phase !== "out" ? (
         <motion.div
           key="preloader"
           initial={{ opacity: 1 }}

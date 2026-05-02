@@ -33,6 +33,16 @@ const images = [
     alt: "Construction site overview",
     span: "col-span-1 row-span-1",
   },
+  {
+    src: "https://images.unsplash.com/photo-1590644365607-32f5a43c0e1a?w=1200&auto=format&fit=crop&q=85",
+    alt: "Concrete foundation work",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1200&auto=format&fit=crop&q=85",
+    alt: "Construction project management",
+    span: "col-span-1 row-span-1",
+  },
 ];
 
 export function Gallery() {
@@ -67,7 +77,7 @@ export function Gallery() {
         </motion.div>
 
         {/* Mosaic grid */}
-        <div className="grid grid-cols-2 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-2" style={{ height: "520px" }}>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3" style={{ gridTemplateRows: "repeat(3, 200px)" }}>
           {images.map((img, i) => (
             <motion.div
               key={img.alt}
