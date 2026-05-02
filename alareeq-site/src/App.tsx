@@ -46,7 +46,7 @@ export default function App() {
     <>
       <Preloader onDone={onDone} />
       {loaded && (
-        <div className="min-h-screen bg-[hsl(var(--background))]">
+        <div className="min-h-screen bg-[hsl(var(--background))]" style={{ overflowX: "hidden" }}>
           <ScrollProgress />
           <Navbar />
           <main>

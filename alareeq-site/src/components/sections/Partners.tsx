@@ -16,7 +16,7 @@ export function Partners() {
   const trackRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="relative py-16 bg-[hsl(222,40%,7%)]" style={{ overflow: "hidden" }}>
+    <section className="relative py-16 bg-[hsl(222,40%,7%)] overflow-hidden w-full">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.2)] to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.2)] to-transparent" />
 
