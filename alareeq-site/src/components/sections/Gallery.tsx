@@ -31,7 +31,7 @@ const images = [
   {
     src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&auto=format&fit=crop&q=85",
     alt: "Construction site overview",
-    span: "col-span-1 row-span-1",
+    span: "col-span-2 md:col-span-1 row-span-1",
   },
   {
     src: "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=1200&auto=format&fit=crop&q=85",
