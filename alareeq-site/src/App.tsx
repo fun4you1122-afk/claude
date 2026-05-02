@@ -1,15 +1,23 @@
+import { useState, useCallback } from "react";
 import { Navbar }        from "./components/sections/Navbar";
 import { Hero }          from "./components/sections/Hero";
 import { About }         from "./components/sections/About";
 import { Services }      from "./components/sections/Services";
+import { WhyUs }         from "./components/sections/WhyUs";
 import { Projects }      from "./components/sections/Projects";
 import { VideoSection }  from "./components/sections/VideoSection";
 import { Gallery }       from "./components/sections/Gallery";
+import { Testimonials }  from "./components/sections/Testimonials";
 import { Stats }         from "./components/sections/Stats";
+import { Partners }      from "./components/sections/Partners";
+import { CTABanner }     from "./components/sections/CTABanner";
+import { FAQ }           from "./components/sections/FAQ";
 import { Contact }       from "./components/sections/Contact";
 import { Footer }        from "./components/sections/Footer";
+import { Preloader }     from "./components/Preloader";
+import { ScrollProgress } from "./components/ScrollProgress";
+import { BackToTop }     from "./components/BackToTop";
 
-/* WhatsApp floating button */
 function WaFab() {
   return (
     <a
@@ -31,21 +39,36 @@ function WaFab() {
 }
 
 export default function App() {
+  const [loaded, setLoaded] = useState(false);
+  const onDone = useCallback(() => setLoaded(true), []);
+
   return (
-    <div className="min-h-screen bg-[hsl(var(--background))]">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Projects />
-        <VideoSection />
-        <Gallery />
-        <Stats />
-        <Contact />
-      </main>
-      <Footer />
-      <WaFab />
-    </div>
+    <>
+      <Preloader onDone={onDone} />
+      {loaded && (
+        <div className="min-h-screen bg-[hsl(var(--background))]">
+          <ScrollProgress />
+          <Navbar />
+          <main>
+            <Hero />
+            <Partners />
+            <About />
+            <WhyUs />
+            <Services />
+            <Projects />
+            <VideoSection />
+            <Gallery />
+            <Testimonials />
+            <Stats />
+            <CTABanner />
+            <FAQ />
+            <Contact />
+          </main>
+          <Footer />
+          <WaFab />
+          <BackToTop />
+        </div>
+      )}
+    </>
   );
 }
