@@ -1,15 +1,12 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, Clock, Star } from "lucide-react";
+import { useLang } from "../../i18n";
 
-const pillars = [
-  { icon: ShieldCheck, title: "Safety First", desc: "Zero-compromise on site safety standards across all projects" },
-  { icon: Clock,       title: "On-Time Delivery", desc: "Milestone-driven project management — always on schedule" },
-  { icon: Star,        title: "Quality Assured", desc: "ISO-grade materials and methods, zero shortcuts" },
-];
-
-const services = ["General Contracting","Civil Works","MEP Services","Interior Fit-Out","Project Management","Renovation & Maintenance"];
+const pillarIcons = [ShieldCheck, Clock, Star];
 
 export function About() {
+  const { t } = useLang();
+
   return (
     <section id="about" className="relative overflow-hidden py-28">
       <div className="pointer-events-none absolute inset-0 bg-[hsl(222,40%,7%)]" />
@@ -18,7 +15,6 @@ export function About() {
       <div className="relative mx-auto max-w-6xl px-6 md:px-8">
         <div className="grid gap-20 lg:grid-cols-2 lg:items-center">
 
-          {/* Visual — rotating service cube */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -33,32 +29,22 @@ export function About() {
                 animate={{ rotateY: 360 }}
                 transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
               >
-                {/* Front */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "translateZ(128px)" }}>
-                  <span className="text-4xl">🏗️</span>
-                  <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">General Contracting</p>
-                </div>
-                {/* Back */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(180deg) translateZ(128px)" }}>
-                  <span className="text-4xl">🔩</span>
-                  <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">MEP Services</p>
-                </div>
-                {/* Left */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(-90deg) translateZ(128px)" }}>
-                  <span className="text-4xl">🏢</span>
-                  <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">Civil Works</p>
-                </div>
-                {/* Right */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform: "rotateY(90deg) translateZ(128px)" }}>
-                  <span className="text-4xl">🎨</span>
-                  <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">Interior Fit-Out</p>
-                </div>
+                {[
+                  { emoji: "🏗️", idx: 0, transform: "translateZ(128px)" },
+                  { emoji: "🔩", idx: 1, transform: "rotateY(180deg) translateZ(128px)" },
+                  { emoji: "🏢", idx: 2, transform: "rotateY(-90deg) translateZ(128px)" },
+                  { emoji: "🎨", idx: 3, transform: "rotateY(90deg) translateZ(128px)" },
+                ].map(({ emoji, idx, transform }) => (
+                  <div key={idx} className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--card)/0.8)] backdrop-blur" style={{ transform }}>
+                    <span className="text-4xl">{emoji}</span>
+                    <p className="font-serif text-sm font-semibold text-[hsl(var(--primary))]">{t.about.cubeLabels[idx]}</p>
+                  </div>
+                ))}
               </motion.div>
             </div>
 
-            {/* Service chips */}
             <div className="flex flex-wrap justify-center gap-2">
-              {services.map((s) => (
+              {t.about.services.map((s) => (
                 <span key={s} className="rounded-full border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.6)] px-3 py-1.5 text-xs text-[hsl(var(--foreground)/0.6)] backdrop-blur">
                   {s}
                 </span>
@@ -66,7 +52,6 @@ export function About() {
             </div>
           </motion.div>
 
-          {/* Text */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -75,40 +60,35 @@ export function About() {
             className="space-y-6"
           >
             <div className="inline-block rounded-full border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--primary)/0.08)] px-4 py-1.5 text-xs uppercase tracking-[3px] text-[hsl(var(--primary))]">
-              Who We Are
+              {t.about.badge}
             </div>
 
             <h2 className="font-serif text-4xl font-bold leading-tight md:text-5xl">
-              Crafting Landmarks <span className="gold-gradient">Across</span> the Emirates
+              {t.about.h1} <span className="gold-gradient">{t.about.h2}</span> {t.about.h3}
             </h2>
 
-            <p className="font-arabic text-lg text-[hsl(var(--primary)/0.8)]" dir="rtl">
-              البناء العريق للمقاولات والصيانة العامة
-            </p>
-
-            <p className="text-[hsl(var(--foreground)/0.6)] leading-relaxed">
-              A UAE-based construction and contracting company delivering high-quality infrastructure and building projects across Abu Dhabi and beyond. We combine modern engineering with deep regional expertise.
-            </p>
-            <p className="text-[hsl(var(--foreground)/0.6)] leading-relaxed">
-              From foundations to finishing, our certified team handles every phase with precision, safety, and on-time delivery — building not just structures, but lasting relationships.
-            </p>
+            <p className="text-[hsl(var(--foreground)/0.6)] leading-relaxed">{t.about.p1}</p>
+            <p className="text-[hsl(var(--foreground)/0.6)] leading-relaxed">{t.about.p2}</p>
 
             <div className="space-y-3 pt-2">
-              {pillars.map(({ icon: Icon, title, desc }) => (
-                <motion.div
-                  key={title}
-                  whileHover={{ x: 6 }}
-                  className="flex items-start gap-4 rounded-xl border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.5)] p-4 backdrop-blur transition-colors hover:border-[hsl(var(--primary)/0.35)]"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[hsl(var(--primary)/0.12)] text-[hsl(var(--primary))]">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-[hsl(var(--foreground))]">{title}</p>
-                    <p className="text-sm text-[hsl(var(--foreground)/0.55)]">{desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+              {t.about.pillars.map(({ title, desc }, i) => {
+                const Icon = pillarIcons[i];
+                return (
+                  <motion.div
+                    key={title}
+                    whileHover={{ x: 6 }}
+                    className="flex items-start gap-4 rounded-xl border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.5)] p-4 backdrop-blur transition-colors hover:border-[hsl(var(--primary)/0.35)]"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[hsl(var(--primary)/0.12)] text-[hsl(var(--primary))]">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[hsl(var(--foreground))]">{title}</p>
+                      <p className="text-sm text-[hsl(var(--foreground)/0.55)]">{desc}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>

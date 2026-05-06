@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useLang } from "../../i18n";
 
 function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -22,20 +23,14 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-const stats = [
-  { icon: "🏗️", label: "Projects Completed",   target: 50,  suffix: "+" },
-  { icon: "👷", label: "Skilled Professionals", target: 120, suffix: "+" },
-  { icon: "📍", label: "Active Projects",        target: 2,   suffix: "" },
-  { icon: "🏅", label: "Years of Excellence",   target: 10,  suffix: "+" },
-];
-
 export function Stats() {
+  const { t } = useLang();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current; if (!canvas) return;
     const ctx = canvas.getContext("2d"); if (!ctx) return;
-    let t = 0, id: number;
+    let time = 0, id: number;
     const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
     resize();
     window.addEventListener("resize", resize, { passive: true });
@@ -60,11 +55,11 @@ export function Stats() {
     };
 
     const loop = () => {
-      t += 0.005;
+      time += 0.005;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       hexes.forEach((h, i) => {
-        const s = 1 + Math.sin(t + i) * 0.12;
-        const a = 0.06 + Math.sin(t * 1.2 + i) * 0.03;
+        const s = 1 + Math.sin(time + i) * 0.12;
+        const a = 0.06 + Math.sin(time * 1.2 + i) * 0.03;
         drawHex(h.cx * canvas.width, h.cy * canvas.height, h.r * s, a);
         drawHex(h.cx * canvas.width, h.cy * canvas.height, h.r * s * 0.55, a * 0.6);
       });
@@ -88,15 +83,15 @@ export function Stats() {
           className="mb-16 text-center"
         >
           <div className="mb-4 inline-block rounded-full border border-[hsl(var(--foreground)/0.12)] bg-[hsl(var(--foreground)/0.06)] px-4 py-1.5 text-xs uppercase tracking-[3px] text-[hsl(var(--foreground)/0.6)]">
-            By The Numbers
+            {t.stats.badge}
           </div>
           <h2 className="font-serif text-4xl font-bold md:text-5xl">
-            Our <span className="gold-gradient">Track Record</span>
+            {t.stats.h1} <span className="gold-gradient">{t.stats.h2}</span>
           </h2>
         </motion.div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((s, i) => (
+          {t.stats.items.map((s, i) => (
             <motion.div
               key={s.label}
               initial={{ opacity: 0, scale: 0.7 }}

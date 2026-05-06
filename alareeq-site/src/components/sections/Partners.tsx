@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import { useLang } from "../../i18n";
 
 const partners = [
   "Abu Dhabi Municipality",
@@ -14,6 +15,7 @@ const partners = [
 
 export function Partners() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const { t } = useLang();
 
   return (
     <section className="relative py-16 bg-[hsl(222,40%,7%)] overflow-hidden w-full">
@@ -22,11 +24,10 @@ export function Partners() {
 
       <div className="mx-auto max-w-6xl px-6 mb-8 text-center">
         <p className="text-xs uppercase tracking-[4px] text-[hsl(var(--foreground)/0.35)]">
-          Trusted & Recognized By
+          {t.partners.badge}
         </p>
       </div>
 
-      {/* Scrolling marquee */}
       <div className="relative" style={{ maskImage: "linear-gradient(90deg,transparent,black 10%,black 90%,transparent)" }}>
         <motion.div
           ref={trackRef}

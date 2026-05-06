@@ -2,17 +2,21 @@ import { motion } from "framer-motion";
 import { MessageCircle, Mail, Camera, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
+import { useLang } from "../../i18n";
 
-const channels = [
-  { icon: MessageCircle, label: "WhatsApp Chat Line", value: "+971 56 378 07 07", hint: "Tap to chat now →", href: "https://wa.me/971563780707", color: "text-emerald-400", bg: "bg-emerald-400/10", border: "hover:border-emerald-400/40" },
-  { icon: Mail,          label: "Email",              value: "albina.alareeq@gmail.com", hint: "Reply within 24 hours →", href: "mailto:albina.alareeq@gmail.com", color: "text-[hsl(var(--primary))]", bg: "bg-[hsl(var(--primary)/0.1)]", border: "hover:border-[hsl(var(--primary)/0.4)]" },
-  { icon: Camera,     label: "Instagram",          value: "@albina.alareeq", hint: "Follow our projects →", href: "https://instagram.com/albina.alareeq", color: "text-pink-400", bg: "bg-pink-400/10", border: "hover:border-pink-400/40" },
-  { icon: MapPin,        label: "Location",           value: "Abu Dhabi, UAE", hint: "Serving the entire UAE", href: null, color: "text-[hsl(var(--primary))]", bg: "bg-[hsl(var(--primary)/0.08)]", border: "hover:border-[hsl(var(--primary)/0.3)]" },
+const channelIcons = [MessageCircle, Mail, Camera, MapPin];
+const channelColors = [
+  { color: "text-emerald-400", bg: "bg-emerald-400/10", border: "hover:border-emerald-400/40", href: "https://wa.me/971563780707" },
+  { color: "text-[hsl(var(--primary))]", bg: "bg-[hsl(var(--primary)/0.1)]", border: "hover:border-[hsl(var(--primary)/0.4)]", href: "mailto:albina.alareeq@gmail.com" },
+  { color: "text-pink-400", bg: "bg-pink-400/10", border: "hover:border-pink-400/40", href: "https://instagram.com/albina.alareeq" },
+  { color: "text-[hsl(var(--primary))]", bg: "bg-[hsl(var(--primary)/0.08)]", border: "hover:border-[hsl(var(--primary)/0.3)]", href: null as null | string },
 ];
+const channelValues = ["+971 56 378 07 07", "albina.alareeq@gmail.com", "@albina.alareeq", "Abu Dhabi, UAE"];
 
 export function Contact() {
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const { t } = useLang();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,18 +40,15 @@ export function Contact() {
           className="mb-16 text-center"
         >
           <div className="mb-4 inline-block rounded-full border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--primary)/0.08)] px-4 py-1.5 text-xs uppercase tracking-[3px] text-[hsl(var(--primary))]">
-            Get In Touch
+            {t.contact.badge}
           </div>
           <h2 className="font-serif text-4xl font-bold md:text-5xl">
-            Start Your <span className="gold-gradient">Project</span> Today
+            {t.contact.h1} <span className="gold-gradient">{t.contact.h2}</span> {t.contact.h3}
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-[hsl(var(--foreground)/0.5)]">
-            Reach out — we respond within 24 hours
-          </p>
+          <p className="mx-auto mt-4 max-w-lg text-[hsl(var(--foreground)/0.5)]">{t.contact.sub}</p>
         </motion.div>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-          {/* Contact channels */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -55,20 +56,22 @@ export function Contact() {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            {channels.map((ch) => {
-              const El = ch.href ? "a" : "div";
+            {t.contact.channels.map((ch, i) => {
+              const meta = channelColors[i];
+              const Icon = channelIcons[i];
+              const El = meta.href ? "a" : "div";
               return (
                 <motion.div key={ch.label} whileHover={{ x: 6 }} className="block">
                   <El
-                    {...(ch.href ? { href: ch.href, target: ch.href.startsWith("http") ? "_blank" : undefined, rel: "noopener noreferrer" } : {})}
-                    className={`flex items-center gap-5 rounded-xl border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.6)] p-5 backdrop-blur transition-all ${ch.border} ${ch.href ? "cursor-pointer" : ""}`}
+                    {...(meta.href ? { href: meta.href, target: meta.href.startsWith("http") ? "_blank" : undefined, rel: "noopener noreferrer" } : {})}
+                    className={`flex items-center gap-5 rounded-xl border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.6)] p-5 backdrop-blur transition-all ${meta.border} ${meta.href ? "cursor-pointer" : ""}`}
                   >
-                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${ch.bg} ${ch.color}`}>
-                      <ch.icon className="h-6 w-6" />
+                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${meta.bg} ${meta.color}`}>
+                      <Icon className="h-6 w-6" />
                     </div>
                     <div>
                       <p className="text-xs uppercase tracking-[1.5px] text-[hsl(var(--foreground)/0.45)]">{ch.label}</p>
-                      <p className="font-semibold">{ch.value}</p>
+                      <p className="font-semibold">{channelValues[i]}</p>
                       <p className="text-xs text-[hsl(var(--foreground)/0.45)]">{ch.hint}</p>
                     </div>
                   </El>
@@ -77,7 +80,6 @@ export function Contact() {
             })}
           </motion.div>
 
-          {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -88,44 +90,45 @@ export function Contact() {
             {sent ? (
               <div className="flex flex-col items-center gap-4 py-12 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[hsl(var(--primary)/0.4)] bg-[hsl(var(--primary)/0.1)] text-2xl">✓</div>
-                <h3 className="font-serif text-xl font-bold text-[hsl(var(--primary))]">Message Sent!</h3>
-                <p className="text-sm text-[hsl(var(--foreground)/0.55)]">Our team will contact you within 24 hours. For urgent matters, chat on <a href="https://wa.me/971563780707" target="_blank" rel="noopener noreferrer" className="text-[hsl(var(--primary))] underline">WhatsApp</a>.</p>
+                <h3 className="font-serif text-xl font-bold text-[hsl(var(--primary))]">{t.contact.successTitle}</h3>
+                <p className="text-sm text-[hsl(var(--foreground)/0.55)]">
+                  {t.contact.successMsg}{" "}
+                  <a href="https://wa.me/971563780707" target="_blank" rel="noopener noreferrer" className="text-[hsl(var(--primary))] underline">
+                    {t.contact.successLink}
+                  </a>.
+                </p>
               </div>
             ) : (
               <>
-                <h3 className="mb-6 font-serif text-xl font-bold">Send a Message</h3>
+                <h3 className="mb-6 font-serif text-xl font-bold">{t.contact.formTitle}</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {[
-                    { label: "Full Name", name: "name", type: "text",  placeholder: "Your full name", required: true },
-                    { label: "Email",     name: "email", type: "email", placeholder: "your@email.com",  required: true },
-                    { label: "Phone",     name: "phone", type: "tel",   placeholder: "+971 XX XXX XXXX", required: false },
-                  ].map((f) => (
-                    <div key={f.name}>
+                  {t.contact.fields.map((f) => (
+                    <div key={f.label}>
                       <label className="mb-1.5 block text-xs font-medium uppercase tracking-[1px] text-[hsl(var(--foreground)/0.5)]">{f.label}</label>
-                      <input type={f.type} name={f.name} placeholder={f.placeholder} required={f.required}
+                      <input type={f.type} name={f.label} placeholder={f.placeholder} required={f.required}
                         className="w-full rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 py-3 text-sm text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--foreground)/0.3)] outline-none transition-colors focus:border-[hsl(var(--primary)/0.5)] focus:ring-1 focus:ring-[hsl(var(--primary)/0.2)]"
                       />
                     </div>
                   ))}
                   <div>
-                    <label className="mb-1.5 block text-xs font-medium uppercase tracking-[1px] text-[hsl(var(--foreground)/0.5)]">Service Needed</label>
+                    <label className="mb-1.5 block text-xs font-medium uppercase tracking-[1px] text-[hsl(var(--foreground)/0.5)]">{t.contact.serviceLabel}</label>
                     <select name="service" className="w-full rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 py-3 text-sm text-[hsl(var(--foreground))] outline-none transition-colors focus:border-[hsl(var(--primary)/0.5)]">
-                      <option value="">Select a service...</option>
-                      {["General Contracting","Civil Works","MEP Services","Interior Fit-Out","Project Management","Renovation & Maintenance"].map(o => <option key={o}>{o}</option>)}
+                      <option value="">{t.contact.servicePlaceholder}</option>
+                      {t.contact.serviceOptions.map((o) => <option key={o}>{o}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-xs font-medium uppercase tracking-[1px] text-[hsl(var(--foreground)/0.5)]">Message</label>
-                    <textarea name="message" rows={4} placeholder="Tell us about your project..."
+                    <label className="mb-1.5 block text-xs font-medium uppercase tracking-[1px] text-[hsl(var(--foreground)/0.5)]">{t.contact.msgLabel}</label>
+                    <textarea name="message" rows={4} placeholder={t.contact.msgPlaceholder}
                       className="w-full resize-none rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 py-3 text-sm text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--foreground)/0.3)] outline-none transition-colors focus:border-[hsl(var(--primary)/0.5)] focus:ring-1 focus:ring-[hsl(var(--primary)/0.2)]"
                     />
                   </div>
                   <Button type="submit" size="lg" className="w-full gap-2" disabled={submitting}>
                     <Send className="h-4 w-4" />
-                    {submitting ? "Sending..." : "Send Message"}
+                    {submitting ? t.contact.sending : t.contact.send}
                   </Button>
                   <p className="text-center text-xs text-[hsl(var(--foreground)/0.4)]">
-                    Or message directly on{" "}
+                    {t.contact.orMsg}{" "}
                     <a href="https://wa.me/971563780707" target="_blank" rel="noopener noreferrer" className="text-[hsl(var(--primary))] hover:underline">WhatsApp</a>
                   </p>
                 </form>

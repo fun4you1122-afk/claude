@@ -1,36 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-
-const faqs = [
-  {
-    q: "What types of projects does Albina Alareeq handle?",
-    a: "We handle residential, commercial, and mixed-use construction across Abu Dhabi — from civil works and structural builds to MEP installations, interior fit-outs, and ongoing general maintenance.",
-  },
-  {
-    q: "Are you currently accepting new projects?",
-    a: "Yes. We are actively taking on new projects in Abu Dhabi and surrounding Emirates. Contact us via WhatsApp or email to discuss your requirements and timeline.",
-  },
-  {
-    q: "How do you ensure quality on-site?",
-    a: "Every project is supervised by a dedicated site engineer with daily quality checkpoints. We use certified materials that meet UAE municipality standards and conduct third-party inspections at key milestones.",
-  },
-  {
-    q: "Do you provide maintenance services after project completion?",
-    a: "Yes. General maintenance is a core service we offer — including preventive maintenance contracts, emergency repairs, and facility management support.",
-  },
-  {
-    q: "What is your typical project timeline?",
-    a: "Timelines vary based on scope and complexity. After an initial consultation we provide a detailed milestone schedule. We are known for meeting — and often beating — agreed deadlines.",
-  },
-  {
-    q: "How can I get a quote?",
-    a: "Reach us on WhatsApp at +971 56 378 07 07 or email albina.alareeq@gmail.com with your project details. We respond within 24 hours with an initial assessment.",
-  },
-];
+import { useLang } from "../../i18n";
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
+  const { t } = useLang();
 
   return (
     <section className="relative py-28 bg-[hsl(222,40%,6.5%)]">
@@ -47,15 +22,15 @@ export function FAQ() {
           className="mb-14 text-center"
         >
           <div className="mb-4 inline-block rounded-full border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--primary)/0.08)] px-4 py-1.5 text-xs uppercase tracking-[3px] text-[hsl(var(--primary))]">
-            FAQ
+            {t.faq.badge}
           </div>
           <h2 className="font-serif text-4xl font-bold md:text-5xl">
-            Common <span className="gold-gradient">Questions</span>
+            {t.faq.h1} <span className="gold-gradient">{t.faq.h2}</span>
           </h2>
         </motion.div>
 
         <div className="space-y-3">
-          {faqs.map(({ q, a }, i) => (
+          {t.faq.items.map(({ q, a }, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -77,7 +52,6 @@ export function FAQ() {
                   <ChevronDown className="h-5 w-5" />
                 </motion.div>
               </button>
-
               <AnimatePresence initial={false}>
                 {open === i && (
                   <motion.div
