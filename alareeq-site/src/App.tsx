@@ -1,22 +1,25 @@
-import { useState, useCallback } from "react";
-import { Navbar }        from "./components/sections/Navbar";
-import { Hero }          from "./components/sections/Hero";
-import { About }         from "./components/sections/About";
-import { Services }      from "./components/sections/Services";
-import { WhyUs }         from "./components/sections/WhyUs";
-import { Projects }      from "./components/sections/Projects";
-import { VideoSection }  from "./components/sections/VideoSection";
-import { Gallery }       from "./components/sections/Gallery";
-import { Testimonials }  from "./components/sections/Testimonials";
-import { Stats }         from "./components/sections/Stats";
-import { Partners }      from "./components/sections/Partners";
-import { CTABanner }     from "./components/sections/CTABanner";
-import { FAQ }           from "./components/sections/FAQ";
-import { Contact }       from "./components/sections/Contact";
-import { Footer }        from "./components/sections/Footer";
-import { Preloader }     from "./components/Preloader";
-import { ScrollProgress } from "./components/ScrollProgress";
-import { BackToTop }     from "./components/BackToTop";
+import { useState, useCallback, lazy, Suspense } from "react";
+import { Navbar }           from "./components/sections/Navbar";
+import { Hero }             from "./components/sections/Hero";
+import { About }            from "./components/sections/About";
+import { Services }         from "./components/sections/Services";
+import { WhyUs }            from "./components/sections/WhyUs";
+import { Projects }         from "./components/sections/Projects";
+const CinematicScroll = lazy(() =>
+  import("./components/sections/CinematicScroll").then((m) => ({ default: m.CinematicScroll }))
+);
+import { VideoSection }     from "./components/sections/VideoSection";
+import { Gallery }          from "./components/sections/Gallery";
+import { Testimonials }     from "./components/sections/Testimonials";
+import { Stats }            from "./components/sections/Stats";
+import { Partners }         from "./components/sections/Partners";
+import { CTABanner }        from "./components/sections/CTABanner";
+import { FAQ }              from "./components/sections/FAQ";
+import { Contact }          from "./components/sections/Contact";
+import { Footer }           from "./components/sections/Footer";
+import { Preloader }        from "./components/Preloader";
+import { ScrollProgress }   from "./components/ScrollProgress";
+import { BackToTop }        from "./components/BackToTop";
 import { LangProvider, useLang } from "./i18n";
 
 function WaFab() {
@@ -64,6 +67,9 @@ function AppInner() {
             <WhyUs />
             <Services />
             <Projects />
+            <Suspense fallback={<div style={{ height: "500vh", background: "hsl(222,47%,3%)" }} />}>
+              <CinematicScroll />
+            </Suspense>
             <VideoSection />
             <Gallery />
             <Testimonials />
