@@ -13,6 +13,7 @@ import { Gallery }          from "./components/sections/Gallery";
 import { Testimonials }     from "./components/sections/Testimonials";
 import { Stats }            from "./components/sections/Stats";
 import { Partners }         from "./components/sections/Partners";
+import { MagazineSpread }   from "./components/sections/MagazineSpread";
 import { CTABanner }        from "./components/sections/CTABanner";
 import { FAQ }              from "./components/sections/FAQ";
 import { Contact }          from "./components/sections/Contact";
@@ -63,6 +64,7 @@ function AppInner() {
           <main>
             <Hero />
             <Partners />
+            <MagazineSpread />
             <About />
             <WhyUs />
             <Services />
