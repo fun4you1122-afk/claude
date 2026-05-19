@@ -21,7 +21,28 @@ import { Footer }           from "./components/sections/Footer";
 import { Preloader }        from "./components/Preloader";
 import { ScrollProgress }   from "./components/ScrollProgress";
 import { BackToTop }        from "./components/BackToTop";
+import { CursorTrail }      from "./components/CursorTrail";
 import { LangProvider, useLang } from "./i18n";
+
+function NoiseGrain() {
+  return (
+    <div
+      className="pointer-events-none fixed inset-0 z-[400]"
+      aria-hidden
+      style={{ opacity: 0.032, mixBlendMode: "overlay" }}
+    >
+      <svg width="100%" height="100%">
+        <filter id="grain-f">
+          <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch">
+            <animate attributeName="seed" values="0;10;20;30;40;50;60;70;80;90;100" dur="3s" repeatCount="indefinite" />
+          </feTurbulence>
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain-f)" />
+      </svg>
+    </div>
+  );
+}
 
 function WaFab() {
   const { t } = useLang();
@@ -83,6 +104,8 @@ function AppInner() {
           <Footer />
           <WaFab />
           <BackToTop />
+          <CursorTrail />
+          <NoiseGrain />
         </div>
       )}
     </>

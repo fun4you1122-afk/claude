@@ -1,14 +1,9 @@
-import { motion, type Variants } from "framer-motion";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Button } from "../ui/button";
 import { AnimatedCrane } from "../AnimatedCrane";
 import { useLang } from "../../i18n";
-
-type Point = { x: number; y: number };
-interface WaveConfig {
-  offset: number; amplitude: number; frequency: number; color: string; opacity: number;
-}
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -25,134 +20,70 @@ const statsVariants: Variants = {
 
 export function Hero() {
   const { t } = useLang();
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const mouseRef = useRef<Point>({ x: 0, y: 0 });
-  const targetMouseRef = useRef<Point>({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    let time = 0;
-
-    const wavePalette: WaveConfig[] = [
-      { offset: 0,              amplitude: 75,  frequency: 0.0028, color: "rgba(201,168,76,0.9)",  opacity: 0.45 },
-      { offset: Math.PI / 2,   amplitude: 95,  frequency: 0.0022, color: "rgba(160,120,32,0.8)",  opacity: 0.35 },
-      { offset: Math.PI,       amplitude: 55,  frequency: 0.0036, color: "rgba(43,108,176,0.7)",   opacity: 0.28 },
-      { offset: Math.PI * 1.5, amplitude: 85,  frequency: 0.0019, color: "rgba(201,168,76,0.5)",   opacity: 0.22 },
-      { offset: Math.PI * 2,   amplitude: 50,  frequency: 0.0042, color: "rgba(232,201,106,0.4)",  opacity: 0.18 },
-    ];
-
-    const smoothing = 0.1;
-    const mouseInfluence = 70;
-    const influenceRadius = 320;
-
-    const resize = () => {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
-      const center = { x: canvas.width / 2, y: canvas.height / 2 };
-      mouseRef.current = { ...center };
-      targetMouseRef.current = { ...center };
-    };
-
-    const onMouseMove = (e: MouseEvent) => { targetMouseRef.current = { x: e.clientX, y: e.clientY }; };
-    const onMouseLeave = () => {
-      const c = { x: canvas.width / 2, y: canvas.height / 2 };
-      mouseRef.current = c; targetMouseRef.current = c;
-    };
-
-    resize();
-    window.addEventListener("resize", resize);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseleave", onMouseLeave);
-
-    const drawWave = (wave: WaveConfig) => {
-      ctx.save();
-      ctx.beginPath();
-      for (let x = 0; x <= canvas.width; x += 4) {
-        const dx = x - mouseRef.current.x;
-        const dy = canvas.height / 2 - mouseRef.current.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const inf = Math.max(0, 1 - dist / influenceRadius);
-        const mouseEffect = inf * mouseInfluence * Math.sin(time * 0.001 + x * 0.01 + wave.offset);
-        const y =
-          canvas.height / 2 +
-          Math.sin(x * wave.frequency + time * 0.002 + wave.offset) * wave.amplitude +
-          Math.sin(x * wave.frequency * 0.4 + time * 0.003) * (wave.amplitude * 0.45) +
-          mouseEffect;
-        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-      }
-      ctx.lineWidth   = 2.5;
-      ctx.strokeStyle = wave.color;
-      ctx.globalAlpha = wave.opacity;
-      ctx.shadowBlur  = 38;
-      ctx.shadowColor = wave.color;
-      ctx.stroke();
-      ctx.restore();
-    };
-
-    const animate = () => {
-      time++;
-      mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * smoothing;
-      mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * smoothing;
-
-      const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      grad.addColorStop(0, "hsl(222,47%,4%)");
-      grad.addColorStop(1, "hsl(222,40%,7%)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.globalAlpha = 1;
-      ctx.shadowBlur  = 0;
-      wavePalette.forEach(drawWave);
-      animId = requestAnimationFrame(animate);
-    };
-    animId = requestAnimationFrame(animate);
-
-    return () => {
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseleave", onMouseLeave);
-      cancelAnimationFrame(animId);
-    };
-  }, []);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const videoY    = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const contentY  = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+  const contentOp = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative isolate flex min-h-screen w-full items-center justify-center overflow-hidden"
       aria-label="Albina Alareeq hero section"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
-
+      {/* ── VIDEO BACKGROUND ── */}
       <motion.div
-        className="pointer-events-none absolute bottom-0 right-8 hidden lg:block"
+        className="absolute inset-0 scale-[1.12]"
+        style={{ y: videoY }}
+        aria-hidden
+      >
+        <video
+          autoPlay muted loop playsInline
+          className="h-full w-full object-cover"
+          style={{ filter: "brightness(0.4) saturate(0.75)" }}
+        >
+          <source src="https://videos.pexels.com/video-files/5434220/5434220-hd_1920_1080_24fps.mp4" type="video/mp4" />
+          <source src="https://videos.pexels.com/video-files/12098511/12098511-hd_1920_1080_50fps.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
+
+      {/* ── GRADIENT OVERLAYS ── */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[hsl(222,47%,3%)] via-[hsl(222,47%,4%,0.55)] to-[hsl(222,47%,5%,0.45)]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[hsl(222,47%,3%,0.6)] via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[hsl(222,47%,3%)] to-transparent" />
+
+      {/* ── GOLD AMBIENT GLOWS ── */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute left-1/2 top-0 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-[hsl(43,56%,55%,0.05)] blur-[150px]" />
+        <div className="absolute bottom-0 right-0 h-[380px] w-[380px] rounded-full bg-[hsl(213,60%,42%,0.04)] blur-[130px]" />
+        <div className="absolute left-1/4 top-1/2 h-[420px] w-[420px] rounded-full bg-[hsl(43,56%,55%,0.03)] blur-[160px]" />
+      </div>
+
+      {/* ── ANIMATED CRANES ── */}
+      <motion.div
+        className="pointer-events-none absolute bottom-0 right-8 hidden lg:block z-10"
         initial={{ opacity: 0, x: 60 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
       >
         <AnimatedCrane />
       </motion.div>
-
       <motion.div
-        className="pointer-events-none absolute bottom-0 left-4 hidden xl:block"
+        className="pointer-events-none absolute bottom-0 left-4 hidden xl:block z-10"
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
-        style={{ opacity: 0.5 }}
+        style={{ opacity: 0.45 }}
       >
         <AnimatedCrane className="scale-75 origin-bottom" />
       </motion.div>
 
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-[hsl(43,56%,55%,0.04)] blur-[150px]" />
-        <div className="absolute bottom-0 right-0 h-[380px] w-[380px] rounded-full bg-[hsl(213,60%,42%,0.04)] blur-[130px]" />
-        <div className="absolute left-1/4 top-1/2 h-[420px] w-[420px] rounded-full bg-[hsl(43,56%,55%,0.03)] blur-[160px]" />
-      </div>
-
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-24 text-center md:px-8 lg:px-12">
+      {/* ── CONTENT (parallax fade on scroll) ── */}
+      <motion.div
+        style={{ opacity: contentOp, y: contentY }}
+        className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-24 text-center md:px-8 lg:px-12"
+      >
         <motion.div variants={containerVariants} initial="hidden" animate="visible" className="w-full">
 
           <motion.div
@@ -167,7 +98,8 @@ export function Hero() {
             <img
               src={`${import.meta.env.BASE_URL}logo.png`}
               alt="Albina Alareeq Contracting & General Maintenance"
-              className="w-[min(480px,85vw)]" style={{mixBlendMode:"screen"}}
+              className="w-[min(480px,85vw)]"
+              style={{ mixBlendMode: "screen" }}
             />
           </motion.div>
 
@@ -222,7 +154,10 @@ export function Hero() {
             className="mb-12 flex flex-wrap items-center justify-center gap-3 text-xs uppercase tracking-[0.2em] text-[hsl(var(--foreground)/0.6)]"
           >
             {t.hero.pills.map((p) => (
-              <li key={p} className="rounded-full border border-[hsl(var(--border)/0.4)] bg-[hsl(var(--card)/0.55)] px-4 py-2 backdrop-blur">
+              <li
+                key={p}
+                className="rounded-full border border-[hsl(var(--border)/0.4)] bg-[hsl(var(--card)/0.55)] px-4 py-2 backdrop-blur"
+              >
                 {p}
               </li>
             ))}
@@ -230,7 +165,7 @@ export function Hero() {
 
           <motion.div
             variants={statsVariants}
-            className="grid gap-4 rounded-2xl border border-[hsl(var(--border)/0.35)] bg-[hsl(var(--card)/0.55)] p-6 backdrop-blur-sm sm:grid-cols-3"
+            className="grid gap-4 rounded-2xl border border-[hsl(var(--border)/0.35)] bg-[hsl(var(--card)/0.5)] p-6 backdrop-blur-sm sm:grid-cols-3"
           >
             {t.hero.stats.map((stat) => (
               <motion.div key={stat.label} variants={itemVariants} className="space-y-1">
@@ -241,9 +176,10 @@ export function Hero() {
           </motion.div>
 
         </motion.div>
-      </div>
+      </motion.div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[3px] text-[hsl(var(--foreground)/0.35)]">
+      {/* ── SCROLL INDICATOR ── */}
+      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[3px] text-[hsl(var(--foreground)/0.35)]">
         <span>{t.hero.scroll}</span>
         <div className="h-10 w-px bg-gradient-to-b from-[hsl(var(--primary))] to-transparent animate-pulse" />
       </div>
