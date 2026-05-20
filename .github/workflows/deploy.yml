@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - claude/animated-video-website-SUrcc
   workflow_dispatch:
 
 permissions:
