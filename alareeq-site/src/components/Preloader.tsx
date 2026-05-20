@@ -33,7 +33,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
 
           {/* Logo */}
           <motion.img
-            src="/logo.png"
+            src={`${import.meta.env.BASE_URL}logo.png`}
             alt="Albina Alareeq"
             className="w-64"
             style={{ mixBlendMode: "screen" }}
