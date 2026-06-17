@@ -5,8 +5,8 @@ import { useLang } from "../../i18n";
 
 const pillarIcons = [ShieldCheck, Clock, Star];
 
-const BACK_IMG  = "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&auto=format&fit=crop&q=80";
-const FRONT_IMG = "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&auto=format&fit=crop&q=80";
+const BACK_IMG  = "https://images.unsplash.com/photo-1590419690008-905895e8fe0d?w=600&auto=format&fit=crop&q=80";
+const FRONT_IMG = "https://images.unsplash.com/photo-1574359411659-15573a27fd0c?w=600&auto=format&fit=crop&q=80";
 
 export function About() {
   const { t } = useLang();

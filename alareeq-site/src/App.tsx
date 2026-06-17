@@ -5,6 +5,7 @@ import { About }            from "./components/sections/About";
 import { Services }         from "./components/sections/Services";
 import { WhyUs }            from "./components/sections/WhyUs";
 import { Projects }         from "./components/sections/Projects";
+import { SmartHome }        from "./components/sections/SmartHome";
 const CinematicScroll = lazy(() =>
   import("./components/sections/CinematicScroll").then((m) => ({ default: m.CinematicScroll }))
 );
@@ -90,6 +91,7 @@ function AppInner() {
             <WhyUs />
             <Services />
             <Projects />
+            <SmartHome />
             <Suspense fallback={<div style={{ height: "500vh", background: "hsl(222,47%,3%)" }} />}>
               <CinematicScroll />
             </Suspense>
