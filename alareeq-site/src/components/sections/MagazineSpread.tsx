@@ -35,10 +35,10 @@ function Spread1({ lang }: { lang: string }) {
       {/* left — full-bleed image with dark overlay */}
       <div style={{ width: "48%", position: "relative", flexShrink: 0 }}>
         <img
-          src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&auto=format&fit=crop&q=80"
-          alt="construction workers"
+          src="https://images.unsplash.com/photo-1590236069597-bde2b37e54a6?w=1200&auto=format&fit=crop&q=80"
+          alt="UAE construction site aerial view"
           style={{ width: "100%", height: "100%", objectFit: "cover",
-            filter: "sepia(0.35) brightness(0.55)" }}
+            filter: "sepia(0.25) brightness(0.55)" }}
         />
         <div style={{ position: "absolute", inset: 0,
           background: "linear-gradient(to right, rgba(6,9,15,0.3), rgba(6,9,15,0.75))" }} />
@@ -155,10 +155,10 @@ function Spread2({ lang }: { lang: string }) {
       {/* right — full-bleed crane image */}
       <div style={{ flex: 1, position: "relative" }}>
         <img
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&auto=format&fit=crop&q=80"
-          alt="tower crane"
+          src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=1400&auto=format&fit=crop&q=80"
+          alt="tower cranes UAE construction"
           style={{ width: "100%", height: "100%", objectFit: "cover",
-            filter: "sepia(0.2) brightness(0.6)" }}
+            filter: "sepia(0.15) brightness(0.55)" }}
         />
         <div style={{ position: "absolute", inset: 0,
           background: "linear-gradient(to right, hsl(222,40%,7%) 0%, transparent 30%, rgba(6,9,15,0.4) 100%)" }} />
@@ -254,7 +254,7 @@ function Spread3({ lang }: { lang: string }) {
 function Spread4({ lang }: { lang: string }) {
   const projects = [
     {
-      img: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=1200&auto=format&fit=crop&q=80",
+      img: "https://images.unsplash.com/photo-1621689573292-37c71e1d8a58?w=1200&auto=format&fit=crop&q=80",
       code: "PRJ-001",
       title: lang === "ar" ? "مشروع مدينة محمد بن زايد" : "Mohammed Bin Zayed City",
       loc:   lang === "ar" ? "مدينة MBZ، أبوظبي" : "MBZ City, Abu Dhabi",
@@ -262,7 +262,7 @@ function Spread4({ lang }: { lang: string }) {
       tags:  lang === "ar" ? ["سكني", "تجاري"] : ["Residential", "Commercial"],
     },
     {
-      img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&auto=format&fit=crop&q=80",
+      img: "https://images.unsplash.com/photo-1610642372651-fe6e2bc4a823?w=1200&auto=format&fit=crop&q=80",
       code: "PRJ-002",
       title: lang === "ar" ? "مشروع مدينة الرياض الحضري" : "Riyadh City Urban Development",
       loc:   lang === "ar" ? "مدينة الرياض، أبوظبي" : "Riyadh City, Abu Dhabi",
@@ -416,7 +416,7 @@ function Spread5({ lang }: { lang: string }) {
 
         <p style={{ marginTop: "2.5rem", fontFamily: SANS, fontSize: "0.65rem",
           letterSpacing: "0.28em", textTransform: "uppercase", color: MUTED }}>
-          albinaalareeq.netlify.app · +971 56 378 07 07
+          fun4you1122-afk.github.io/claude · +971 56 378 07 07
         </p>
       </div>
 
