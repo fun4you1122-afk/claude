@@ -35,8 +35,8 @@ function Spread1({ lang }: { lang: string }) {
       {/* left — full-bleed image with dark overlay */}
       <div style={{ width: "48%", position: "relative", flexShrink: 0 }}>
         <img
-          src="https://images.unsplash.com/photo-1590236069597-bde2b37e54a6?w=1200&auto=format&fit=crop&q=80"
-          alt="UAE construction site aerial view"
+          src="https://images.unsplash.com/photo-1722435784805-ad8d59dadd9d?w=1200&auto=format&fit=crop&q=80"
+          alt="Tower cranes at UAE construction site"
           style={{ width: "100%", height: "100%", objectFit: "cover",
             filter: "sepia(0.25) brightness(0.55)" }}
         />
@@ -155,8 +155,8 @@ function Spread2({ lang }: { lang: string }) {
       {/* right — full-bleed crane image */}
       <div style={{ flex: 1, position: "relative" }}>
         <img
-          src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=1400&auto=format&fit=crop&q=80"
-          alt="tower cranes UAE construction"
+          src="https://images.unsplash.com/photo-1748956628042-b73331e0b479?w=1400&auto=format&fit=crop&q=80"
+          alt="Steel frame and tower crane at active construction site"
           style={{ width: "100%", height: "100%", objectFit: "cover",
             filter: "sepia(0.15) brightness(0.55)" }}
         />
@@ -254,7 +254,7 @@ function Spread3({ lang }: { lang: string }) {
 function Spread4({ lang }: { lang: string }) {
   const projects = [
     {
-      img: "https://images.unsplash.com/photo-1621689573292-37c71e1d8a58?w=1200&auto=format&fit=crop&q=80",
+      img: "https://images.unsplash.com/photo-1751054720514-067105f538d4?w=1200&auto=format&fit=crop&q=80",
       code: "PRJ-001",
       title: lang === "ar" ? "مشروع مدينة محمد بن زايد" : "Mohammed Bin Zayed City",
       loc:   lang === "ar" ? "مدينة MBZ، أبوظبي" : "MBZ City, Abu Dhabi",
@@ -262,7 +262,7 @@ function Spread4({ lang }: { lang: string }) {
       tags:  lang === "ar" ? ["سكني", "تجاري"] : ["Residential", "Commercial"],
     },
     {
-      img: "https://images.unsplash.com/photo-1610642372651-fe6e2bc4a823?w=1200&auto=format&fit=crop&q=80",
+      img: "https://images.unsplash.com/photo-1684497404598-6e844dff9cde?w=1200&auto=format&fit=crop&q=80",
       code: "PRJ-002",
       title: lang === "ar" ? "مشروع مدينة الرياض الحضري" : "Riyadh City Urban Development",
       loc:   lang === "ar" ? "مدينة الرياض، أبوظبي" : "Riyadh City, Abu Dhabi",
