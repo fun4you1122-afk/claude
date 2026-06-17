@@ -163,7 +163,7 @@ function ChapterPanel({ chapter, index }: { chapter: Chapter; index: number }) {
   const isEven  = index % 2 === 0;
 
   const panelRef = useRef<HTMLDivElement>(null);
-  const inView   = useInView(panelRef, { once: true, amount: 0.3 });
+  const inView   = useInView(panelRef, { once: true, amount: 0.25 });
 
   const title    = isAr ? chapter.titleAr : chapter.title;
   const sub      = isAr ? chapter.subAr   : chapter.sub;
@@ -175,109 +175,57 @@ function ChapterPanel({ chapter, index }: { chapter: Chapter; index: number }) {
     <div
       ref={panelRef}
       id={`smart-${chapter.id}`}
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative overflow-hidden"
       style={{ background: "hsl(222,47%,4%)" }}
     >
-      {/* ── Background image ── */}
-      <div
-        className={`absolute top-0 bottom-0 w-full md:w-[55%] ${isEven ? "md:left-0" : "md:right-0 md:left-auto"}`}
-        style={{ overflow: "hidden" }}
-      >
-        <motion.img
-          src={chapter.image}
-          alt={title.replace("\n", " ")}
-          loading="lazy"
-          className="h-full w-full object-cover"
-          style={{ filter: "brightness(0.35) saturate(0.75)" }}
-          initial={reduce ? {} : { scale: 1.08 }}
-          animate={inView ? { scale: 1 } : { scale: 1.08 }}
-          transition={{ duration: 1.4, ease: "easeOut" }}
-        />
-        {/* Edge gradient to blend into content side */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: isEven
-              ? "linear-gradient(to right, transparent 40%, hsl(222,47%,4%) 95%)"
-              : "linear-gradient(to left,  transparent 40%, hsl(222,47%,4%) 95%)",
-          }}
-        />
-        {/* Bottom gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(222,47%,4%)] to-transparent" />
-
-        {/* ── App mockup (desktop only) ── */}
-        <div
-          className={`absolute top-1/2 -translate-y-1/2 hidden md:flex z-10 ${isEven ? "right-0 translate-x-1/2" : "left-0 -translate-x-1/2"}`}
-        >
-          <AppMockup chapter={chapter} />
-        </div>
-      </div>
-
-      {/* ── Content ── */}
-      <div
-        className={`relative z-10 mx-auto max-w-6xl w-full px-6 py-20 md:px-8 md:py-28 flex ${isEven ? "md:justify-end" : "md:justify-start"}`}
-      >
-        <motion.div
-          className="w-full md:w-[46%]"
-          initial={reduce ? {} : { opacity: 0, x: isEven ? 60 : -60 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          {/* Large chapter number background */}
-          <div
-            className="pointer-events-none absolute -top-2 font-serif text-[7rem] font-black leading-none select-none"
-            style={{ color: `${chapter.accent}08`, [isEven ? "right" : "left"]: "-1rem" }}
-            aria-hidden
-          >
-            {chapter.num}
+      {/* ── MOBILE layout: image on top, content below ── */}
+      <div className="md:hidden">
+        {/* Image strip */}
+        <div className="relative h-56 overflow-hidden">
+          <motion.img
+            src={chapter.image}
+            alt={title.replace("\n", " ")}
+            loading="lazy"
+            className="h-full w-full object-cover"
+            style={{ filter: "brightness(0.45) saturate(0.75)" }}
+            initial={reduce ? {} : { scale: 1.08 }}
+            animate={inView ? { scale: 1 } : { scale: 1.08 }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[hsl(222,47%,4%)]" />
+          {/* Badge overlay on image */}
+          <div className="absolute bottom-4 left-4">
+            <div
+              className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] uppercase tracking-[2px]"
+              style={{ borderColor: `${chapter.accent}55`, color: chapter.accent, background: `hsl(222,47%,4%)cc` }}
+            >
+              <Icon className="h-3 w-3" />
+              {badge}
+            </div>
           </div>
+        </div>
 
-          {/* Badge */}
-          <motion.div
-            initial={reduce ? {} : { opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs uppercase tracking-[3px]"
-            style={{ borderColor: `${chapter.accent}45`, color: chapter.accent, background: `${chapter.accent}12` }}
-          >
-            <Icon className="h-3.5 w-3.5" />
-            {badge}
-          </motion.div>
-
-          {/* Title */}
-          <div className="mb-5 font-serif text-4xl font-bold leading-tight md:text-5xl lg:text-[3.5rem]">
+        {/* Mobile content */}
+        <motion.div
+          className="px-5 pb-12 pt-6"
+          initial={reduce ? {} : { opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="mb-4 font-serif text-3xl font-bold leading-tight">
             {title.split("\n").map((line, li) => (
-              <motion.div
-                key={li}
-                initial={reduce ? {} : { opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.15 + li * 0.12 }}
-                className={li === 1 ? "gold-gradient" : ""}
-              >
-                {line}
-              </motion.div>
+              <div key={li} className={li === 1 ? "gold-gradient" : ""}>{line}</div>
             ))}
           </div>
-
-          {/* Sub */}
-          <motion.p
-            initial={reduce ? {} : { opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            className="mb-8 max-w-sm text-base leading-relaxed text-[hsl(var(--foreground)/0.6)]"
-          >
-            {sub}
-          </motion.p>
-
-          {/* Features */}
-          <div className="grid gap-3 sm:grid-cols-2">
+          <p className="mb-6 text-sm leading-relaxed text-[hsl(var(--foreground)/0.6)]">{sub}</p>
+          <div className="grid gap-2.5 grid-cols-1">
             {features.map((feat, fi) => (
               <motion.div
                 key={feat}
-                initial={reduce ? {} : { opacity: 0, x: -18 }}
+                initial={reduce ? {} : { opacity: 0, x: -14 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 + fi * 0.09 }}
-                className="flex min-h-[48px] items-center gap-3 rounded-xl border border-[hsl(var(--border)/0.4)] bg-[hsl(var(--card)/0.55)] px-4 py-3 backdrop-blur"
+                transition={{ duration: 0.45, delay: 0.1 + fi * 0.08 }}
+                className="flex min-h-[48px] items-center gap-3 rounded-xl border border-[hsl(var(--border)/0.4)] bg-[hsl(var(--card)/0.55)] px-4 py-3"
               >
                 <span
                   className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
@@ -290,6 +238,117 @@ function ChapterPanel({ chapter, index }: { chapter: Chapter; index: number }) {
             ))}
           </div>
         </motion.div>
+      </div>
+
+      {/* ── DESKTOP layout: image half + content half, side by side ── */}
+      <div className="hidden md:grid md:grid-cols-2 min-h-[90vh]">
+        {/* Image column */}
+        <div className={`relative overflow-hidden ${isEven ? "order-first" : "order-last"}`}>
+          <motion.img
+            src={chapter.image}
+            alt={title.replace("\n", " ")}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ filter: "brightness(0.45) saturate(0.75)" }}
+            initial={reduce ? {} : { scale: 1.08 }}
+            animate={inView ? { scale: 1 } : { scale: 1.08 }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+          />
+          {/* Blend gradient toward content side */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: isEven
+                ? "linear-gradient(to right, transparent 55%, hsl(222,47%,4%) 100%)"
+                : "linear-gradient(to left,  transparent 55%, hsl(222,47%,4%) 100%)",
+            }}
+          />
+        </div>
+
+        {/* Content column */}
+        <div className={`relative flex flex-col justify-center px-10 py-20 xl:px-16 ${isEven ? "order-last" : "order-first"}`}>
+          {/* Large number watermark */}
+          <div
+            className="pointer-events-none absolute top-8 font-serif text-[8rem] font-black leading-none select-none"
+            style={{ color: `${chapter.accent}07`, right: isEven ? "1rem" : "auto", left: isEven ? "auto" : "1rem" }}
+            aria-hidden
+          >
+            {chapter.num}
+          </div>
+
+          <motion.div
+            initial={reduce ? {} : { opacity: 0, x: isEven ? 50 : -50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            {/* Badge */}
+            <div
+              className="mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs uppercase tracking-[3px]"
+              style={{ borderColor: `${chapter.accent}45`, color: chapter.accent, background: `${chapter.accent}12` }}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {badge}
+            </div>
+
+            {/* Title */}
+            <div className="mb-5 font-serif text-5xl font-bold leading-tight xl:text-[3.2rem]">
+              {title.split("\n").map((line, li) => (
+                <motion.div
+                  key={li}
+                  initial={reduce ? {} : { opacity: 0, y: 28 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.7, delay: 0.15 + li * 0.12 }}
+                  className={li === 1 ? "gold-gradient" : ""}
+                >
+                  {line}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Sub */}
+            <motion.p
+              initial={reduce ? {} : { opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="mb-8 max-w-sm text-base leading-relaxed text-[hsl(var(--foreground)/0.6)]"
+            >
+              {sub}
+            </motion.p>
+
+            {/* Features + phone mockup row */}
+            <div className="flex items-start gap-6">
+              <div className="flex-1 grid gap-3 sm:grid-cols-2">
+                {features.map((feat, fi) => (
+                  <motion.div
+                    key={feat}
+                    initial={reduce ? {} : { opacity: 0, x: -16 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.4 + fi * 0.09 }}
+                    className="flex min-h-[48px] items-center gap-3 rounded-xl border border-[hsl(var(--border)/0.4)] bg-[hsl(var(--card)/0.55)] px-4 py-3 backdrop-blur"
+                  >
+                    <span
+                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+                      style={{ background: `${chapter.accent}25`, color: chapter.accent }}
+                    >
+                      <Check className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="text-sm text-[hsl(var(--foreground)/0.8)]">{feat}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Phone mockup — floats beside features on desktop */}
+              <motion.div
+                initial={reduce ? {} : { opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="hidden lg:block shrink-0"
+              >
+                <AppMockup chapter={chapter} />
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Chapter divider at bottom */}
