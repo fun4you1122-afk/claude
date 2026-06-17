@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "../ui/button";
@@ -18,8 +18,44 @@ const statsVariants: Variants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.08 } },
 };
 
+// ── Word-by-word reveal ───────────────────────────────────────────────────────
+function WordReveal({ children, delay = 0 }: { children: string; delay?: number }) {
+  const words = children.split(" ");
+  return (
+    <>
+      {words.map((word, i) => (
+        <span key={i} style={{ display: "inline-block", overflow: "hidden", lineHeight: 1.15 }}>
+          <motion.span
+            style={{ display: "inline-block" }}
+            initial={{ y: "105%" }}
+            animate={{ y: "0%" }}
+            transition={{
+              duration: 0.75,
+              delay: delay + i * 0.12,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+          >
+            {word}
+          </motion.span>
+          {i < words.length - 1 && " "}
+        </span>
+      ))}
+    </>
+  );
+}
+
+// ── Floating depth icons ──────────────────────────────────────────────────────
+const depthItems = [
+  { icon: "🏗️", top: "22%", right: "6%", left: undefined as string | undefined, scale: 1.0, delay: 0, blur: "0px" },
+  { icon: "📐", top: "48%", right: "2%", left: undefined, scale: 0.75, delay: 1.5, blur: "1px" },
+  { icon: "🔩", top: "68%", right: "9%", left: undefined, scale: 0.6, delay: 0.8, blur: "2px" },
+  { icon: "🏢", top: "28%", right: undefined as string | undefined, left: "2%", scale: 0.8, delay: 2.0, blur: "1px" },
+  { icon: "⚙️", top: "62%", right: undefined, left: "5%", scale: 0.65, delay: 1.2, blur: "1.5px" },
+];
+
 export function Hero() {
   const { t } = useLang();
+  const shouldReduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const videoY    = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
@@ -47,6 +83,19 @@ export function Hero() {
           <source src="https://videos.pexels.com/video-files/12098511/12098511-hd_1920_1080_50fps.mp4" type="video/mp4" />
         </video>
       </motion.div>
+
+      {/* ── BLUEPRINT GRID OVERLAY ── */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.04]" aria-hidden>
+        <svg width="100%" height="100%">
+          <defs>
+            <pattern id="blueprint" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgb(201,168,76)" strokeWidth="0.5" />
+              <circle cx="0" cy="0" r="1.5" fill="rgba(201,168,76,0.6)" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#blueprint)" />
+        </svg>
+      </div>
 
       {/* ── GRADIENT OVERLAYS ── */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[hsl(222,47%,3%)] via-[hsl(222,47%,4%,0.55)] to-[hsl(222,47%,5%,0.45)]" />
@@ -79,6 +128,34 @@ export function Hero() {
         <AnimatedCrane className="scale-75 origin-bottom" />
       </motion.div>
 
+      {/* ── FLOATING DEPTH ICONS (desktop only, skip if reduced motion) ── */}
+      {!shouldReduce && (
+        <div className="pointer-events-none hidden lg:block" aria-hidden>
+          {depthItems.map((item, i) => (
+            <motion.div
+              key={i}
+              className="absolute flex items-center justify-center w-12 h-12 rounded-xl border border-[hsl(var(--primary)/0.25)] bg-[hsl(var(--card)/0.5)] backdrop-blur-sm text-2xl shadow-lg"
+              style={{
+                top: item.top,
+                right: item.right,
+                left: item.left,
+                scale: item.scale,
+                filter: item.blur !== "0px" ? `blur(${item.blur})` : undefined,
+              }}
+              animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 4 + item.delay,
+                ease: "easeInOut",
+                delay: item.delay,
+              }}
+            >
+              {item.icon}
+            </motion.div>
+          ))}
+        </div>
+      )}
+
       {/* ── CONTENT (parallax fade on scroll) ── */}
       <motion.div
         style={{ opacity: contentOp, y: contentY }}
@@ -107,10 +184,23 @@ export function Hero() {
             variants={itemVariants}
             className="mb-6 font-serif text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl"
           >
-            {t.hero.h1}{" "}
-            <span className="gold-gradient">{t.hero.h2}</span>
-            <br />
-            {t.hero.h3}
+            {shouldReduce ? (
+              <>
+                {t.hero.h1}{" "}
+                <span className="gold-gradient">{t.hero.h2}</span>
+                <br />
+                {t.hero.h3}
+              </>
+            ) : (
+              <>
+                <WordReveal delay={0.2}>{t.hero.h1}</WordReveal>{" "}
+                <span className="gold-gradient">
+                  <WordReveal delay={0.5}>{t.hero.h2}</WordReveal>
+                </span>
+                <br />
+                <WordReveal delay={0.7}>{t.hero.h3}</WordReveal>
+              </>
+            )}
           </motion.h1>
 
           <motion.p

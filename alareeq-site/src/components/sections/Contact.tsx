@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, Mail, Camera, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
@@ -13,6 +13,171 @@ const channelColors = [
 ];
 const channelValues = ["+971 56 378 07 07", "albina.alareeq@gmail.com", "@albina.alareeq", "Abu Dhabi, UAE"];
 
+// ── Floating label input ──────────────────────────────────────────────────────
+function FloatingField({
+  label,
+  type = "text",
+  name,
+  required = false,
+}: {
+  label: string;
+  type?: string;
+  name: string;
+  required?: boolean;
+}) {
+  const [focused, setFocused] = useState(false);
+  const [filled, setFilled] = useState(false);
+  const isUp = focused || filled;
+
+  return (
+    <div className="relative">
+      <input
+        type={type}
+        name={name}
+        required={required}
+        onFocus={() => setFocused(true)}
+        onBlur={(e) => {
+          setFocused(false);
+          setFilled(!!e.target.value);
+        }}
+        className="peer w-full rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 pt-6 pb-2 text-sm text-[hsl(var(--foreground))] outline-none transition-colors focus:border-[hsl(var(--primary)/0.6)]"
+      />
+      <motion.label
+        animate={{
+          y: isUp ? -8 : 0,
+          scale: isUp ? 0.78 : 1,
+          color: isUp ? "hsl(43,56%,55%)" : "hsl(215,16%,55%)",
+        }}
+        transition={{ duration: 0.2 }}
+        style={{ originX: 0, transformOrigin: "left center", pointerEvents: "none" }}
+        className="absolute left-4 top-4 text-sm"
+      >
+        {label}
+      </motion.label>
+      <motion.div
+        animate={{ scaleX: focused ? 1 : 0 }}
+        transition={{ duration: 0.25 }}
+        className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-[hsl(var(--primary)/0.7)]"
+      />
+    </div>
+  );
+}
+
+// ── Floating textarea ─────────────────────────────────────────────────────────
+function FloatingTextarea({ label, name, rows = 4 }: { label: string; name: string; rows?: number }) {
+  const [focused, setFocused] = useState(false);
+  const [filled, setFilled] = useState(false);
+  const isUp = focused || filled;
+
+  return (
+    <div className="relative">
+      <textarea
+        name={name}
+        rows={rows}
+        onFocus={() => setFocused(true)}
+        onBlur={(e) => {
+          setFocused(false);
+          setFilled(!!e.target.value);
+        }}
+        className="peer w-full resize-none rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 pt-6 pb-2 text-sm text-[hsl(var(--foreground))] outline-none transition-colors focus:border-[hsl(var(--primary)/0.6)]"
+      />
+      <motion.label
+        animate={{
+          y: isUp ? -8 : 0,
+          scale: isUp ? 0.78 : 1,
+          color: isUp ? "hsl(43,56%,55%)" : "hsl(215,16%,55%)",
+        }}
+        transition={{ duration: 0.2 }}
+        style={{ originX: 0, transformOrigin: "left center", pointerEvents: "none" }}
+        className="absolute left-4 top-4 text-sm"
+      >
+        {label}
+      </motion.label>
+      <motion.div
+        animate={{ scaleX: focused ? 1 : 0 }}
+        transition={{ duration: 0.25 }}
+        className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-[hsl(var(--primary)/0.7)]"
+      />
+    </div>
+  );
+}
+
+// ── Floating select ───────────────────────────────────────────────────────────
+function FloatingSelect({
+  label,
+  name,
+  options,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  options: readonly string[];
+  placeholder: string;
+}) {
+  const [focused, setFocused] = useState(false);
+  const [filled, setFilled] = useState(false);
+  const isUp = focused || filled;
+
+  return (
+    <div className="relative">
+      <select
+        name={name}
+        defaultValue=""
+        onFocus={() => setFocused(true)}
+        onBlur={(e) => {
+          setFocused(false);
+          setFilled(!!e.target.value);
+        }}
+        onChange={(e) => setFilled(!!e.target.value)}
+        className="peer w-full appearance-none rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 pt-6 pb-2 text-sm text-[hsl(var(--foreground))] outline-none transition-colors focus:border-[hsl(var(--primary)/0.6)]"
+      >
+        <option value="" disabled>{placeholder}</option>
+        {options.map((o) => (
+          <option key={o} value={o}>{o}</option>
+        ))}
+      </select>
+      <motion.label
+        animate={{
+          y: isUp ? -8 : 0,
+          scale: isUp ? 0.78 : 1,
+          color: isUp ? "hsl(43,56%,55%)" : "hsl(215,16%,55%)",
+        }}
+        transition={{ duration: 0.2 }}
+        style={{ originX: 0, transformOrigin: "left center", pointerEvents: "none" }}
+        className="absolute left-4 top-4 text-sm"
+      >
+        {label}
+      </motion.label>
+      <motion.div
+        animate={{ scaleX: focused ? 1 : 0 }}
+        transition={{ duration: 0.25 }}
+        className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-[hsl(var(--primary)/0.7)]"
+      />
+    </div>
+  );
+}
+
+// ── Animated checkmark SVG ────────────────────────────────────────────────────
+function AnimatedCheck() {
+  return (
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden>
+      <circle cx="32" cy="32" r="30" stroke="hsl(43,56%,55%)" strokeWidth="2" opacity="0.3" />
+      <motion.path
+        d="M20 32 L29 41 L44 24"
+        stroke="hsl(43,56%,55%)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      />
+    </svg>
+  );
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
 export function Contact() {
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -49,6 +214,7 @@ export function Contact() {
         </motion.div>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+          {/* Left: contact channels */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -63,7 +229,13 @@ export function Contact() {
               return (
                 <motion.div key={ch.label} whileHover={{ x: 6 }} className="block">
                   <El
-                    {...(meta.href ? { href: meta.href, target: meta.href.startsWith("http") ? "_blank" : undefined, rel: "noopener noreferrer" } : {})}
+                    {...(meta.href
+                      ? {
+                          href: meta.href,
+                          target: meta.href.startsWith("http") ? "_blank" : undefined,
+                          rel: "noopener noreferrer",
+                        }
+                      : {})}
                     className={`flex items-center gap-5 rounded-xl border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.6)] p-5 backdrop-blur transition-all ${meta.border} ${meta.href ? "cursor-pointer" : ""}`}
                   >
                     <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${meta.bg} ${meta.color}`}>
@@ -80,6 +252,7 @@ export function Contact() {
             })}
           </motion.div>
 
+          {/* Right: form */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -87,53 +260,81 @@ export function Contact() {
             viewport={{ once: true }}
             className="rounded-2xl border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.65)] p-8 backdrop-blur"
           >
-            {sent ? (
-              <div className="flex flex-col items-center gap-4 py-12 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[hsl(var(--primary)/0.4)] bg-[hsl(var(--primary)/0.1)] text-2xl">✓</div>
-                <h3 className="font-serif text-xl font-bold text-[hsl(var(--primary))]">{t.contact.successTitle}</h3>
-                <p className="text-sm text-[hsl(var(--foreground)/0.55)]">
-                  {t.contact.successMsg}{" "}
-                  <a href="https://wa.me/971563780707" target="_blank" rel="noopener noreferrer" className="text-[hsl(var(--primary))] underline">
-                    {t.contact.successLink}
-                  </a>.
-                </p>
-              </div>
-            ) : (
-              <>
-                <h3 className="mb-6 font-serif text-xl font-bold">{t.contact.formTitle}</h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {t.contact.fields.map((f) => (
-                    <div key={f.label}>
-                      <label className="mb-1.5 block text-xs font-medium uppercase tracking-[1px] text-[hsl(var(--foreground)/0.5)]">{f.label}</label>
-                      <input type={f.type} name={f.label} placeholder={f.placeholder} required={f.required}
-                        className="w-full rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 py-3 text-sm text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--foreground)/0.3)] outline-none transition-colors focus:border-[hsl(var(--primary)/0.5)] focus:ring-1 focus:ring-[hsl(var(--primary)/0.2)]"
-                      />
-                    </div>
-                  ))}
-                  <div>
-                    <label className="mb-1.5 block text-xs font-medium uppercase tracking-[1px] text-[hsl(var(--foreground)/0.5)]">{t.contact.serviceLabel}</label>
-                    <select name="service" className="w-full rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 py-3 text-sm text-[hsl(var(--foreground))] outline-none transition-colors focus:border-[hsl(var(--primary)/0.5)]">
-                      <option value="">{t.contact.servicePlaceholder}</option>
-                      {t.contact.serviceOptions.map((o) => <option key={o}>{o}</option>)}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="mb-1.5 block text-xs font-medium uppercase tracking-[1px] text-[hsl(var(--foreground)/0.5)]">{t.contact.msgLabel}</label>
-                    <textarea name="message" rows={4} placeholder={t.contact.msgPlaceholder}
-                      className="w-full resize-none rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 py-3 text-sm text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--foreground)/0.3)] outline-none transition-colors focus:border-[hsl(var(--primary)/0.5)] focus:ring-1 focus:ring-[hsl(var(--primary)/0.2)]"
-                    />
-                  </div>
-                  <Button type="submit" size="lg" className="w-full gap-2" disabled={submitting}>
-                    <Send className="h-4 w-4" />
-                    {submitting ? t.contact.sending : t.contact.send}
-                  </Button>
-                  <p className="text-center text-xs text-[hsl(var(--foreground)/0.4)]">
-                    {t.contact.orMsg}{" "}
-                    <a href="https://wa.me/971563780707" target="_blank" rel="noopener noreferrer" className="text-[hsl(var(--primary))] hover:underline">WhatsApp</a>
+            <AnimatePresence mode="wait">
+              {sent ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col items-center gap-4 py-12 text-center"
+                >
+                  <AnimatedCheck />
+                  <h3 className="font-serif text-xl font-bold text-[hsl(var(--primary))]">{t.contact.successTitle}</h3>
+                  <p className="text-sm text-[hsl(var(--foreground)/0.55)]">
+                    {t.contact.successMsg}{" "}
+                    <a
+                      href="https://wa.me/971563780707"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[hsl(var(--primary))] underline"
+                    >
+                      {t.contact.successLink}
+                    </a>.
                   </p>
-                </form>
-              </>
-            )}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <h3 className="mb-6 font-serif text-xl font-bold">{t.contact.formTitle}</h3>
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    {t.contact.fields.map((f) => (
+                      <FloatingField
+                        key={f.label}
+                        label={f.label}
+                        type={f.type}
+                        name={f.label}
+                        required={f.required}
+                      />
+                    ))}
+
+                    <FloatingSelect
+                      label={t.contact.serviceLabel}
+                      name="service"
+                      options={t.contact.serviceOptions}
+                      placeholder={t.contact.servicePlaceholder}
+                    />
+
+                    <FloatingTextarea
+                      label={t.contact.msgLabel}
+                      name="message"
+                      rows={4}
+                    />
+
+                    <Button type="submit" size="lg" className="w-full gap-2" disabled={submitting}>
+                      <Send className="h-4 w-4" />
+                      {submitting ? t.contact.sending : t.contact.send}
+                    </Button>
+                    <p className="text-center text-xs text-[hsl(var(--foreground)/0.4)]">
+                      {t.contact.orMsg}{" "}
+                      <a
+                        href="https://wa.me/971563780707"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[hsl(var(--primary))] hover:underline"
+                      >
+                        WhatsApp
+                      </a>
+                    </p>
+                  </form>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </div>
