@@ -115,7 +115,7 @@ export function Testimonials() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-[hsl(var(--foreground))]">{name}</p>
-                    <p className="text-xs text-[hsl(var(--foreground)/0.45)]">{role}</p>
+                    <p className="text-xs text-[hsl(var(--foreground)/0.55)]">{role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -240,7 +240,7 @@ export function Testimonials() {
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-[hsl(var(--foreground))]">{item.name}</p>
-                        <p className="text-xs text-[hsl(var(--foreground)/0.45)]">{item.role}</p>
+                        <p className="text-xs text-[hsl(var(--foreground)/0.55)]">{item.role}</p>
                       </div>
                     </div>
                   </motion.div>

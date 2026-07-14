@@ -359,7 +359,7 @@ export function CinematicScroll() {
             {ch?.title}
           </h2>
           <p style={{ marginTop: "1rem", fontSize: "clamp(0.85rem,2vw,1.1rem)",
-            color: "rgba(255,255,255,0.45)", letterSpacing: "0.06em" }}>
+            color: "rgba(255,255,255,0.65)", letterSpacing: "0.06em" }}>
             {ch?.sub}
           </p>
         </div>

@@ -106,7 +106,7 @@ function StatRing({ icon, label, target, suffix, pct, index }: RingProps) {
       </div>
 
       {/* Label */}
-      <p className="text-xs uppercase tracking-[2px] text-[hsl(var(--foreground)/0.45)]">{label}</p>
+      <p className="text-xs uppercase tracking-[2px] text-[hsl(var(--foreground)/0.55)]">{label}</p>
     </motion.div>
   );
 }

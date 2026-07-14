@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 const GOLD   = "#c9a84c";
 const NAVY   = "#06090f";
 const IVORY  = "rgba(255,248,224,0.88)";
-const MUTED  = "rgba(255,248,224,0.42)";
+const MUTED  = "rgba(255,248,224,0.6)";
 const SERIF  = "'Playfair Display', Georgia, serif";
 const SANS   = "'Inter', system-ui, sans-serif";
 

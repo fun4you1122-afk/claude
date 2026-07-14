@@ -68,7 +68,12 @@ export function Navbar() {
           >
             {lang === "en" ? "عربي" : "EN"}
           </button>
-          <button onClick={() => setOpen(!open)} className="rounded-lg p-2 text-[hsl(var(--foreground)/0.6)] hover:bg-[hsl(var(--card)/0.6)]">
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="rounded-lg p-2 text-[hsl(var(--foreground)/0.6)] hover:bg-[hsl(var(--card)/0.6)]"
+          >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>

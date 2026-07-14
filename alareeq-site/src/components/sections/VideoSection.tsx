@@ -111,12 +111,16 @@ export function VideoSection() {
         <div className="absolute bottom-6 left-1/2 z-30 -translate-x-1/2 flex gap-3">
           <button
             onClick={togglePlay}
+            aria-label={playing ? "Pause video" : "Play video"}
+            aria-pressed={playing}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20 transition-colors"
           >
             {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 fill-current" />}
           </button>
           <button
             onClick={toggleMute}
+            aria-label={muted ? "Unmute video" : "Mute video"}
+            aria-pressed={!muted}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20 transition-colors"
           >
             {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
@@ -128,7 +132,7 @@ export function VideoSection() {
           <p className="text-xs font-medium uppercase tracking-[3px] text-[hsl(var(--primary))]">
             Albina Alareeq · Abu Dhabi, UAE
           </p>
-          <p className="mt-0.5 text-xs text-white/40">
+          <p className="mt-0.5 text-xs text-white/60">
             {"Excellence in construction & general maintenance"}
           </p>
         </div>

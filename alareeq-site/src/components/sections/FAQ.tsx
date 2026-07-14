@@ -42,6 +42,8 @@ export function FAQ() {
               <button
                 className="flex w-full items-center justify-between gap-4 p-5 text-left"
                 onClick={() => setOpen(open === i ? null : i)}
+                aria-expanded={open === i}
+                aria-controls={`faq-panel-${i}`}
               >
                 <span className="font-semibold text-[hsl(var(--foreground))]">{q}</span>
                 <motion.div
@@ -55,6 +57,7 @@ export function FAQ() {
               <AnimatePresence initial={false}>
                 {open === i && (
                   <motion.div
+                    id={`faq-panel-${i}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}

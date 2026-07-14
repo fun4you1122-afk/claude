@@ -280,7 +280,7 @@ export function Hero() {
           >
             {t.hero.stats.map((stat) => (
               <motion.div key={stat.label} variants={itemVariants} className="space-y-1">
-                <div className="text-xs uppercase tracking-[0.3em] text-[hsl(var(--foreground)/0.45)]">{stat.label}</div>
+                <div className="text-xs uppercase tracking-[0.3em] text-[hsl(var(--foreground)/0.55)]">{stat.label}</div>
                 <div className="font-serif text-3xl font-bold gold-gradient">{stat.value}</div>
               </motion.div>
             ))}
@@ -290,7 +290,7 @@ export function Hero() {
       </motion.div>
 
       {/* ── SCROLL INDICATOR ── */}
-      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[3px] text-[hsl(var(--foreground)/0.35)]">
+      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[3px] text-[hsl(var(--foreground)/0.5)]">
         <span>{t.hero.scroll}</span>
         <div className="h-10 w-px bg-gradient-to-b from-[hsl(var(--primary))] to-transparent animate-pulse" />
       </div>

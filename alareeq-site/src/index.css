@@ -63,3 +63,9 @@
     border: 1px solid hsl(var(--border));
   }
 }
+
+/* Visible keyboard focus everywhere (buttons strip default outlines) */
+:focus-visible {
+  outline: 2px solid hsl(43 56% 55% / 0.9);
+  outline-offset: 2px;
+}

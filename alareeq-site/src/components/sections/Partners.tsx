@@ -13,7 +13,7 @@ export function Partners() {
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.2)] to-transparent" />
 
       <div className="mx-auto max-w-6xl px-6 mb-8 text-center">
-        <p className="text-xs uppercase tracking-[4px] text-[hsl(var(--foreground)/0.35)]">
+        <p className="text-xs uppercase tracking-[4px] text-[hsl(var(--foreground)/0.5)]">
           {t.partners.badge}
         </p>
       </div>

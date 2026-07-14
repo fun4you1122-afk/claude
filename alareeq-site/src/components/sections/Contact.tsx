@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, Mail, Camera, MapPin, Send } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Button } from "../ui/button";
 import { useLang } from "../../i18n";
 
@@ -27,11 +27,13 @@ function FloatingField({
 }) {
   const [focused, setFocused] = useState(false);
   const [filled, setFilled] = useState(false);
+  const id = useId();
   const isUp = focused || filled;
 
   return (
     <div className="relative">
       <input
+        id={id}
         type={type}
         name={name}
         required={required}
@@ -43,6 +45,7 @@ function FloatingField({
         className="peer w-full rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 pt-6 pb-2 text-sm text-[hsl(var(--foreground))] outline-none transition-colors focus:border-[hsl(var(--primary)/0.6)]"
       />
       <motion.label
+        htmlFor={id}
         animate={{
           y: isUp ? -8 : 0,
           scale: isUp ? 0.78 : 1,
@@ -67,11 +70,13 @@ function FloatingField({
 function FloatingTextarea({ label, name, rows = 4 }: { label: string; name: string; rows?: number }) {
   const [focused, setFocused] = useState(false);
   const [filled, setFilled] = useState(false);
+  const id = useId();
   const isUp = focused || filled;
 
   return (
     <div className="relative">
       <textarea
+        id={id}
         name={name}
         rows={rows}
         onFocus={() => setFocused(true)}
@@ -82,6 +87,7 @@ function FloatingTextarea({ label, name, rows = 4 }: { label: string; name: stri
         className="peer w-full resize-none rounded-lg border border-[hsl(var(--border)/0.6)] bg-[hsl(var(--background)/0.8)] px-4 pt-6 pb-2 text-sm text-[hsl(var(--foreground))] outline-none transition-colors focus:border-[hsl(var(--primary)/0.6)]"
       />
       <motion.label
+        htmlFor={id}
         animate={{
           y: isUp ? -8 : 0,
           scale: isUp ? 0.78 : 1,
@@ -116,11 +122,13 @@ function FloatingSelect({
 }) {
   const [focused, setFocused] = useState(false);
   const [filled, setFilled] = useState(false);
+  const id = useId();
   const isUp = focused || filled;
 
   return (
     <div className="relative">
       <select
+        id={id}
         name={name}
         defaultValue=""
         onFocus={() => setFocused(true)}
@@ -137,6 +145,7 @@ function FloatingSelect({
         ))}
       </select>
       <motion.label
+        htmlFor={id}
         animate={{
           y: isUp ? -8 : 0,
           scale: isUp ? 0.78 : 1,
@@ -273,9 +282,9 @@ export function Contact() {
                       <Icon className="h-6 w-6" />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-[1.5px] text-[hsl(var(--foreground)/0.45)]">{ch.label}</p>
+                      <p className="text-xs uppercase tracking-[1.5px] text-[hsl(var(--foreground)/0.55)]">{ch.label}</p>
                       <p className="font-semibold">{channelValues[i]}</p>
-                      <p className="text-xs text-[hsl(var(--foreground)/0.45)]">{ch.hint}</p>
+                      <p className="text-xs text-[hsl(var(--foreground)/0.55)]">{ch.hint}</p>
                     </div>
                   </El>
                 </motion.div>
@@ -372,7 +381,7 @@ export function Contact() {
                       <Send className="h-4 w-4" />
                       {submitting ? t.contact.sending : t.contact.send}
                     </Button>
-                    <p className="text-center text-xs text-[hsl(var(--foreground)/0.4)]">
+                    <p className="text-center text-xs text-[hsl(var(--foreground)/0.55)]">
                       {t.contact.orMsg}{" "}
                       <a
                         href="https://wa.me/971563780707"

@@ -116,13 +116,13 @@ function AppMockup({ chapter }: { chapter: Chapter }) {
       style={{ boxShadow: `0 24px 60px ${chapter.accent}22` }}
     >
       {/* Status bar */}
-      <div className="flex justify-between px-4 pt-3 pb-1 text-[9px] text-[hsl(var(--foreground)/0.35)]">
+      <div className="flex justify-between px-4 pt-3 pb-1 text-[9px] text-[hsl(var(--foreground)/0.5)]">
         <span>9:41</span>
         <span>▮▮▮</span>
       </div>
       {/* App header */}
       <div className="px-4 pb-2">
-        <p className="text-[9px] text-[hsl(var(--foreground)/0.4)]">SmartVilla</p>
+        <p className="text-[9px] text-[hsl(var(--foreground)/0.55)]">SmartVilla</p>
         <p className="text-xs font-semibold text-[hsl(var(--foreground)/0.9)]">Your Home</p>
       </div>
       {/* Main control */}

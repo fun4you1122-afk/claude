@@ -8,7 +8,12 @@ const icons = [Building2, Layers, Zap, Paintbrush, BarChart3, Wrench];
 type ServiceItem = { num: string; title: string; desc: string; tags: readonly string[] };
 
 function ServiceCard({ svc, Icon, i }: { svc: ServiceItem; Icon: React.ElementType; i: number }) {
-  const [flipped, setFlipped] = useState(false);
+  // Hover previews the back face; click/Enter/Space pins it. Keeping the two
+  // separate fixes the old bug where clicking a hovered card flipped it back,
+  // and framer's hover gesture ignores touch, so taps only hit the pin path.
+  const [hovered, setHovered] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const flipped = hovered || pinned;
   const { lang } = useLang();
   const isRtl = lang === "ar";
 
@@ -21,10 +26,19 @@ function ServiceCard({ svc, Icon, i }: { svc: ServiceItem; Icon: React.ElementTy
       transition={{ duration: 0.6, delay: i * 0.08, ease: "easeOut" }}
       viewport={{ once: true }}
       style={{ perspective: "1200px" }}
-      className="relative h-72 cursor-pointer select-none"
-      onHoverStart={() => setFlipped(true)}
-      onHoverEnd={() => setFlipped(false)}
-      onClick={() => setFlipped((f) => !f)}
+      className="relative h-72 cursor-pointer select-none rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--primary))]"
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      onClick={() => setPinned((p) => !p)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setPinned((p) => !p);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-pressed={pinned}
       aria-label={svc.title}
     >
       <motion.div
@@ -58,7 +72,7 @@ function ServiceCard({ svc, Icon, i }: { svc: ServiceItem; Icon: React.ElementTy
                 </span>
               ))}
             </div>
-            <p className="mt-3 text-[10px] uppercase tracking-widest text-[hsl(var(--foreground)/0.3)]">
+            <p className="mt-3 text-[10px] uppercase tracking-widest text-[hsl(var(--foreground)/0.5)]">
               Tap to explore →
             </p>
           </div>

@@ -107,8 +107,14 @@ export function Gallery() {
                   whileHover={{ scale: 1.02, zIndex: 10 }}
                   transition={{ duration: 0.6, delay: i * 0.07 }}
                   viewport={{ once: true }}
-                  className={`relative cursor-pointer overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.4)] ${img.span}`}
+                  className={`relative cursor-pointer overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--primary))] ${img.span}`}
                   onClick={() => setLightbox(i)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLightbox(i); }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View larger: ${img.alt}`}
                 >
                   <img
                     src={img.src}
@@ -141,8 +147,14 @@ export function Gallery() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.35, delay: i * 0.05 }}
-                    className="relative h-48 cursor-pointer overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.4)]"
+                    className="relative h-48 cursor-pointer overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--primary))]"
                     onClick={() => setLightbox(i)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLightbox(i); }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View larger: ${img.alt}`}
                   >
                     <img
                       src={img.src}
