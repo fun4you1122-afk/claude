@@ -138,6 +138,10 @@ export const translations = {
       successMsg: "Our team will contact you within 24 hours. For urgent matters, chat on",
       successLink: "WhatsApp",
       orMsg: "Or message directly on",
+      errorTitle: "Couldn't send your message",
+      errorMsg: "Something went wrong on our side. Please send it via WhatsApp instead — it takes one tap:",
+      errorBtn: "Send via WhatsApp",
+      errorRetry: "Try again",
     },
     partners: { badge: "Trusted & Recognized By" },
     footer: {
@@ -285,6 +289,10 @@ export const translations = {
       successMsg: "سيتواصل معك فريقنا خلال 24 ساعة. للأمور العاجلة، تواصل عبر",
       successLink: "واتساب",
       orMsg: "أو تواصل مباشرة عبر",
+      errorTitle: "تعذر إرسال رسالتك",
+      errorMsg: "حدث خطأ من جهتنا. يرجى إرسالها عبر واتساب — بضغطة واحدة:",
+      errorBtn: "إرسال عبر واتساب",
+      errorRetry: "حاول مرة أخرى",
     },
     partners: { badge: "موثوق به ومعترف به من" },
     footer: {

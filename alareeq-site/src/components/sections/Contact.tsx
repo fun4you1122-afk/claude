@@ -178,15 +178,46 @@ function AnimatedCheck() {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export function Contact() {
-  const [sent, setSent] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const { t } = useLang();
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/albina.alareeq@gmail.com";
+const WA_NUMBER = "971563780707";
 
-  const handleSubmit = (e: React.FormEvent) => {
+export function Contact() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [waFallback, setWaFallback] = useState(`https://wa.me/${WA_NUMBER}`);
+  const { t } = useLang();
+  const sent = status === "sent";
+  const submitting = status === "sending";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitting(true);
-    setTimeout(() => { setSent(true); setSubmitting(false); }, 1200);
+    const data = new FormData(e.currentTarget);
+    const entries = Object.fromEntries(data.entries());
+
+    // Pre-compose a WhatsApp message from the typed values so a failed
+    // send can be recovered with one tap instead of retyping everything.
+    const waText = Object.entries(entries)
+      .filter(([, v]) => typeof v === "string" && v.trim())
+      .map(([k, v]) => `${k}: ${String(v).trim()}`)
+      .join("\n");
+    setWaFallback(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waText)}`);
+
+    setStatus("sending");
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ...entries,
+          _subject: "New inquiry — Albina Alareeq website",
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -315,6 +346,27 @@ export function Contact() {
                       name="message"
                       rows={4}
                     />
+
+                    {status === "error" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        role="alert"
+                        className="rounded-xl border border-red-400/30 bg-red-400/10 p-4 text-sm"
+                      >
+                        <p className="mb-1 font-semibold text-red-300">{t.contact.errorTitle}</p>
+                        <p className="mb-3 text-[hsl(var(--foreground)/0.65)]">{t.contact.errorMsg}</p>
+                        <a
+                          href={waFallback}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-white transition-transform hover:scale-105"
+                        >
+                          <MessageCircle className="h-4 w-4" />
+                          {t.contact.errorBtn}
+                        </a>
+                      </motion.div>
+                    )}
 
                     <Button type="submit" size="lg" className="w-full gap-2" disabled={submitting}>
                       <Send className="h-4 w-4" />
