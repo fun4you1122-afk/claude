@@ -1,12 +1,39 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+
+const POSTER =
+  "https://images.pexels.com/videos/12098511/pexels-photo-12098511.jpeg?auto=compress&cs=tinysrgb&w=1280";
+const VIDEO_SRC =
+  "https://videos.pexels.com/video-files/12098511/12098511-hd_1920_1080_50fps.mp4"; // 5.7 MB
 
 export function VideoSection() {
   const ref = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const shouldReduce = useReducedMotion();
   const [muted, setMuted] = useState(true);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
+
+  // preload="none" + no autoPlay means the 5.7 MB file is never fetched unless
+  // the visitor scrolls here. Play when the section nears the viewport, pause
+  // when it leaves. Reduced-motion users keep the poster until they tap play.
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid || shouldReduce) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          vid.play().then(() => setPlaying(true)).catch(() => {});
+        } else if (!vid.paused) {
+          vid.pause();
+          setPlaying(false);
+        }
+      },
+      { rootMargin: "200px 0px" }
+    );
+    io.observe(vid);
+    return () => io.disconnect();
+  }, [shouldReduce]);
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const scale    = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1.02, 0.95]);
@@ -35,12 +62,13 @@ export function VideoSection() {
         <motion.div className="relative" style={{ y: videoY }}>
           <video
             ref={videoRef}
-            autoPlay muted loop playsInline
+            muted loop playsInline
+            preload="none"
+            poster={POSTER}
             className="w-full object-cover"
             style={{ maxHeight: "72vh", minHeight: "420px" }}
           >
-            <source src="https://videos.pexels.com/video-files/12098511/12098511-hd_1920_1080_50fps.mp4" type="video/mp4" />
-            <source src="https://videos.pexels.com/video-files/5434220/5434220-hd_1920_1080_24fps.mp4" type="video/mp4" />
+            <source src={VIDEO_SRC} type="video/mp4" />
           </video>
         </motion.div>
 

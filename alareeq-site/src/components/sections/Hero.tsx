@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { AnimatedCrane } from "../AnimatedCrane";
 import { useLang } from "../../i18n";
@@ -53,10 +53,22 @@ const depthItems = [
   { icon: "⚙️", top: "62%", right: undefined, left: "5%", scale: 0.65, delay: 1.2, blur: "1.5px" },
 ];
 
+const HERO_POSTER =
+  "https://images.pexels.com/videos/5434220/pictures/preview-0.jpg?auto=compress&cs=tinysrgb&w=1280";
+const HERO_VIDEO_1080 =
+  "https://videos.pexels.com/video-files/5434220/5434220-hd_1920_1080_24fps.mp4"; // 13.0 MB
+const HERO_VIDEO_720 =
+  "https://videos.pexels.com/video-files/5434220/5434220-hd_1280_720_24fps.mp4"; // 6.8 MB
+
 export function Hero() {
   const { t } = useLang();
   const shouldReduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  // Pick once at mount: phones/tablets get the 720p rendition (half the bytes);
+  // the video sits dimmed behind content, so the quality difference is invisible.
+  const [videoSrc] = useState(() =>
+    typeof window !== "undefined" && window.innerWidth < 1024 ? HERO_VIDEO_720 : HERO_VIDEO_1080
+  );
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const videoY    = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const contentY  = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
@@ -74,14 +86,23 @@ export function Hero() {
         style={{ y: videoY }}
         aria-hidden
       >
-        <video
-          autoPlay muted loop playsInline
-          className="h-full w-full object-cover"
-          style={{ filter: "brightness(0.4) saturate(0.75)" }}
-        >
-          <source src="https://videos.pexels.com/video-files/5434220/5434220-hd_1920_1080_24fps.mp4" type="video/mp4" />
-          <source src="https://videos.pexels.com/video-files/12098511/12098511-hd_1920_1080_50fps.mp4" type="video/mp4" />
-        </video>
+        {shouldReduce ? (
+          <img
+            src={HERO_POSTER}
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ filter: "brightness(0.4) saturate(0.75)" }}
+          />
+        ) : (
+          <video
+            autoPlay muted loop playsInline
+            poster={HERO_POSTER}
+            className="h-full w-full object-cover"
+            style={{ filter: "brightness(0.4) saturate(0.75)" }}
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+        )}
       </motion.div>
 
       {/* ── BLUEPRINT GRID OVERLAY ── */}
