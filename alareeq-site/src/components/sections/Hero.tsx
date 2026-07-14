@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { AnimatedCrane } from "../AnimatedCrane";
 import { useLang } from "../../i18n";
@@ -23,22 +23,27 @@ function WordReveal({ children, delay = 0 }: { children: string; delay?: number 
   const words = children.split(" ");
   return (
     <>
+      {/* The inter-word space must live OUTSIDE the overflow-hidden
+          inline-block: trailing whitespace inside an inline-block is trimmed
+          by CSS, which rendered multi-word segments with no spaces. */}
       {words.map((word, i) => (
-        <span key={i} style={{ display: "inline-block", overflow: "hidden", lineHeight: 1.15 }}>
-          <motion.span
-            style={{ display: "inline-block" }}
-            initial={{ y: "105%" }}
-            animate={{ y: "0%" }}
-            transition={{
-              duration: 0.75,
-              delay: delay + i * 0.12,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          >
-            {word}
-          </motion.span>
-          {i < words.length - 1 && " "}
-        </span>
+        <Fragment key={i}>
+          <span style={{ display: "inline-block", overflow: "hidden", lineHeight: 1.15 }}>
+            <motion.span
+              style={{ display: "inline-block" }}
+              initial={{ y: "105%" }}
+              animate={{ y: "0%" }}
+              transition={{
+                duration: 0.75,
+                delay: delay + i * 0.12,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
+              {word}
+            </motion.span>
+          </span>
+          {i < words.length - 1 && " "}
+        </Fragment>
       ))}
     </>
   );

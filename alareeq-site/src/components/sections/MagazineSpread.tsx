@@ -219,6 +219,7 @@ function Spread3({ lang }: { lang: string }) {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "0" }}>
         {steps.map(({ n, t, s, icon }, i) => (
           <div key={n} style={{
+            position: "relative",
             padding: "2rem 2rem 2rem 0",
             borderLeft: i === 0 ? "none" : `1px solid rgba(201,168,76,0.12)`,
             paddingLeft: i === 0 ? 0 : "2rem",
@@ -486,7 +487,18 @@ export function MagazineSpread() {
   const wrapRef  = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState(1);
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  // Tracked via matchMedia so rotating a phone / resizing swaps layouts
+  // cleanly instead of leaving a stale (or orphaned-pin) variant.
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     if (isMobile) return;
@@ -517,7 +529,7 @@ export function MagazineSpread() {
       st.kill();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang]);
+  }, [lang, isMobile]);
 
   if (isMobile) return <MobileVersion lang={lang} />;
 

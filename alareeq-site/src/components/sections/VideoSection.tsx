@@ -129,8 +129,9 @@ export function VideoSection() {
           </button>
         </div>
 
-        {/* Location tag */}
-        <div className="absolute bottom-6 right-6 z-30 text-right">
+        {/* Location tag — bottom-left so the fixed WhatsApp/BackToTop button
+            column on the right edge never covers it */}
+        <div className="absolute bottom-6 left-6 z-30 text-left">
           <p className="text-xs font-medium uppercase tracking-[3px] text-[hsl(var(--primary))]">
             Albina Alareeq · Abu Dhabi, UAE
           </p>
