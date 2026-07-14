@@ -2,20 +2,10 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { useLang } from "../../i18n";
 
-const partners = [
-  "Abu Dhabi Municipality",
-  "ADNOC",
-  "Aldar Properties",
-  "Mubadala",
-  "TDIC",
-  "Emaar",
-  "Arabtec",
-  "ISO 9001 Certified",
-];
-
 export function Partners() {
   const trackRef = useRef<HTMLDivElement>(null);
   const { t } = useLang();
+  const partners = t.partners.items;
 
   return (
     <section className="relative py-16 bg-[hsl(222,40%,7%)] overflow-hidden w-full">

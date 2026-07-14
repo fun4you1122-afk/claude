@@ -143,7 +143,19 @@ export const translations = {
       errorBtn: "Send via WhatsApp",
       errorRetry: "Try again",
     },
-    partners: { badge: "Trusted & Recognized By" },
+    partners: {
+      badge: "Delivering Across Abu Dhabi's Key Sectors",
+      items: [
+        "Residential Villas",
+        "Commercial Buildings",
+        "Government Projects",
+        "Oil & Gas Facilities",
+        "Retail & Fit-Out",
+        "Infrastructure & Civil Works",
+        "Hospitality",
+        "Industrial & Warehouses",
+      ],
+    },
     footer: {
       desc: "Building excellence across the UAE. Premium contracting, civil works, and general maintenance delivered with integrity.",
       servicesTitle: "Services",
@@ -294,7 +306,19 @@ export const translations = {
       errorBtn: "إرسال عبر واتساب",
       errorRetry: "حاول مرة أخرى",
     },
-    partners: { badge: "موثوق به ومعترف به من" },
+    partners: {
+      badge: "نعمل في أهم قطاعات أبوظبي",
+      items: [
+        "فلل سكنية",
+        "مبانٍ تجارية",
+        "مشاريع حكومية",
+        "منشآت النفط والغاز",
+        "تجزئة وتشطيبات داخلية",
+        "بنية تحتية وأعمال مدنية",
+        "قطاع الضيافة",
+        "منشآت صناعية ومستودعات",
+      ],
+    },
     footer: {
       desc: "نبني التميز في جميع أنحاء الإمارات. مقاولات متميزة وأعمال مدنية وصيانة عامة شاملة بنزاهة.",
       servicesTitle: "الخدمات",
