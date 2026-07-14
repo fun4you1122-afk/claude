@@ -8,7 +8,7 @@ export function FAQ() {
   const { t } = useLang();
 
   return (
-    <section className="relative py-28 bg-[hsl(222,40%,6.5%)]">
+    <section id="faq" className="relative py-28 bg-[hsl(222,40%,6.5%)]">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 bottom-0 h-[300px] w-[600px] -translate-x-1/2 rounded-full bg-[hsl(43,56%,55%,0.03)] blur-[100px]" />
       </div>

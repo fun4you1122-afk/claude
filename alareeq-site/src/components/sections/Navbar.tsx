@@ -9,10 +9,13 @@ export function Navbar() {
   const { t, lang, toggle } = useLang();
 
   const links = [
-    { label: t.nav.about,    href: "#about" },
-    { label: t.nav.services, href: "#services" },
-    { label: t.nav.projects, href: "#projects" },
-    { label: t.nav.contact,  href: "#contact" },
+    { label: t.nav.about,     href: "#about" },
+    { label: t.nav.services,  href: "#services" },
+    { label: t.nav.projects,  href: "#projects" },
+    { label: t.nav.smartHome, href: "#smart-home" },
+    { label: t.nav.gallery,   href: "#gallery" },
+    { label: t.nav.faq,       href: "#faq" },
+    { label: t.nav.contact,   href: "#contact" },
   ];
 
   useEffect(() => {

@@ -47,7 +47,7 @@ export function Gallery() {
   };
 
   return (
-    <section className="relative py-28 bg-[hsl(222,40%,6%)]">
+    <section id="gallery" className="relative py-28 bg-[hsl(222,40%,6%)]">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[hsl(43,56%,55%,0.03)] blur-[120px]" />
       </div>

@@ -6,6 +6,7 @@ export const translations = {
   en: {
     nav: {
       about: "About", services: "Services", projects: "Projects",
+      smartHome: "Smart Home", gallery: "Gallery", faq: "FAQ",
       contact: "Contact", whatsapp: "WhatsApp",
     },
     hero: {
@@ -169,6 +170,7 @@ export const translations = {
   ar: {
     nav: {
       about: "من نحن", services: "خدماتنا", projects: "مشاريعنا",
+      smartHome: "المنزل الذكي", gallery: "معرض الأعمال", faq: "الأسئلة الشائعة",
       contact: "تواصل معنا", whatsapp: "واتساب",
     },
     hero: {
