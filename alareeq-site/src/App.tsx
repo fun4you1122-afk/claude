@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Navbar }           from "./components/sections/Navbar";
 import { Hero }             from "./components/sections/Hero";
 import { About }            from "./components/sections/About";
@@ -105,20 +105,19 @@ function WaFab() {
 }
 
 function AppInner() {
-  const [loaded, setLoaded] = useState(false);
-  const onDone = useCallback(() => setLoaded(true), []);
   const { lang } = useLang();
   const isRtl = lang === "ar";
 
+  // The app renders immediately so images/video/fonts/chunks download behind
+  // the Preloader overlay, instead of only starting when it finishes.
   return (
     <>
-      <Preloader onDone={onDone} />
-      {loaded && (
-        <div
-          dir={isRtl ? "rtl" : "ltr"}
-          className={`min-h-screen bg-[hsl(var(--background))]${isRtl ? " font-arabic" : ""}`}
-          style={{ overflowX: "hidden" }}
-        >
+      <Preloader />
+      <div
+        dir={isRtl ? "rtl" : "ltr"}
+        className={`min-h-screen bg-[hsl(var(--background))]${isRtl ? " font-arabic" : ""}`}
+        style={{ overflowX: "hidden" }}
+      >
           <ScrollProgress />
           <Navbar />
           <main>
@@ -144,8 +143,7 @@ function AppInner() {
           <BackToTop />
           <CursorTrail />
           <NoiseGrain />
-        </div>
-      )}
+      </div>
     </>
   );
 }

@@ -1,26 +1,46 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export function Preloader({ onDone }: { onDone: () => void }) {
-  const [phase, setPhase] = useState<string>("fill");
+// Overlay splash. The app mounts (and starts downloading assets) underneath;
+// this only covers it visually. Lifts when the page has loaded, after a short
+// minimum so the brand registers — never later than MAX.
+const MIN_MS = 900;
+const MAX_MS = 2000;
+
+export function Preloader({ onDone }: { onDone?: () => void }) {
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("out"), 1800);
-    const t2 = setTimeout(onDone, 2500);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, [onDone]);
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      setVisible(false);
+    };
+
+    const minTimer = setTimeout(() => {
+      if (document.readyState === "complete") finish();
+      else window.addEventListener("load", finish, { once: true });
+    }, MIN_MS);
+    const maxTimer = setTimeout(finish, MAX_MS);
+
+    return () => {
+      clearTimeout(minTimer);
+      clearTimeout(maxTimer);
+      window.removeEventListener("load", finish);
+    };
+  }, []);
 
   return (
-    <AnimatePresence>
-      {phase !== "out" ? (
+    <AnimatePresence onExitComplete={() => onDone?.()}>
+      {visible && (
         <motion.div
           key="preloader"
           initial={{ opacity: 1 }}
-          animate={{ opacity: phase === "out" ? 0 : 1 }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
           style={{ background: "hsl(222,47%,4%)" }}
-          onAnimationComplete={() => { if (phase === "out") onDone(); }}
         >
           {/* Gold progress bar */}
           <motion.div
@@ -28,7 +48,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
             style={{ background: "linear-gradient(90deg,#a07820,#c9a84c,#e8c96a)" }}
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
-            transition={{ duration: 1.6, ease: "easeInOut" }}
+            transition={{ duration: 1.0, ease: "easeInOut" }}
           />
 
           {/* Logo */}
@@ -47,7 +67,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
             className="mt-6 text-xs uppercase tracking-[5px] text-[hsl(43,56%,55%)]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
           >
             Building Excellence
           </motion.p>
@@ -64,7 +84,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
             ))}
           </div>
         </motion.div>
-      ) : null}
+      )}
     </AnimatePresence>
   );
 }
