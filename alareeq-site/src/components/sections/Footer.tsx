@@ -38,7 +38,7 @@ export function Footer() {
           <div>
             <h4 className="mb-4 text-xs font-semibold uppercase tracking-[2px] text-[hsl(var(--foreground)/0.55)]">{t.footer.contactTitle}</h4>
             <ul className="space-y-2.5 text-sm text-[hsl(var(--foreground)/0.5)]">
-              <li><a href="https://wa.me/971563780707" target="_blank" rel="noopener noreferrer" className="hover:text-[hsl(var(--primary))] transition-colors">+971 56 378 07 07</a></li>
+              <li><a href="tel:+971563780707" className="hover:text-[hsl(var(--primary))] transition-colors">+971 56 378 07 07</a></li>
               <li><a href="mailto:albina.alareeq@gmail.com" className="hover:text-[hsl(var(--primary))] transition-colors">albina.alareeq@gmail.com</a></li>
               <li><a href="https://instagram.com/albina.alareeq" target="_blank" rel="noopener noreferrer" className="hover:text-[hsl(var(--primary))] transition-colors">@albina.alareeq</a></li>
               <li className="text-[hsl(var(--foreground)/0.55)]">Abu Dhabi, UAE</li>
