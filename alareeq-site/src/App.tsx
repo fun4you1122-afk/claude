@@ -1,4 +1,4 @@
-import { useState, useCallback, lazy, Suspense } from "react";
+import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import { Navbar }           from "./components/sections/Navbar";
 import { Hero }             from "./components/sections/Hero";
 import { About }            from "./components/sections/About";
@@ -26,6 +26,9 @@ import { CursorTrail }      from "./components/CursorTrail";
 import { LangProvider, useLang } from "./i18n";
 
 function NoiseGrain() {
+  // Static grain: the previous SMIL-animated seed forced the browser to
+  // re-rasterize full-viewport 4-octave fractal noise ~4x/second, forever.
+  // At 3.2% opacity the animation was invisible; the static texture is free.
   return (
     <div
       className="pointer-events-none fixed inset-0 z-[400]"
@@ -34,13 +37,48 @@ function NoiseGrain() {
     >
       <svg width="100%" height="100%">
         <filter id="grain-f">
-          <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch">
-            <animate attributeName="seed" values="0;10;20;30;40;50;60;70;80;90;100" dur="3s" repeatCount="indefinite" />
-          </feTurbulence>
+          <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" />
           <feColorMatrix type="saturate" values="0" />
         </filter>
         <rect width="100%" height="100%" filter="url(#grain-f)" />
       </svg>
+    </div>
+  );
+}
+
+// Defers both the 523 KB three.js chunk AND the WebGL scene until the user
+// actually scrolls within ~1.5 viewports of the section.
+function DeferredCinematic() {
+  const holderRef = useRef<HTMLDivElement>(null);
+  const [near, setNear] = useState(false);
+
+  useEffect(() => {
+    const el = holderRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNear(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "1500px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const placeholder = <div style={{ height: "500vh", background: "hsl(222,47%,3%)" }} />;
+
+  return (
+    <div ref={holderRef}>
+      {near ? (
+        <Suspense fallback={placeholder}>
+          <CinematicScroll />
+        </Suspense>
+      ) : (
+        placeholder
+      )}
     </div>
   );
 }
@@ -92,9 +130,7 @@ function AppInner() {
             <Services />
             <Projects />
             <SmartHome />
-            <Suspense fallback={<div style={{ height: "500vh", background: "hsl(222,47%,3%)" }} />}>
-              <CinematicScroll />
-            </Suspense>
+            <DeferredCinematic />
             <VideoSection />
             <Gallery />
             <Testimonials />

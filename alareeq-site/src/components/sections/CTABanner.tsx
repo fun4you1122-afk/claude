@@ -139,8 +139,10 @@ function ParticleCanvas() {
     }));
 
     let time = 0;
+    let running = false;
 
     const loop = () => {
+      if (!running) return;
       time += 1;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -171,10 +173,33 @@ function ParticleCanvas() {
 
       animId = requestAnimationFrame(loop);
     };
-    loop();
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      animId = requestAnimationFrame(loop);
+    };
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(animId);
+    };
+
+    // Only animate while the banner is actually visible.
+    const io = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting && !document.hidden ? start() : stop()),
+      { rootMargin: "50px 0px" }
+    );
+    io.observe(canvas);
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
-      cancelAnimationFrame(animId);
+      stop();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", resize);
     };
   }, []);

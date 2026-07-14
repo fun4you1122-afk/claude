@@ -72,9 +72,10 @@ export function CinematicScroll() {
 
     // ── Renderer ─────────────────────────────────────────────────────────────
     const W = window.innerWidth, H = window.innerHeight;
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    const isSmall = W < 768;
+    const renderer = new THREE.WebGLRenderer({ antialias: !isSmall, alpha: false });
     renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isSmall ? 1.5 : 2));
     renderer.toneMapping         = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
     renderer.setClearColor(0x060c1a);
@@ -236,10 +237,12 @@ export function CinematicScroll() {
     // Refresh after a tick so GSAP has correct measurements
     const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 150);
 
-    // ── Render loop ───────────────────────────────────────────────────────────
-    let rafId: number;
+    // ── Render loop — only runs while the section is on screen ───────────────
+    let rafId = 0;
+    let running = false;
     let t = 0;
     const animate = () => {
+      if (!running) return;
       rafId = requestAnimationFrame(animate);
       t += 0.007;
 
@@ -267,7 +270,30 @@ export function CinematicScroll() {
 
       renderer.render(scene, camera);
     };
-    animate();
+
+    const startLoop = () => {
+      if (running) return;
+      running = true;
+      rafId = requestAnimationFrame(animate);
+    };
+    const stopLoop = () => {
+      running = false;
+      cancelAnimationFrame(rafId);
+    };
+
+    // GSAP pins `wrap` (position: fixed) while active, so observing it tracks
+    // exactly when the scene is visible. Off-screen → zero GPU work.
+    const io = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? startLoop() : stopLoop()),
+      { rootMargin: "100px 0px" }
+    );
+    io.observe(wrap);
+
+    const onVisibility = () => {
+      if (document.hidden) stopLoop();
+      else if (st.isActive || wrap.getBoundingClientRect().top < window.innerHeight) startLoop();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     // ── Resize ────────────────────────────────────────────────────────────────
     const onResize = () => {
@@ -281,7 +307,9 @@ export function CinematicScroll() {
 
     return () => {
       clearTimeout(refreshTimer);
-      cancelAnimationFrame(rafId);
+      stopLoop();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", onResize);
       st.kill();
       ScrollTrigger.refresh();

@@ -11,13 +11,23 @@ export function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    // Touch devices have no cursor to trail — drawing sparkles under the
+    // scrolling thumb just burns GPU. Also skip for reduced-motion users.
+    if (
+      window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const particles: Particle[] = [];
-    let animId: number;
+    let animId = 0;
+    let running = false;
     let lastX = -9999, lastY = -9999;
 
     const resize = () => {
@@ -26,34 +36,6 @@ export function CursorTrail() {
     };
     resize();
     window.addEventListener("resize", resize, { passive: true });
-
-    const emit = (x: number, y: number) => {
-      const dist = Math.hypot(x - lastX, y - lastY);
-      if (dist < 4) return;
-      lastX = x; lastY = y;
-      const count = Math.min(4, Math.floor(dist / 8) + 1);
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 0.4 + Math.random() * 1.2;
-        particles.push({
-          x, y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.8,
-          life: 1,
-          maxLife: 40 + Math.random() * 40,
-          r: 1.5 + Math.random() * 2.5,
-        });
-      }
-    };
-
-    const onMouseMove = (e: MouseEvent) => emit(e.clientX, e.clientY);
-    const onTouchMove = (e: TouchEvent) => {
-      const t = e.touches[0];
-      emit(t.clientX, t.clientY);
-    };
-
-    window.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
 
     const tick = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -82,14 +64,56 @@ export function CursorTrail() {
         ctx.fill();
       }
 
+      // Idle-stop: no particles left → halt the loop (canvas was just
+      // cleared). The next emit restarts it.
+      if (particles.length === 0) { running = false; return; }
       animId = requestAnimationFrame(tick);
     };
-    animId = requestAnimationFrame(tick);
+
+    const ensureRunning = () => {
+      if (!running) {
+        running = true;
+        animId = requestAnimationFrame(tick);
+      }
+    };
+
+    const emit = (x: number, y: number) => {
+      const dist = Math.hypot(x - lastX, y - lastY);
+      if (dist < 4) return;
+      lastX = x; lastY = y;
+      const count = Math.min(4, Math.floor(dist / 8) + 1);
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 0.4 + Math.random() * 1.2;
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.8,
+          life: 1,
+          maxLife: 40 + Math.random() * 40,
+          r: 1.5 + Math.random() * 2.5,
+        });
+      }
+      ensureRunning();
+    };
+
+    const onMouseMove = (e: MouseEvent) => emit(e.clientX, e.clientY);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        running = false;
+        cancelAnimationFrame(animId);
+        particles.length = 0;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("visibilitychange", onVisibility);
       cancelAnimationFrame(animId);
     };
   }, []);
