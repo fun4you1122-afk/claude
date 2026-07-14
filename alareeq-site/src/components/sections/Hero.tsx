@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion, useInView, type Variants } from "framer-motion";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { AnimatedCrane } from "../AnimatedCrane";
 import { useLang } from "../../i18n";
@@ -49,14 +49,60 @@ function WordReveal({ children, delay = 0 }: { children: string; delay?: number 
   );
 }
 
-// ── Floating depth icons ──────────────────────────────────────────────────────
-const depthItems = [
-  { icon: "🏗️", top: "22%", right: "6%", left: undefined as string | undefined, scale: 1.0, delay: 0, blur: "0px" },
-  { icon: "📐", top: "48%", right: "2%", left: undefined, scale: 0.75, delay: 1.5, blur: "1px" },
-  { icon: "🔩", top: "68%", right: "9%", left: undefined, scale: 0.6, delay: 0.8, blur: "2px" },
-  { icon: "🏢", top: "28%", right: undefined as string | undefined, left: "2%", scale: 0.8, delay: 2.0, blur: "1px" },
-  { icon: "⚙️", top: "62%", right: undefined, left: "5%", scale: 0.65, delay: 1.2, blur: "1.5px" },
+// ── Survey markers — refined technical accents in place of emoji cards ───────
+const surveyMarkers = [
+  { top: "24%", right: "7%", left: undefined as string | undefined, label: "N 24°27′", delay: 0 },
+  { top: "58%", right: "4%", left: undefined, label: "E 54°22′", delay: 1.4 },
+  { top: "30%", right: undefined as string | undefined, left: "4%", label: "EL +12.0", delay: 0.7 },
+  { top: "64%", right: undefined, left: "7%", label: "GRID 04", delay: 2.1 },
 ];
+
+function SurveyMarker({ label }: { label: string }) {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <path d="M13 2v22M2 13h22" stroke="rgba(201,168,76,0.55)" strokeWidth="1" />
+        <circle cx="13" cy="13" r="5" stroke="rgba(201,168,76,0.4)" strokeWidth="1" />
+      </svg>
+      <span className="font-mono text-[9px] tracking-[2px] text-[hsl(var(--primary)/0.45)]">{label}</span>
+    </div>
+  );
+}
+
+// ── Count-up statistic ────────────────────────────────────────────────────────
+function CountUp({ value }: { value: string }) {
+  const match = value.match(/^(\d+)(.*)$/);
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const shouldReduce = useReducedMotion();
+  const [n, setN] = useState(0);
+
+  useEffect(() => {
+    if (!inView || !match || shouldReduce) return;
+    const target = parseInt(match[1], 10);
+    const duration = 1400;
+    let start: number | undefined;
+    let raf = 0;
+    const step = (ts: number) => {
+      if (start === undefined) start = ts;
+      const p = Math.min(1, (ts - start) / duration);
+      setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, shouldReduce]);
+
+  if (!match) return <>{value}</>;
+  if (shouldReduce) return <span ref={ref}>{value}</span>;
+  return (
+    <span ref={ref}>
+      {inView ? n : 0}
+      {match[2]}
+    </span>
+  );
+}
 
 const HERO_POSTER =
   "https://images.pexels.com/videos/5434220/pictures/preview-0.jpg?auto=compress&cs=tinysrgb&w=1280";
@@ -154,29 +200,22 @@ export function Hero() {
         <AnimatedCrane className="scale-75 origin-bottom" />
       </motion.div>
 
-      {/* ── FLOATING DEPTH ICONS (desktop only, skip if reduced motion) ── */}
+      {/* ── SURVEY MARKERS (desktop only, skip if reduced motion) ── */}
       {!shouldReduce && (
         <div className="pointer-events-none hidden lg:block" aria-hidden>
-          {depthItems.map((item, i) => (
+          {surveyMarkers.map((item, i) => (
             <motion.div
               key={i}
-              className="absolute flex items-center justify-center w-12 h-12 rounded-xl border border-[hsl(var(--primary)/0.25)] bg-[hsl(var(--card)/0.5)] backdrop-blur-sm text-2xl shadow-lg"
-              style={{
-                top: item.top,
-                right: item.right,
-                left: item.left,
-                scale: item.scale,
-                filter: item.blur !== "0px" ? `blur(${item.blur})` : undefined,
-              }}
-              animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
+              className="absolute"
+              style={{ top: item.top, right: item.right, left: item.left }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 1, 0.4, 1], y: [0, -8, 0] }}
               transition={{
-                repeat: Infinity,
-                duration: 4 + item.delay,
-                ease: "easeInOut",
-                delay: item.delay,
+                opacity: { duration: 6, delay: 1.5 + item.delay, repeat: Infinity, ease: "easeInOut" },
+                y: { duration: 7 + item.delay, repeat: Infinity, ease: "easeInOut" },
               }}
             >
-              {item.icon}
+              <SurveyMarker label={item.label} />
             </motion.div>
           ))}
         </div>
@@ -286,7 +325,9 @@ export function Hero() {
             {t.hero.stats.map((stat) => (
               <motion.div key={stat.label} variants={itemVariants} className="space-y-1">
                 <div className="text-xs uppercase tracking-[0.3em] text-[hsl(var(--foreground)/0.55)]">{stat.label}</div>
-                <div className="font-serif text-3xl font-bold gold-gradient">{stat.value}</div>
+                <div className="font-serif text-3xl font-bold gold-gradient">
+                  <CountUp value={stat.value} />
+                </div>
               </motion.div>
             ))}
           </motion.div>

@@ -14,7 +14,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       default:
-        "bg-gradient-to-r from-[#a07820] to-[#c9a84c] text-[hsl(222,47%,5%)] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(201,168,76,0.45)]",
+        "btn-shine bg-gradient-to-r from-[#a07820] to-[#c9a84c] text-[hsl(222,47%,5%)] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(201,168,76,0.45)]",
       outline:
         "border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.6)] text-[hsl(var(--foreground)/0.8)] backdrop-blur hover:border-[hsl(var(--primary)/0.5)] hover:text-[hsl(var(--primary))]",
       ghost:

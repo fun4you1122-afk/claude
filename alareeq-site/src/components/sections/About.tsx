@@ -53,13 +53,21 @@ export function About() {
               ) : (
                 <motion.div
                   style={{ y: backY }}
+                  initial={{ clipPath: "inset(0 100% 0 0)" }}
+                  whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+                  transition={{ duration: 1.1, ease: [0.65, 0, 0.35, 1] }}
+                  viewport={{ once: true, amount: 0.3 }}
                   className="absolute top-0 left-0 w-[85%] h-[90%] rounded-2xl overflow-hidden"
                 >
-                  <img
+                  <motion.img
                     src={BACK_IMG}
                     alt="Construction site overview"
                     className="h-full w-full object-cover"
                     style={{ filter: "brightness(0.6) blur(0.5px)" }}
+                    initial={{ scale: 1.15 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ duration: 1.4, ease: "easeOut" }}
+                    viewport={{ once: true }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-[hsl(222,47%,5%,0.4)] to-transparent" />
                 </motion.div>
@@ -78,15 +86,35 @@ export function About() {
               ) : (
                 <motion.div
                   style={{ y: frontY }}
+                  initial={{ clipPath: "inset(100% 0 0 0)" }}
+                  whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+                  transition={{ duration: 1.1, delay: 0.25, ease: [0.65, 0, 0.35, 1] }}
+                  viewport={{ once: true, amount: 0.3 }}
                   className="absolute bottom-0 right-0 w-[75%] h-[80%] rounded-2xl overflow-hidden border-2 border-[hsl(var(--primary)/0.3)] shadow-2xl"
                 >
-                  <img
+                  <motion.img
                     src={FRONT_IMG}
                     alt="Modern building construction"
                     className="h-full w-full object-cover"
+                    initial={{ scale: 1.15 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ duration: 1.4, delay: 0.25, ease: "easeOut" }}
+                    viewport={{ once: true }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[hsl(222,47%,5%,0.6)] to-transparent" />
                 </motion.div>
+              )}
+
+              {/* Offset gold frame that draws in behind the front image */}
+              {!shouldReduce && (
+                <motion.div
+                  aria-hidden
+                  className="pointer-events-none absolute bottom-[-14px] right-[-14px] w-[75%] h-[80%] rounded-2xl border border-[hsl(var(--primary)/0.35)]"
+                  initial={{ opacity: 0, x: -10, y: -10 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
+                  viewport={{ once: true }}
+                />
               )}
 
               {/* 3D spinning cube — overlaid as a corner element */}

@@ -3,9 +3,12 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { useLang } from "../../i18n";
 
+const NAV_IDS = ["about", "services", "projects", "smart-home", "gallery", "faq", "contact"];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
   const { t, lang, toggle } = useLang();
 
   const links = [
@@ -22,6 +25,24 @@ export function Navbar() {
     const fn = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
+  }, []);
+
+  // Scrollspy: the gold underline tracks whichever section occupies the
+  // middle band of the viewport.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        }
+      },
+      { rootMargin: "-35% 0px -55% 0px" }
+    );
+    NAV_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   const scrollTo = (href: string) => {
@@ -44,8 +65,17 @@ export function Navbar() {
         <div className="ml-auto hidden items-center gap-1 md:flex">
           {links.map((l) => (
             <button key={l.href} onClick={() => scrollTo(l.href)}
-              className="rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--foreground)/0.6)] transition-colors hover:bg-[hsl(var(--card)/0.6)] hover:text-[hsl(var(--foreground))]">
+              className={`relative rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-[hsl(var(--card)/0.6)] hover:text-[hsl(var(--foreground))] ${
+                active === l.href ? "text-[hsl(var(--foreground))]" : "text-[hsl(var(--foreground)/0.6)]"
+              }`}>
               {l.label}
+              {active === l.href && (
+                <motion.span
+                  layoutId="nav-underline"
+                  transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                  className="absolute inset-x-3 -bottom-px h-px bg-gradient-to-r from-[#a07820] via-[#e8c96a] to-[#a07820]"
+                />
+              )}
             </button>
           ))}
           <button

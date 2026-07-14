@@ -437,46 +437,102 @@ function PageNum({ n }: { n: string }) {
   );
 }
 
-/* ─── Mobile vertical fallback ──────────────────────────────────── */
-function MobileVersion({ lang }: { lang: string }) {
-  const cards = lang === "ar"
-    ? [
-        { icon: "📖", t: "قصتنا",     s: "بناء التميز منذ عام 2014 في قلب أبوظبي." },
-        { icon: "🔩", t: "تخصصاتنا",  s: "مقاولات عامة، أعمال مدنية، MEP، تشطيبات." },
-        { icon: "⚙️", t: "كيف نعمل",  s: "استشارة، تخطيط، تنفيذ، تسليم — بدقة." },
-        { icon: "🏗️", t: "مشاريعنا",  s: "مشروعان نشطان الآن في أبوظبي." },
-      ]
-    : [
-        { icon: "📖", t: "Our Story",    s: "Building excellence since 2014 in Abu Dhabi." },
-        { icon: "🔩", t: "Our Craft",    s: "Contracting, Civil, MEP, Interiors — full scope." },
-        { icon: "⚙️", t: "How We Build", s: "Consult, plan, build, deliver — with precision." },
-        { icon: "🏗️", t: "Our Projects", s: "Two landmark developments active across Abu Dhabi." },
-      ];
+/* ─── Mobile: swipeable editorial carousel (scroll-snap) ─────────── */
+const MOBILE_PAGES = [
+  {
+    img: "https://images.unsplash.com/photo-1722435784805-ad8d59dadd9d?w=800&auto=format&fit=crop&q=80",
+    n: "01",
+    t: { en: "Our Story", ar: "قصتنا" },
+    s: {
+      en: "Building excellence since 2014 in the heart of Abu Dhabi.",
+      ar: "بناء التميز منذ عام 2014 في قلب أبوظبي.",
+    },
+  },
+  {
+    img: "https://images.unsplash.com/photo-1748956628042-b73331e0b479?w=800&auto=format&fit=crop&q=80",
+    n: "02",
+    t: { en: "Our Craft", ar: "تخصصاتنا" },
+    s: {
+      en: "Contracting, civil works, MEP, and luxury interiors — full scope, one delivery.",
+      ar: "مقاولات، أعمال مدنية، MEP، وتشطيبات فاخرة — نطاق كامل وتسليم واحد.",
+    },
+  },
+  {
+    img: "https://images.unsplash.com/photo-1751054720514-067105f538d4?w=800&auto=format&fit=crop&q=80",
+    n: "03",
+    t: { en: "How We Build", ar: "كيف نعمل" },
+    s: {
+      en: "Consult, plan, build, deliver — four phases, zero compromise.",
+      ar: "استشارة، تخطيط، تنفيذ، تسليم — أربع مراحل بلا تنازلات.",
+    },
+  },
+  {
+    img: "https://images.unsplash.com/photo-1684497404598-6e844dff9cde?w=800&auto=format&fit=crop&q=80",
+    n: "04",
+    t: { en: "Our Projects", ar: "مشاريعنا" },
+    s: {
+      en: "Two landmark developments active across Abu Dhabi right now.",
+      ar: "مشروعان بارزان قيد التنفيذ الآن في أبوظبي.",
+    },
+  },
+];
 
+function MobileVersion({ lang }: { lang: string }) {
+  const isAr = lang === "ar";
   return (
-    <div style={{ background: NAVY, padding: "4rem 1.5rem" }}>
-      <p style={{ fontFamily: SANS, fontSize: "0.6rem", fontWeight: 700,
-        letterSpacing: "0.38em", textTransform: "uppercase", color: GOLD,
-        marginBottom: "1rem", textAlign: "center" }}>
-        {lang === "ar" ? "معرض البناء العريق" : "Albina Alareeq — Magazine"}
+    <div style={{ background: NAVY }} className="py-16">
+      <p style={{ fontFamily: SANS, color: GOLD }}
+        className="mb-3 text-center text-[0.6rem] font-bold uppercase tracking-[0.38em]">
+        {isAr ? "البناء العريق — العدد الأول" : "Albina Alareeq — Issue No. 1"}
       </p>
-      <h2 style={{ fontFamily: SERIF, fontSize: "2.2rem", fontWeight: 900,
-        color: IVORY, textAlign: "center", marginBottom: "3rem", lineHeight: 1.2 }}>
-        {lang === "ar" ? "بُني بدقة" : "Built With\nPrecision"}
+      <h2 style={{ fontFamily: SERIF, color: IVORY }}
+        className="mb-8 text-center text-4xl font-black leading-tight">
+        {isAr ? "بُني بدقة" : "Built With Precision"}
       </h2>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-        {cards.map(({ icon, t, s }) => (
-          <div key={t} style={{ padding: "1.5rem", borderRadius: "1rem",
-            border: "1px solid rgba(201,168,76,0.18)",
-            background: "rgba(201,168,76,0.04)" }}>
-            <div style={{ fontSize: "1.8rem", marginBottom: "0.7rem" }}>{icon}</div>
-            <p style={{ fontFamily: SERIF, fontSize: "1rem", fontWeight: 700,
-              color: IVORY, marginBottom: "0.4rem" }}>{t}</p>
-            <p style={{ fontFamily: SANS, fontSize: "0.78rem", color: MUTED,
-              lineHeight: 1.6 }}>{s}</p>
-          </div>
+
+      {/* Swipe track */}
+      <div
+        className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4"
+        style={{ WebkitOverflowScrolling: "touch" }}
+      >
+        {MOBILE_PAGES.map((p) => (
+          <article
+            key={p.n}
+            className="relative h-[420px] w-[78vw] max-w-[340px] shrink-0 snap-center overflow-hidden rounded-2xl border border-[hsl(var(--border)/0.4)]"
+          >
+            <img
+              src={p.img}
+              alt={isAr ? p.t.ar : p.t.en}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ filter: "brightness(0.55) saturate(0.85)" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(6,9,15,0.95)] via-[rgba(6,9,15,0.25)] to-transparent" />
+
+            {/* Page number */}
+            <span style={{ fontFamily: SERIF, color: GOLD }}
+              className="absolute top-4 opacity-60 text-sm font-bold tracking-[0.2em] ltr:right-5 rtl:left-5">
+              {p.n} / 04
+            </span>
+
+            {/* Copy */}
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <div className="mb-3 h-px w-10 bg-gradient-to-r from-[#a07820] to-[#e8c96a]" />
+              <h3 style={{ fontFamily: SERIF, color: IVORY }} className="mb-1.5 text-2xl font-black">
+                {isAr ? p.t.ar : p.t.en}
+              </h3>
+              <p style={{ fontFamily: SANS, color: MUTED }} className="text-sm leading-relaxed">
+                {isAr ? p.s.ar : p.s.en}
+              </p>
+            </div>
+          </article>
         ))}
       </div>
+
+      <p style={{ fontFamily: SANS, color: MUTED }}
+        className="mt-2 text-center text-[0.6rem] uppercase tracking-[0.3em]">
+        {isAr ? "اسحب للتصفح ←" : "Swipe to browse →"}
+      </p>
     </div>
   );
 }

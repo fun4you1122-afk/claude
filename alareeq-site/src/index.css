@@ -75,3 +75,58 @@
 .font-arabic .font-serif {
   font-family: 'Cairo', 'Playfair Display', serif;
 }
+
+/* ── Premium global touches ─────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+::selection {
+  background: hsl(43 56% 55% / 0.35);
+  color: hsl(45 100% 96%);
+}
+
+/* Thin branded scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: hsl(222 47% 5%); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a07820, #c9a84c);
+  border-radius: 8px;
+  border: 2px solid hsl(222 47% 5%);
+}
+@supports not selector(::-webkit-scrollbar) {
+  html { scrollbar-width: thin; scrollbar-color: hsl(43 40% 40%) hsl(222 47% 5%); }
+}
+
+/* Shine sweep across primary buttons on hover */
+.btn-shine { position: relative; overflow: hidden; }
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -80%;
+  height: 100%; width: 55%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+  pointer-events: none;
+}
+.btn-shine:hover::after { left: 135%; }
+
+/* Giant outlined display type (marquee strip) */
+.text-outline-gold {
+  -webkit-text-stroke: 1px hsl(43 56% 55% / 0.4);
+  color: transparent;
+}
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-row { animation: marquee-x 36s linear infinite; width: max-content; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row { animation: none; }
+}
+
+/* Hide horizontal scrollbars on snap carousels */
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }

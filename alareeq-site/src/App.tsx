@@ -23,6 +23,7 @@ import { Preloader }        from "./components/Preloader";
 import { ScrollProgress }   from "./components/ScrollProgress";
 import { BackToTop }        from "./components/BackToTop";
 import { CursorTrail }      from "./components/CursorTrail";
+import { MarqueeStrip }     from "./components/MarqueeStrip";
 import { LangProvider, useLang } from "./i18n";
 
 function NoiseGrain() {
@@ -126,6 +127,7 @@ function AppInner() {
             <MagazineSpread />
             <About />
             <WhyUs />
+            <MarqueeStrip />
             <Services />
             <Projects />
             <SmartHome />
