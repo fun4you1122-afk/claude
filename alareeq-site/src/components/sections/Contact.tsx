@@ -28,6 +28,8 @@ function FloatingField({
   const [focused, setFocused] = useState(false);
   const [filled, setFilled] = useState(false);
   const id = useId();
+  const { lang } = useLang();
+  const rtl = lang === "ar";
   const isUp = focused || filled;
 
   return (
@@ -52,15 +54,15 @@ function FloatingField({
           color: isUp ? "hsl(43,56%,55%)" : "hsl(215,16%,55%)",
         }}
         transition={{ duration: 0.2 }}
-        style={{ originX: 0, transformOrigin: "left center", pointerEvents: "none" }}
-        className="absolute left-4 top-4 text-sm"
+        style={{ transformOrigin: rtl ? "right center" : "left center", pointerEvents: "none" }}
+        className={`absolute ${rtl ? "right-4" : "left-4"} top-4 text-sm`}
       >
         {label}
       </motion.label>
       <motion.div
         animate={{ scaleX: focused ? 1 : 0 }}
         transition={{ duration: 0.25 }}
-        className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-[hsl(var(--primary)/0.7)]"
+        className={`absolute bottom-0 left-0 h-0.5 w-full ${rtl ? "origin-right" : "origin-left"} rounded-full bg-[hsl(var(--primary)/0.7)]`}
       />
     </div>
   );
@@ -71,6 +73,8 @@ function FloatingTextarea({ label, name, rows = 4 }: { label: string; name: stri
   const [focused, setFocused] = useState(false);
   const [filled, setFilled] = useState(false);
   const id = useId();
+  const { lang } = useLang();
+  const rtl = lang === "ar";
   const isUp = focused || filled;
 
   return (
@@ -94,15 +98,15 @@ function FloatingTextarea({ label, name, rows = 4 }: { label: string; name: stri
           color: isUp ? "hsl(43,56%,55%)" : "hsl(215,16%,55%)",
         }}
         transition={{ duration: 0.2 }}
-        style={{ originX: 0, transformOrigin: "left center", pointerEvents: "none" }}
-        className="absolute left-4 top-4 text-sm"
+        style={{ transformOrigin: rtl ? "right center" : "left center", pointerEvents: "none" }}
+        className={`absolute ${rtl ? "right-4" : "left-4"} top-4 text-sm`}
       >
         {label}
       </motion.label>
       <motion.div
         animate={{ scaleX: focused ? 1 : 0 }}
         transition={{ duration: 0.25 }}
-        className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-[hsl(var(--primary)/0.7)]"
+        className={`absolute bottom-0 left-0 h-0.5 w-full ${rtl ? "origin-right" : "origin-left"} rounded-full bg-[hsl(var(--primary)/0.7)]`}
       />
     </div>
   );
@@ -123,6 +127,8 @@ function FloatingSelect({
   const [focused, setFocused] = useState(false);
   const [filled, setFilled] = useState(false);
   const id = useId();
+  const { lang } = useLang();
+  const rtl = lang === "ar";
   const isUp = focused || filled;
 
   return (
@@ -152,15 +158,15 @@ function FloatingSelect({
           color: isUp ? "hsl(43,56%,55%)" : "hsl(215,16%,55%)",
         }}
         transition={{ duration: 0.2 }}
-        style={{ originX: 0, transformOrigin: "left center", pointerEvents: "none" }}
-        className="absolute left-4 top-4 text-sm"
+        style={{ transformOrigin: rtl ? "right center" : "left center", pointerEvents: "none" }}
+        className={`absolute ${rtl ? "right-4" : "left-4"} top-4 text-sm`}
       >
         {label}
       </motion.label>
       <motion.div
         animate={{ scaleX: focused ? 1 : 0 }}
         transition={{ duration: 0.25 }}
-        className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-[hsl(var(--primary)/0.7)]"
+        className={`absolute bottom-0 left-0 h-0.5 w-full ${rtl ? "origin-right" : "origin-left"} rounded-full bg-[hsl(var(--primary)/0.7)]`}
       />
     </div>
   );

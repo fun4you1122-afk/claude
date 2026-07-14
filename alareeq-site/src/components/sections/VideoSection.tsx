@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { useLang } from "../../i18n";
 
 const POSTER =
   "https://images.pexels.com/videos/12098511/pexels-photo-12098511.jpeg?auto=compress&cs=tinysrgb&w=1280";
@@ -8,6 +9,7 @@ const VIDEO_SRC =
   "https://videos.pexels.com/video-files/12098511/12098511-hd_1920_1080_50fps.mp4"; // 5.7 MB
 
 export function VideoSection() {
+  const { t } = useLang();
   const ref = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const shouldReduce = useReducedMotion();
@@ -95,14 +97,14 @@ export function VideoSection() {
           >
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[hsl(var(--primary)/0.35)] bg-black/50 px-4 py-1.5 text-xs uppercase tracking-[3px] text-[hsl(var(--primary))] backdrop-blur">
               <Play className="h-3 w-3 fill-current" />
-              {"In Action"}
+              {t.videoSection.badge}
             </div>
             <h2 className="font-serif text-3xl font-bold text-white drop-shadow-2xl md:text-5xl lg:text-6xl">
-              {"Where Vision Meets"}{" "}
-              <span className="gold-gradient">{"Concrete"}</span>
+              {t.videoSection.h1}{" "}
+              <span className="gold-gradient">{t.videoSection.h2}</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-sm text-white/60">
-              {"Watch the scale, precision, and dedication that defines every Albina Alareeq project"}
+              {t.videoSection.sub}
             </p>
           </motion.div>
         </motion.div>
@@ -133,7 +135,7 @@ export function VideoSection() {
             Albina Alareeq · Abu Dhabi, UAE
           </p>
           <p className="mt-0.5 text-xs text-white/60">
-            {"Excellence in construction & general maintenance"}
+            {t.videoSection.locationSub}
           </p>
         </div>
       </motion.div>
@@ -147,11 +149,7 @@ export function VideoSection() {
         className="mx-auto max-w-6xl px-6 py-10 md:px-8"
       >
         <div className="grid grid-cols-3 gap-4">
-          {[
-            { value: "2+", label: "Active Projects" },
-            { value: "Abu Dhabi", label: "Primary Market" },
-            { value: "100%", label: "Client Satisfaction" },
-          ].map(({ value, label }) => (
+          {t.videoSection.stats.map(({ value, label }) => (
             <div
               key={label}
               className="rounded-2xl border border-[hsl(var(--border)/0.4)] bg-[hsl(var(--card)/0.5)] p-5 text-center backdrop-blur"

@@ -40,7 +40,7 @@ export function FAQ() {
               className="overflow-hidden rounded-xl border border-[hsl(var(--border)/0.5)] bg-[hsl(var(--card)/0.5)] backdrop-blur transition-colors hover:border-[hsl(var(--primary)/0.3)]"
             >
               <button
-                className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                className="flex w-full items-center justify-between gap-4 p-5 text-start"
                 onClick={() => setOpen(open === i ? null : i)}
                 aria-expanded={open === i}
                 aria-controls={`faq-panel-${i}`}

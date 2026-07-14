@@ -522,7 +522,10 @@ export function MagazineSpread() {
   if (isMobile) return <MobileVersion lang={lang} />;
 
   return (
-    <div ref={wrapRef} style={{ height: "100vh", overflow: "hidden",
+    // dir="ltr": the horizontal strip's GSAP x-translation and inline layout
+    // assume LTR flex order; under the page's RTL dir pages 2-5 would slide
+    // the wrong way and never appear. Arabic text inside still renders RTL.
+    <div ref={wrapRef} dir="ltr" style={{ height: "100vh", overflow: "hidden",
       position: "relative" }}>
 
       {/* horizontal strip — 500vw */}

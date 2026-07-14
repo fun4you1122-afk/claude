@@ -7,7 +7,7 @@ export default {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
         serif: ["'Playfair Display'", "serif"],
-        arabic: ["'Noto Naskh Arabic'", "serif"],
+        arabic: ["Cairo", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",

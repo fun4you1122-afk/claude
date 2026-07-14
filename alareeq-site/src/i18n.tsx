@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 type Lang = "en" | "ar";
 
@@ -143,6 +143,18 @@ export const translations = {
       errorMsg: "Something went wrong on our side. Please send it via WhatsApp instead — it takes one tap:",
       errorBtn: "Send via WhatsApp",
       errorRetry: "Try again",
+    },
+    videoSection: {
+      badge: "In Action",
+      h1: "Where Vision Meets",
+      h2: "Concrete",
+      sub: "Watch the scale, precision, and dedication that defines every Albina Alareeq project",
+      stats: [
+        { value: "2+", label: "Active Projects" },
+        { value: "Abu Dhabi", label: "Primary Market" },
+        { value: "24/7", label: "Support & Maintenance" },
+      ],
+      locationSub: "Excellence in construction & general maintenance",
     },
     partners: {
       badge: "Delivering Across Abu Dhabi's Key Sectors",
@@ -308,6 +320,18 @@ export const translations = {
       errorBtn: "إرسال عبر واتساب",
       errorRetry: "حاول مرة أخرى",
     },
+    videoSection: {
+      badge: "في الميدان",
+      h1: "حيث تلتقي الرؤية",
+      h2: "بالواقع",
+      sub: "شاهد الحجم والدقة والالتزام الذي يميز كل مشروع من مشاريع البناء العريق",
+      stats: [
+        { value: "2+", label: "مشاريع نشطة" },
+        { value: "أبوظبي", label: "سوقنا الرئيسي" },
+        { value: "24/7", label: "دعم وصيانة" },
+      ],
+      locationSub: "التميز في البناء والصيانة العامة",
+    },
     partners: {
       badge: "نعمل في أهم قطاعات أبوظبي",
       items: [
@@ -346,9 +370,24 @@ const LangContext = createContext<LangCtx>({
   toggle: () => {},
 });
 
+const LANG_KEY = "alareeq-lang";
+
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState<Lang>(() => {
+    if (typeof window === "undefined") return "en";
+    const saved = localStorage.getItem(LANG_KEY);
+    return saved === "ar" || saved === "en" ? saved : "en";
+  });
   const toggle = () => setLang((l) => (l === "en" ? "ar" : "en"));
+
+  // Keep the document itself in sync: <html lang> drives screen-reader speech
+  // rules and dir controls scrollbar side / logical CSS properties.
+  useEffect(() => {
+    localStorage.setItem(LANG_KEY, lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  }, [lang]);
+
   return (
     <LangContext.Provider value={{ lang, t: translations[lang] as Translations, toggle }}>
       {children}

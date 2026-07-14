@@ -83,7 +83,7 @@ export function Navbar() {
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="border-t border-[hsl(var(--border)/0.5)] bg-[hsl(var(--background)/0.95)] px-6 pb-4 backdrop-blur-xl md:hidden">
           {links.map((l) => (
             <button key={l.href} onClick={() => scrollTo(l.href)}
-              className="block w-full py-3 text-left text-sm font-medium text-[hsl(var(--foreground)/0.7)] hover:text-[hsl(var(--foreground))]">
+              className="block w-full py-3 text-start text-sm font-medium text-[hsl(var(--foreground)/0.7)] hover:text-[hsl(var(--foreground))]">
               {l.label}
             </button>
           ))}

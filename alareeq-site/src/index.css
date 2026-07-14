@@ -69,3 +69,9 @@
   outline: 2px solid hsl(43 56% 55% / 0.9);
   outline-offset: 2px;
 }
+
+/* Arabic mode: Playfair Display has no Arabic glyphs, so headings would fall
+   back to a generic serif. Cairo (loaded above, incl. 900 weight) covers both. */
+.font-arabic .font-serif {
+  font-family: 'Cairo', 'Playfair Display', serif;
+}
